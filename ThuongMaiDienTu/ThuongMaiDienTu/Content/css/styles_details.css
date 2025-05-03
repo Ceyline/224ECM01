@@ -195,15 +195,6 @@
     margin-top: 10px;
 }
 
-.ico {
-    height: 33px;
-}
-
-.ico-favorite {
-    align-self: flex-end;
-    margin-right: 34px;
-}
-
 .product-price {
     width: 100%;
     color: var(--black_900_89) !important;
@@ -290,6 +281,7 @@ span.plus-qty-btn {
 .add-to-cart-btn {
     padding: 10px;
     margin-top: 28px;
+    margin-left: -45px;
     height: 42px;
     width: 150px;
     font-size: 16px;
@@ -309,6 +301,15 @@ input.quantity-number {
     font-size: 23px;
     background-color: #E9DAD3;
     border: none;
+}
+
+.ico {
+    height: 33px;
+}
+
+.ico-favorite {
+    margin-top: 33px;
+    margin-left: 45px;
 }
 
 .width-100 {

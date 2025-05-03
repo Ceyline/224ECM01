@@ -1,0 +1,484 @@
+﻿@using System.Linq
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GL Jewelry</title>
+    <link rel="stylesheet" href="~/Content/css/footer_style.css">
+    <link rel="stylesheet" href="~/Content/css/styles_trangchu.css">
+    <link rel="stylesheet" href="~/Content/css/styles_details.css">
+    <script src="script.js" defer></script>
+    <script src="~/Scripts/script.js" defer></script>
+    <link rel="stylesheet" href="fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dancing+Script:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Karla:ital,wght@0,200..800;1,200..800&family=Kings&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header>
+        <section>
+            <div class="top-bar">
+                <div class="left">
+
+                    <span class="hotline">
+                        <i class="fas fa-phone"></i> <strong>hotline:</strong> (+00) 987 877
+                        821
+                    </span>
+                </div>
+                <div class="logo">
+                    <img src="~/img/logo.jpg" alt="Lustria Logo">
+                </div>
+                <div class="right">
+                    <a href="#">Log in / Register</a>
+                    <a href="GioHang.html"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
+                    <a href="#"><i class="fas fa-search"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="nav-bar">
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">All Categories</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Pages</a></li>
+                    <li><a href="#">Features</a></li>
+                </ul>
+            </nav>
+        </section>
+    </header>
+
+    <main>
+        <div class="page-header display-flex">
+            <h1 class="normal-font align-left flex-1">Shop</h1>
+            <p><span class="color-light-gray">Home</span> <span> > </span>Sterling Silver Aurora Moon Necklace</p>
+        </div>
+        <div class="page-main-content">
+            <div class="main-left-content">
+                <div class="main-img-wrapper">
+                    <img class="main-img active" src="~/img/dchuyen3.png" />
+                    <img class="main-img next" style="display: none;" />
+                    <img class="zoom-img" src="~/img/dchuyen3.png" style="display: none;" />
+                </div>
+                <ul class="display-flex justify-space-around">
+                    <li><img class="sub-img" src="~/img/dchuyen3.png" /></li>
+                    <li><img class="sub-img" src="~/img/dchuyen_nho_2.png" /></li>
+                    <li><img class="sub-img" src="~/img/dchuyen_nho_4.png" /></li>
+                    <li><img class="sub-img" src="~/img/dchuyen2.jpg" /></li>
+                </ul>
+            </div>
+            <div class="main-right-content">
+                <a class="back-to-selection" href="#">Back</a>
+                <h3 class="product-name">@Model.TenSanPham</h3>
+                <p class="product-price">@Model.GiaBan.ToString("#,##0").Replace(",", ".")đ</p>
+                <div class="product-size-section display-flex">
+                    <p>Size: </p>
+                    <ul class="product-size display-flex">
+                        @{
+                            var sizes = Model.Size?.Split(',') ?? Array.Empty<string>();
+                            for (int i = 0; i < sizes.Length; i++)
+                            {
+                                var size = sizes[i].Trim();
+                                <li class="@(i == 0 ? "product-size-selected" : "")">@size</li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="product-quantity-add-to-cart-section display-flex">
+                    <div class="product-quantity display-flex">
+                        <span class="cursor-pointer minus-qty-btn" id="minus-qty"><img src="~/img/ico_minus.svg"></span>
+                        <input class="quantity-number" id="qty-number" type="number" value="1" />
+                        <span class="cursor-pointer plus-qty-btn" id="plus-qty"><img src="~/img/ico_plus.svg" /></span>
+                    </div>
+                    <button class="cursor-pointer add-to-cart-btn">
+                        Add to cart
+                    </button>
+                    <img class="ico ico-favorite" src="~/img/ico_heart.png" />
+                </div>
+                <div class="category-section border-bottom width-100 display-flex">
+                    @{
+                        ThuongMaiDienTu.Models.trangsucbacEntities db = new ThuongMaiDienTu.Models.trangsucbacEntities();
+                        var tbdanhMuc = from DanhMuc in db.DanhMucs
+                                        where DanhMuc.idDanhMuc == Model.idDanhMuc
+                                        select DanhMuc;
+                    }
+                    <h3>Categories: </h3>
+                    <ul class="category-list display-flex">
+                        <li>Dây chuyền</li>
+                    </ul>
+                </div>
+                <div class="tag-section border-bottom width-100 display-flex">
+                    <h3>Tags: </h3>
+                    <ul class="tag-list display-flex">
+                        <li>Dây chuyền</li>
+                        <li>Dây chuyền</li>
+                    </ul>
+                </div>
+                <div class="share-section border-bottom width-100 display-flex">
+                    <h3>Share: </h3>
+                    <ul class="share-list display-flex">
+                        <li><i class="fa fa-facebook"></i></li>
+                        <li><i class="fa fa-instagram"></i></li>
+                        <li><i class="fa fa-twitter"></i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="product-describe-rating">
+            <div class="product-tab" id="product-tab">
+                <ul class="tab-nav">
+                    <li class="active">Description</li>
+                    <div class="moving-border"></div>
+                    <li>Reviews</li>
+                </ul>
+            </div>
+            <div class="product-tab-content-section">
+                <div id="tab-describe" class="product-tab-content">
+                    <p>
+                        @Model.MoTa
+                    </p>
+                </div>
+
+                <div id="tab-rating" class="product-tab-content display-none">
+                    <div class="rating-header">
+                        <div class="rating-header-left">
+                            <h4 class="mean-rating-points">4.0</h4>
+                            <div class="mean-rating-star">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star-o"></span>
+                            </div>
+                            <h5 class="sum-rating">(10)</h5>
+                        </div>
+                        <ul class="rating-header-right">
+                            <li class="number-rating">
+                                <p>5</p>
+                                <div class="progress-bar">
+                                    <div class="percentage-bar bar-1"></div>
+                                </div>
+                            </li>
+                            <li class="number-rating">
+                                <p>4</p>
+                                <div class="progress-bar">
+                                    <div class="percentage-bar bar-2"></div>
+                                </div>
+                            </li>
+                            <li class="number-rating">
+                                <p>3</p>
+                                <div class="progress-bar">
+                                    <div class="percentage-bar bar-3"></div>
+                                </div>
+                            </li>
+                            <li class="number-rating">
+                                <p>2</p>
+                                <div class="progress-bar">
+                                    <div class="percentage-bar bar-4"></div>
+                                </div>
+                            </li>
+                            <li class="number-rating">
+                                <p>1</p>
+                                <div class="progress-bar">
+                                    <div class="percentage-bar bar-5"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="rating-section">
+                        <ul>
+                            <li class="display-flex">
+                                <img class="rating-avatar" src="~/img/avatar_fem_1.png">
+                                <div class="rating-content">
+                                    <p class="rating-username">User 1</p>
+                                    <div class="rating-star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <p class="comment">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="display-flex">
+                                <img class="rating-avatar" src="~/img/avatar_male_2.png">
+                                <div class="rating-content">
+                                    <p class="rating-username">User 2</p>
+                                    <div class="rating-star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <p class="comment">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="display-flex">
+                                <img class="rating-avatar" src="~/img/avatar_fem_2.png">
+                                <div class="rating-content">
+                                    <p class="rating-username">User 1</p>
+                                    <div class="rating-star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <p class="comment">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="display-flex">
+                                <img class="rating-avatar" src="~/img/avatar_male_2.png">
+                                <div class="rating-content">
+                                    <p class="rating-username">User 1</p>
+                                    <div class="rating-star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <p class="comment">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+                                        sit amet pulvinar ipsum. Ut fermentum libero a enim varius fringilla. Vestibulum
+                                        iaculis nulla suscipit vulputate semper. Vestibulum quis egestas libero. Cras
+                                        fermentum urna odio, vitae dictum ante elementum quis. Vestibulum laoreet ut
+                                        nisl quis porttitor. Suspendisse vestibulum quam vel leo tincidunt commodo.
+                                        Morbi congue, nulla a dignissim iaculis, ipsum metus ullamcorper elit, eget
+                                        tristique purus urna molestie diam. Vivamus egestas volutpat libero tincidunt
+                                        aliquet. Ut nec semper odio.
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="display-flex">
+                                <img class="rating-avatar" src="~/img/avatar_fem_1.png">
+                                <div class="rating-content">
+                                    <p class="rating-username">User 1</p>
+                                    <div class="rating-star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <p class="comment">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pagination">
+                        <a href="#">«</a>
+                        <a href="#">‹</a>
+                        <a href="#" class="selected">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">›</a>
+                        <a href="#">»</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="related-products">
+            <h2>Related products</h2>
+            <div class="container swiper">
+                <div class="card-wrapper">
+                    <ul class="card-list swiper-wrapper">
+                        <li class="card-item swiper-slide">
+                            <a href="#" class="card-link magnetic">
+                                <div class="card-inner">
+                                    <img src="~/img/dchuyen1.jpg" alt="..." class="card-image">
+                                    <p class="badge dchuyen1">Dây chuyền A đại dương</p>
+                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
+                                    <h3 class="card-title">580.000 đ</h3>
+                                    <button class="card-button material-symbols-outlined">
+                                        arrow_forward_ios
+                                    </button>
+                                </div>
+                            </a>
+
+                        </li>
+                        <li class="card-item swiper-slide">
+                            <a href="#" class="card-link magnetic">
+                                <div class="card-inner">
+                                    <img src="~/img/dchuyen2.jpg" alt="Dây chuyền A đại dương" class="card-image">
+                                    <p class="badge dchuyen2">Dây chuyền A đại dương</p>
+                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
+                                    <h3 class="card-title">580.000 đ</h3>
+                                    <button class="card-button material-symbols-outlined">
+                                        arrow_forward_ios
+                                    </button>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="card-item swiper-slide">
+                            <a href="#" class="card-link magnetic">
+                                <div class="card-inner">
+                                    <img src="~/img/nhan_1.png" alt="Dây chuyền A đại dương" class="card-image">
+                                    <p class="badge nhan_1">Dây chuyền A đại dương</p>
+                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
+                                    <h3 class="card-title">580.000 đ</h3>
+                                    <button class="card-button material-symbols-outlined">
+                                        arrow_forward_ios
+                                    </button>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="card-item swiper-slide">
+                            <a href="#" class="card-link magnetic">
+                                <div class="card-inner">
+                                    <img src="~/img/vtay2.jpg" alt="Dây chuyền A đại dương" class="card-image">
+                                    <p class="badge vtay2">Dây chuyền A đại dương</p>
+                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
+                                    <h3 class="card-title">580.000 đ</h3>
+                                    <button class="card-button material-symbols-outlined">
+                                        arrow_forward_ios
+                                    </button>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="card-item swiper-slide">
+                            <a href="#" class="card-link magnetic">
+                                <div class="card-inner">
+                                    <img src="~/img/vtay1.jpg" alt="Dây chuyền A đại dương" class="card-image">
+                                    <p class="badge vtay1">Dây chuyền A đại dương</p>
+                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
+                                    <h3 class="card-title">580.000 đ</h3>
+                                    <button class="card-button material-symbols-outlined">
+                                        arrow_forward_ios
+                                    </button>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="card-item swiper-slide">
+                            <a href="#" class="card-link magnetic">
+                                <div class="card-inner">
+                                    <img src="~/img/ktai1.jpg" alt="Dây chuyền A đại dương" class="card-image">
+                                    <p class="badge ktai1">Dây chuyền A đại dương</p>
+                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
+                                    <h3 class="card-title">580.000 đ</h3>
+                                    <button class="card-button material-symbols-outlined">
+                                        arrow_forward_ios
+                                    </button>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-slide-button swiper-button-next"></div>
+                    <div class="swiper-slide-button swiper-button-prev"></div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo-box">
+                    <img src="~/img/logo.png" alt="GL JEWELRY" />
+                </div>
+            </div>
+
+
+            <div class="footer-columns">
+                <div class="footer-column">
+                    <h4>Customer Services</h4>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Track your Order</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Frequently Asked Questions</a></li>
+                        <li><a href="#">Schedule an appointment</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Origins</a></li>
+                        <li><a href="#">Our Purpose</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Giving Back</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Material Care</h4>
+                    <ul>
+                        <li><a href="#">Jewelry Repair</a></li>
+                        <li><a href="#">Ring Sizing</a></li>
+                        <li><a href="#">Metal Allergy Resources</a></li>
+                        <li><a href="#">Styling Tips</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Group Number</h4>
+                    <ul>
+                        <li>Nguyễn Ngọc Tú Anh</li>
+                        <li>Lê Thị Huyền Trang</li>
+                        <li>Nguyễn Văn Nhân</li>
+                        <li>Nguyễn Văn Viên</li>
+                        <li>Nguyễn Văn Bảo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© APOLLONIAN, LLC</span>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <span>•</span>
+                <a href="#">Terms of Use</a>
+                <span>•</span>
+                <a href="#">Sitemap</a>
+                <span>•</span>
+                <a href="#">Do Not Sell My Information</a>
+                <span>•</span>
+                <a href="#">Cookies</a>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="~/Scripts/script.js"></script>
+    <script src="~/Scripts/js/add_to_favorite.js"></script>
+    <!-- <script src="js/related_produdct_slider.js"></script> -->
+    <script src="~/Scripts/js/clicking_effects.js"></script>
+
+</body>
+</html>
+
