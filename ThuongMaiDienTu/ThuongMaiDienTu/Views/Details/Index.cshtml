@@ -112,22 +112,22 @@
                     <img class="ico ico-favorite" src="~/img/ico_heart.png" />
                 </div>
                 <div class="category-section border-bottom width-100 display-flex">
-                    @{
-                        ThuongMaiDienTu.Models.trangsucbacEntities db = new ThuongMaiDienTu.Models.trangsucbacEntities();
-                        var tbdanhMuc = from DanhMuc in db.DanhMucs
-                                        where DanhMuc.idDanhMuc == Model.idDanhMuc
-                                        select DanhMuc;
-                    }
                     <h3>Categories: </h3>
                     <ul class="category-list display-flex">
-                        <li>Dây chuyền</li>
+                        @if (ViewBag.TenDanhMuc != null)
+                        {
+                            <li>@ViewBag.TenDanhMuc</li>
+                        }
                     </ul>
                 </div>
                 <div class="tag-section border-bottom width-100 display-flex">
                     <h3>Tags: </h3>
                     <ul class="tag-list display-flex">
-                        <li>Dây chuyền</li>
-                        <li>Dây chuyền</li>
+                        @if (ViewBag.TenDanhMuc != null)
+                        {
+                            <li>@ViewBag.TenDanhMuc</li>
+                        }
+                    </ul>
                     </ul>
                 </div>
                 <div class="share-section border-bottom width-100 display-flex">

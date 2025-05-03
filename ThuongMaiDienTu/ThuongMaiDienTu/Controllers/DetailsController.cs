@@ -12,9 +12,17 @@ namespace ThuongMaiDienTu.Controllers
         // GET: Details
         public ActionResult Index(int id)
         {
-            ThuongMaiDienTu.Models.trangsucbacEntities db = new ThuongMaiDienTu.Models.trangsucbacEntities();
-            var product = db.SanPhams.Find(id);
-            return View(product);
+            using (var db = new trangsucbacEntities())
+            {
+                var product = db.SanPhams.Find(id);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+                var danhMuc = db.DanhMucs.FirstOrDefault(dm => dm.idDanhMuc == product.idDanhMuc);
+                ViewBag.TenDanhMuc = danhMuc?.tenDanhMuc;
+                return View(product);
+            }
         }
     }
 }
