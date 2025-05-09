@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DetailsController.cs" />
+    <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2452,6 +2453,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\add_to_favorite.js" />
     <Content Include="Scripts\js\clicking_effects.js" />
+    <Content Include="Scripts\js\details_add_to_cart.js" />
     <Content Include="Scripts\js\related_produdct_slider.js" />
     <Content Include="Scripts\js\script_giohang.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -4715,11 +4717,11 @@
     <Content Include="thuongmaidientu_layout\img\Rose Necklace.webp" />
     <Content Include="thuongmaidientu_layout\img\Ruby Necklace.webp" />
     <Content Include="Views\Details\Index.cshtml" />
+    <Content Include="Views\GioHang\ThemGioHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\DanhMuc\" />
-    <Folder Include="Views\GioHang\" />
     <Folder Include="Views\ThanhToan\" />
   </ItemGroup>
   <ItemGroup>
