@@ -1,4 +1,4 @@
-USE trangsucbac
+﻿USE trangsucbac
 GO
 
 -- Insert data into Categories table
@@ -14,7 +14,7 @@ VALUES
 INSERT INTO SanPham (idDanhMuc, TenSanPham, GiaBan, HinhAnh, Size, SoLuong, MoTa)
 VALUES 
 -- Necklaces
-(1, 'Diamond Pendant Necklace', 2500000, 'diamond-pendant.jpg', '16,18,20', 15, 'This stunning diamond pendant necklace features a brilliant-cut diamond set in premium 18K white gold. The delicate chain adds a touch of elegance perfect for both formal events and everyday wear.'),
+(1, 'Diamond Pendant Necklace', 2500000, '[dchuyen_nho_2.png,dchuyen_nho_4.png,dchuyen3.png, dchuyen2.jpg]', '16,18,20', 15, 'This stunning diamond pendant necklace features a brilliant-cut diamond set in premium 18K white gold. The delicate chain adds a touch of elegance perfect for both formal events and everyday wear.'),
 (1, 'Pearl Strand Necklace', 1800000, 'pearl-strand.jpg', '17,19', 8, 'Classic and timeless, this pearl strand necklace features high-quality freshwater pearls with a sterling silver clasp. Perfect for adding a sophisticated touch to any outfit.'),
 (1, 'Gold Plated Choker', 1200000, 'gold-choker.jpg', '14,15,16', 12, 'A modern take on the classic choker, this gold-plated necklace features a delicate design that sits beautifully on the neckline. Great for layering or wearing alone.'),
 
@@ -37,3 +37,9 @@ VALUES
 (5, 'Bridal Tiara', 1850000, 'bridal-tiara.jpg', 'One Size', 5, 'This stunning bridal tiara features delicate crystal detailing on a silver-plated base. Designed to complement wedding veils and add royal elegance to your special day.'),
 (5, 'Wedding Band Set', 4200000, 'wedding-band-set.jpg', '6,7,8,9', 8, 'A matching set of wedding bands in 14K white gold with subtle diamond accents. Designed for both comfort and lasting beauty to symbolize your union.'),
 (5, 'Bridal Pearl Necklace', 2100000, 'bridal-pearl.jpg', '16,18', 7, 'A luxurious pearl necklace designed specifically for brides. Featuring high-quality pearls with a diamond clasp, it adds timeless elegance to any wedding gown.');
+
+
+INSERT INTO NguoiDung (HoTen, Email, SoDienThoai, DiaChi, MatKhau, PhanQuyen)
+VALUES 
+	(N'Nguyễn Văn Admin', 'admin@trangsucbac.com', '0987654321', N'123 Đường Lê Lợi, Quận 1, TP.HCM', '123456', 'admin'),
+	(N'Trần Thị Người Dùng', 'user@example.com', '0912345678', N'456 Đường Nguyễn Huệ, Quận 1, TP.HCM', '123456', 'user');	

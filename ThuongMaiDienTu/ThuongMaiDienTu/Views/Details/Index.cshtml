@@ -13,8 +13,9 @@
     <link rel="stylesheet" href="~/Content/css/footer_style.css">
     <link rel="stylesheet" href="~/Content/css/styles_trangchu.css">
     <link rel="stylesheet" href="~/Content/css/styles_details.css">
-    <script src="script.js" defer></script>
     <script src="~/Scripts/script.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
     <link rel="stylesheet" href="fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
@@ -72,20 +73,37 @@
         <div class="page-main-content">
             <div class="main-left-content">
                 <div class="main-img-wrapper">
-                    <img class="main-img active" src="~/img/dchuyen3.png" />
-                    <img class="main-img next" style="display: none;" />
-                    <img class="zoom-img" src="~/img/dchuyen3.png" style="display: none;" />
+                    @{
+                        var images = !string.IsNullOrEmpty(Model.HinhAnh)
+                            ? Model.HinhAnh.Trim('[', ']').Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                            : Array.Empty<string>();
+
+                        for (int i = 0; i < images.Length; i++)
+                        {
+                            if (i == 0)
+                            {
+                                <img class="main-img active" src="~/img/@images[i].Trim()" />
+                                <img class="main-img next" style="display: none;" />
+                                <img class="zoom-img" src="~/img/@images[i+1].Trim()" style="display: none;" />
+                                break;
+                            }
+                        }
+                    }
                 </div>
                 <ul class="display-flex justify-space-around">
-                    <li><img class="sub-img" src="~/img/dchuyen3.png" /></li>
-                    <li><img class="sub-img" src="~/img/dchuyen_nho_2.png" /></li>
-                    <li><img class="sub-img" src="~/img/dchuyen_nho_4.png" /></li>
-                    <li><img class="sub-img" src="~/img/dchuyen2.jpg" /></li>
+                    @{
+                        for (int i = 0; i < images.Length; i++)
+                        {
+                            <li><img class="sub-img" src="~/img/@images[i].Trim()" /></li>
+                        }
+                    }
+
                 </ul>
             </div>
             <div class="main-right-content">
                 <a class="back-to-selection" href="#">Back</a>
                 <h3 class="product-name">@Model.TenSanPham</h3>
+                <h3 class="product-id" style="visibility: hidden;" class="product-name">@Model.idSanPham</h3>
                 <p class="product-price">@Model.GiaBan.ToString("#,##0").Replace(",", ".")đ</p>
                 <div class="product-size-section display-flex">
                     <p>Size: </p>
@@ -109,7 +127,7 @@
                     <button class="cursor-pointer add-to-cart-btn">
                         Add to cart
                     </button>
-                    <img class="ico ico-favorite" src="~/img/ico_heart.png" />
+                    <img class="ico ico-favorite" src="~/img/ico_heart.png" data-base-path="~/img/" />
                 </div>
                 <div class="category-section border-bottom width-100 display-flex">
                     <h3>Categories: </h3>
@@ -478,6 +496,7 @@
     <script src="~/Scripts/js/add_to_favorite.js"></script>
     <!-- <script src="js/related_produdct_slider.js"></script> -->
     <script src="~/Scripts/js/clicking_effects.js"></script>
+    <script src="~/Scripts/js/details_add_to_cart.js"></script>
 
 </body>
 </html>
