@@ -4,16 +4,10 @@
         var soLuong = parseInt($('#qty-number').val());
         var size = $('.product-size-selected').text().trim();
 
-        alert(`Dữ liệu trước khi gửi:
-                idSanPham: ${idSanPham}
-                soLuong: ${soLuong}
-                size: ${size}`);
-
         if (!idSanPham) {
             alert("Vui lòng chọn sản phẩm");
             return;
         }
-
         $.ajax({
             url: '/GioHang/ThemGioHang',
             type: 'POST',

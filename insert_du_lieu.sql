@@ -15,8 +15,14 @@ INSERT INTO SanPham (idDanhMuc, TenSanPham, GiaBan, HinhAnh, Size, SoLuong, MoTa
 VALUES 
 -- Necklaces
 (1, 'Diamond Pendant Necklace', 2500000, '[dchuyen_nho_2.png,dchuyen_nho_4.png,dchuyen3.png, dchuyen2.jpg]', '16,18,20', 15, 'This stunning diamond pendant necklace features a brilliant-cut diamond set in premium 18K white gold. The delicate chain adds a touch of elegance perfect for both formal events and everyday wear.'),
-(1, 'Pearl Strand Necklace', 1800000, 'pearl-strand.jpg', '17,19', 8, 'Classic and timeless, this pearl strand necklace features high-quality freshwater pearls with a sterling silver clasp. Perfect for adding a sophisticated touch to any outfit.'),
-(1, 'Gold Plated Choker', 1200000, 'gold-choker.jpg', '14,15,16', 12, 'A modern take on the classic choker, this gold-plated necklace features a delicate design that sits beautifully on the neckline. Great for layering or wearing alone.'),
+(1, 'Pearl Strand Necklace', 1800000, '[pearl-strand1.jpg,pearl-strand2.webp,pearl-strand3.jpg,pearl-strand4.webp]', '17,19', 8, 'Classic and timeless, this pearl strand necklace features high-quality freshwater pearls with a sterling silver clasp. Perfect for adding a sophisticated touch to any outfit.'),
+(1, 'Gold Plated Choker', 1200000, '[gold-choker3.jpg,gold-choker1.jpg, gold-choker2.jpg, gold-choker4.webp]', '14,15,16', 12, 'A modern take on the classic choker, this gold-plated necklace features a delicate design that sits beautifully on the neckline. Great for layering or wearing alone.'),
+(1, 'Silver Moon Charm Necklace', 1500000, '[moon-necklace1.jpg,moon-necklace2.jpeg,moon-necklace3.webp,moon-necklace4.webp]', '16,17,18', 10, 
+	'This exquisite sterling silver necklace features a delicate crescent moon pendant adorned with tiny diamond accents. 
+	The moon motif symbolizes femininity and intuition, making it a meaningful gift for special occasions. 
+	Each piece is hand-polished to a brilliant shine, with a secure lobster clasp for safety. 
+	The pendant measures 1.5cm in diameter, perfectly proportioned for subtle elegance. 
+	The celestial design pairs beautifully with other astronomical jewelry for a layered look. '),
 
 -- Rings
 (2, 'Solitaire Diamond Ring', 3500000, 'solitaire-ring.jpg', '5,6,7,8', 10, 'The epitome of elegance, this solitaire diamond ring features a brilliant-cut center stone set in platinum. Perfect for engagements or as a special gift.'),

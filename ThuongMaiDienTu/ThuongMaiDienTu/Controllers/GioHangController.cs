@@ -26,7 +26,7 @@ namespace ThuongMaiDienTu.Controllers
                 {
                     
 
-                    int idNguoiDung = 2; // Tạm thời hardcode
+                    int idNguoiDung = 2; // Tạm thời set cứng
 
                     System.Diagnostics.Debug.WriteLine($"Params: idSanPham={idSanPham}, soLuong={soLuong}, size={size}, idNguoiDung={idNguoiDung}");
 
@@ -58,9 +58,6 @@ namespace ThuongMaiDienTu.Controllers
                     var changes = db.ChangeTracker.Entries()
                         .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified)
                         .ToList();
-
-                    System.Diagnostics.Debug.WriteLine($"Số lượng thay đổi: {changes.Count}");
-
                     db.SaveChanges();
 
                     var cartCount = db.GioHangs

@@ -68,7 +68,7 @@
     <main>
         <div class="page-header display-flex">
             <h1 class="normal-font align-left flex-1">Shop</h1>
-            <p><span class="color-light-gray">Home</span> <span> > </span>Sterling Silver Aurora Moon Necklace</p>
+            <p><span class="color-light-gray">Home</span> <span> > </span>@Model.TenSanPham</p>
         </div>
         <div class="page-main-content">
             <div class="main-left-content">
@@ -127,7 +127,7 @@
                     <button class="cursor-pointer add-to-cart-btn">
                         Add to cart
                     </button>
-                    <img class="ico ico-favorite" src="~/img/ico_heart.png" data-base-path="~/img/" />
+                    @*<img class="ico ico-favorite" src="~/img/ico_heart.png" data-base-path="~/img/" />*@
                 </div>
                 <div class="category-section border-bottom width-100 display-flex">
                     <h3>Categories: </h3>
@@ -331,84 +331,63 @@
             <div class="container swiper">
                 <div class="card-wrapper">
                     <ul class="card-list swiper-wrapper">
+                        @{ var idx = 0;
+                            foreach (var sp in ViewBag.SanPhamLienQuan)
+                            {
+                                var relatedImages = !string.IsNullOrEmpty(sp.HinhAnh)
+? sp.HinhAnh.Trim('[', ']').Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+: Array.Empty<string>();
+                                if (idx % 2 == 0)
+                                {
+                                    <li class="card-item swiper-slide">
+                                        <a href="#" class="card-link magnetic">
+                                            <div class="card-inner">
+                                                <img src="~/img/@relatedImages[0]" alt="..." class="card-image">
+                                                <p class="badge dchuyen1">@sp.TenSanPham</p>
+                                                <h2 class="card-title">@sp.TenSanPham</h2>
+                                                <h3 class="card-title">@sp.GiaBan.ToString("#,##0").Replace(",", ".")đ</h3>
+                                                <button class="card-button material-symbols-outlined">
+                                                    arrow_forward_ios
+                                                </button>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                    idx++;
+                                }
+                                else
+                                {
+                                    <li class="card-item swiper-slide">
+                                        <a href="#" class="card-link magnetic">
+                                            <div class="card-inner">
+                                                <img src="~/img/@relatedImages[0]" alt="..." class="card-image">
+                                                <p class="badge vtay2">@sp.TenSanPham</p>
+                                                <h2 class="card-title">@sp.TenSanPham</h2>
+                                                <h3 class="card-title">@sp.GiaBan.ToString("#,##0").Replace(",", ".")đ</h3>
+                                                <button class="card-button material-symbols-outlined">
+                                                    arrow_forward_ios
+                                                </button>
+                                            </div>
+                                        </a>
+
+                                    </li>
+                                    idx++;
+                                }
+                            }
+                        }
                         <li class="card-item swiper-slide">
                             <a href="#" class="card-link magnetic">
                                 <div class="card-inner">
-                                    <img src="~/img/dchuyen1.jpg" alt="..." class="card-image">
-                                    <p class="badge dchuyen1">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
+                                    <img src="~/img/@images[0]" alt="..." class="card-image">
+                                    <p class="badge vtay2">@Model.TenSanPham</p>
+                                    <h2 class="card-title">@Model.TenSanPham</h2>
+                                    <h3 class="card-title">@Model.GiaBan.ToString("#,##0").Replace(",", ".")đ</h3>
                                     <button class="card-button material-symbols-outlined">
                                         arrow_forward_ios
                                     </button>
                                 </div>
                             </a>
 
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link magnetic">
-                                <div class="card-inner">
-                                    <img src="~/img/dchuyen2.jpg" alt="Dây chuyền A đại dương" class="card-image">
-                                    <p class="badge dchuyen2">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
-                                    <button class="card-button material-symbols-outlined">
-                                        arrow_forward_ios
-                                    </button>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link magnetic">
-                                <div class="card-inner">
-                                    <img src="~/img/nhan_1.png" alt="Dây chuyền A đại dương" class="card-image">
-                                    <p class="badge nhan_1">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
-                                    <button class="card-button material-symbols-outlined">
-                                        arrow_forward_ios
-                                    </button>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link magnetic">
-                                <div class="card-inner">
-                                    <img src="~/img/vtay2.jpg" alt="Dây chuyền A đại dương" class="card-image">
-                                    <p class="badge vtay2">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
-                                    <button class="card-button material-symbols-outlined">
-                                        arrow_forward_ios
-                                    </button>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link magnetic">
-                                <div class="card-inner">
-                                    <img src="~/img/vtay1.jpg" alt="Dây chuyền A đại dương" class="card-image">
-                                    <p class="badge vtay1">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
-                                    <button class="card-button material-symbols-outlined">
-                                        arrow_forward_ios
-                                    </button>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link magnetic">
-                                <div class="card-inner">
-                                    <img src="~/img/ktai1.jpg" alt="Dây chuyền A đại dương" class="card-image">
-                                    <p class="badge ktai1">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
-                                    <button class="card-button material-symbols-outlined">
-                                        arrow_forward_ios
-                                    </button>
-                                </div>
-                            </a>
                         </li>
                     </ul>
 
