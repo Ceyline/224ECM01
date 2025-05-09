@@ -20,7 +20,11 @@ namespace ThuongMaiDienTu.Controllers
                     return HttpNotFound();
                 }
                 var danhMuc = db.DanhMucs.FirstOrDefault(dm => dm.idDanhMuc == product.idDanhMuc);
+                var sanPhamLienQuan = db.SanPhams
+                    .Where(sp => sp.idDanhMuc == product.idDanhMuc && sp.idSanPham != id)
+                    .ToList();
                 ViewBag.TenDanhMuc = danhMuc?.tenDanhMuc;
+                ViewBag.SanPhamLienQuan = sanPhamLienQuan;
                 return View(product);
             }
         }
