@@ -23,8 +23,10 @@ namespace ThuongMaiDienTu.Controllers
                 var sanPhamLienQuan = db.SanPhams
                     .Where(sp => sp.idDanhMuc == product.idDanhMuc && sp.idSanPham != id)
                     .ToList();
+                var listDanhMuc = db.DanhMucs.ToList();
                 ViewBag.TenDanhMuc = danhMuc?.tenDanhMuc;
                 ViewBag.SanPhamLienQuan = sanPhamLienQuan;
+                ViewBag.ListDanhMuc = listDanhMuc;
                 return View(product);
             }
         }
