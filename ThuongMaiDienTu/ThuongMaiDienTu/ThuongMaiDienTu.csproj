@@ -191,6 +191,7 @@
     <Content Include="Content\css\footer_style.css" />
     <Content Include="Content\css\styles.css" />
     <Content Include="Content\css\stylesdanhmuc.css" />
+    <Content Include="Content\css\styles_dropdown_nav.css" />
     <Content Include="Content\css\stylesthanhtoan2.css" />
     <Content Include="Content\css\styles_danhmuc.css" />
     <Content Include="Content\css\styles_details.css" />
