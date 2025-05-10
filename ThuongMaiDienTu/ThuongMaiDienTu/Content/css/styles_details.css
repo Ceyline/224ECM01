@@ -228,7 +228,8 @@
     margin-left: 30px;
     border-radius: 50%;
     background-color: var(--gray_600_01_30);
-    padding: 16px 16px 16px 17px;
+    justify-content:center !important;
+    align-items:center !important;
     transition: all 0.3s ease;
 }
 

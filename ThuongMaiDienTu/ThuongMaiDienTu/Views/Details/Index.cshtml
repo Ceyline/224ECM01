@@ -113,7 +113,7 @@
                             for (int i = 0; i < sizes.Length; i++)
                             {
                                 var size = sizes[i].Trim();
-                                <li class="@(i == 0 ? "product-size-selected" : "")">@size</li>
+                                <li class="@(i == 0 ? "product-size-selected" : "") display-flex">@size</li>
                             }
                         }
                     </ul>
@@ -340,7 +340,7 @@
                                 if (idx % 2 == 0)
                                 {
                                     <li class="card-item swiper-slide">
-                                        <a href="#" class="card-link magnetic">
+                                        <a href="@Url.Action("Index", "Details", new { id = sp.idSanPham })" class="card-link magnetic">
                                             <div class="card-inner">
                                                 <img src="~/img/@relatedImages[0]" alt="..." class="card-image">
                                                 <p class="badge dchuyen1">@sp.TenSanPham</p>
@@ -358,7 +358,7 @@
                                 else
                                 {
                                     <li class="card-item swiper-slide">
-                                        <a href="#" class="card-link magnetic">
+                                        <a href="@Url.Action("Index", "Details", new { id = sp.idSanPham })" class="card-link magnetic">
                                             <div class="card-inner">
                                                 <img src="~/img/@relatedImages[0]" alt="..." class="card-image">
                                                 <p class="badge vtay2">@sp.TenSanPham</p>
@@ -376,7 +376,7 @@
                             }
                         }
                         <li class="card-item swiper-slide">
-                            <a href="#" class="card-link magnetic">
+                            <a href="@Url.Action("Index", "Details", new { id = Model.idSanPham })" class="card-link magnetic">
                                 <div class="card-inner">
                                     <img src="~/img/@images[0]" alt="..." class="card-image">
                                     <p class="badge vtay2">@Model.TenSanPham</p>
