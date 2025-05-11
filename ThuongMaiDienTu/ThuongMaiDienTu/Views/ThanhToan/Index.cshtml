@@ -1,0 +1,236 @@
+﻿@model IEnumerable<ThuongMaiDienTu.Models.GioHang>
+@{
+    ViewBag.Title = "Index";
+}
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn hàng</title>
+    <link rel="stylesheet" href="~/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="top-bar">
+                <div class="left">
+
+                    <span class="hotline">
+                        <i class="fas fa-phone"></i> <strong>hotline:</strong> (+00) 987 877
+                        821
+                    </span>
+                </div>
+                <div class="logo">
+                    <img src="~/img/logo.jpg" alt="Lustria Logo">
+                </div>
+                <div class="right">
+                    <a href="#">Log in / Register</a>
+                    <a href="GioHang.html"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
+                    <a href="#"><i class="fas fa-search"></i></a>
+                </div>
+            </div>
+            <nav class="navbar">
+
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#">All Categories</a></li>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">Pages</a></li>
+                    <li><a href="#">Features</a></li>
+                </ul>
+            </nav>
+        </header>
+
+
+        <main>
+
+            <section class="cart-summary">
+                <h2>Đơn hàng (@Model.Count() sản phẩm)</h2>
+                <div class="cart-items">
+                    @foreach (var item in Model)
+                    {
+                        <div class="cart-item">
+                            <img src="@Url.Content("~/img/" + item.SanPham.HinhAnh.Split(',')[0].Trim('[', ']'))" alt="@item.SanPham.TenSanPham">
+                            <div class="product-name">@item.SanPham.TenSanPham</div>
+                            <div class="product-price">@String.Format("{0:N0}đ", item.SanPham.GiaBan)</div>
+                            <div class="product-quantity">Số lượng: @item.SoLuong</div>
+                        </div>
+                    }
+                </div>
+
+                <div class="discount-code">
+                    <label for="discount">Nhập mã giảm giá</label>
+                    <input type="text" id="discount" name="discount" placeholder="Nhập mã giảm giá">
+                    <button class="apply-discount">Áp dụng</button>
+                </div>
+
+                <div class="temp-summary">
+                    <div class="temp-line">
+                        <span>Tạm tính</span>
+                        <span>@String.Format("{0:N0}đ", ViewBag.TongTien)</span>
+                    </div>
+                    <div class="temp-line">
+                        <span>Phí vận chuyển</span>
+                        <span>0đ</span>
+                    </div>
+                </div>
+
+                <div class="total">
+                    <span>Tổng cộng</span>
+                    <span>@String.Format("{0:N0}đ", ViewBag.TongTien)</span>
+                </div>
+            </section>
+
+            <section class="order-details">
+                <h3>Thông tin nhận hàng</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Họ và tên</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" id="address" name="address">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">Tỉnh thành</label>
+                        <select id="city" name="city">
+                            <option value="">Chọn tỉnh thành</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="district">Quận huyện</label>
+                        <select id="district" name="district">
+                            <option value="">Chọn quận huyện</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="note">Ghi chú</label>
+                        <textarea id="note" name="note"></textarea>
+                    </div>
+                </form>
+            </section>
+
+            <section class="shipping-payment">
+                <div class="shipping">
+                    <img src="~/img/shipping-icon.png" alt="Vận chuyển" class="icon">
+                    <label for="shipping">Vận chuyển</label>
+                    <input type="text" id="shipping" name="shipping" placeholder="Vui lòng nhập thông tin giao hàng">
+                </div>
+                <div class="payment">
+                    <img src="~/img/payment-icon.png" alt="Thanh toán" class="icon">
+                    <label for="payment">Thanh toán</label>
+                    <div class="payment-method">
+                        <div class="payment-option">
+                            <input type="radio" id="transfer" name="payment" value="transfer">
+                            <label for="transfer">Chuyển khoản</label>
+                            <img src="~/img/payment-logo1.png" alt="payment logo" class="payment-logo">
+                        </div>
+                        <div class="payment-option">
+                            <input type="radio" id="cod" name="payment" value="cod">
+                            <label for="cod">Thu hộ (COD)</label>
+                            <img src="~/img/payment-logo1.png" alt="payment logo" class="payment-logo">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="submit-order">Đặt hàng</button>
+
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <div class="logo-box">
+                        <img src="~/img/logo.png" alt="GL JEWELRY" />
+                    </div>
+                </div>
+
+
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h4>Customer Services</h4>
+                        <ul>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Track your Order</a></li>
+                            <li><a href="#">Shipping & Returns</a></li>
+                            <li><a href="#">Frequently Asked Questions</a></li>
+                            <li><a href="#">Schedule an appointment</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>About Us</h4>
+                        <ul>
+                            <li><a href="#">Origins</a></li>
+                            <li><a href="#">Our Purpose</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Sustainability</a></li>
+                            <li><a href="#">Giving Back</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Material Care</h4>
+                        <ul>
+                            <li><a href="#">Jewelry Repair</a></li>
+                            <li><a href="#">Ring Sizing</a></li>
+                            <li><a href="#">Metal Allergy Resources</a></li>
+                            <li><a href="#">Styling Tips</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Group Number</h4>
+                        <ul>
+                            <li>Nguyễn Ngọc Tú Anh</li>
+                            <li>Lê Thị Huyền Trang</li>
+                            <li>Nguyễn Văn Nhân</li>
+                            <li>Nguyễn Văn Viên</li>
+                            <li>Nguyễn Văn Bảo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>© APOLLONIAN, LLC</span>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <span>•</span>
+                    <a href="#">Terms of Use</a>
+                    <span>•</span>
+                    <a href="#">Sitemap</a>
+                    <span>•</span>
+                    <a href="#">Do Not Sell My Information</a>
+                    <span>•</span>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="~/script.js"></script>
+
+
+</body>
+
+</html>
+
