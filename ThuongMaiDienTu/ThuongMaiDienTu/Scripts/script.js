@@ -110,12 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Khi di chuột vào image1
     image1.addEventListener('mouseenter', () => {
-        container.style.backgroundImage = "url('img/nen10.jpg')";
+        container.style.backgroundImage = "url('~/img/nen10.jpg')";
     });
 
     // Khi di chuột vào image2
     image2.addEventListener('mouseenter', () => {
-        container.style.backgroundImage = "url('img/nen8.jpg')";
+        container.style.backgroundImage = "url('~/img/nen8.jpg')";
     });
 
     // Gán sự kiện cho từng button
@@ -124,9 +124,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Kiểm tra button nằm trong image nào để chọn ảnh phù hợp
             const parentImage = button.closest('.image-wrapper');
             if (parentImage.querySelector('.image1')) {
-                container.style.backgroundImage = "url('img/nen10.jpg')";
+                container.style.backgroundImage = "url('~/img/nen10.jpg')";
             } else if (parentImage.querySelector('.image2')) {
-                container.style.backgroundImage = "url('img/nen8.jpg')";
+                container.style.backgroundImage = "url('~/img/nen8.jpg')";
             }
         });
 

@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ThuongMaiDienTu.Models;
 
 namespace ThuongMaiDienTu.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
+		public ActionResult Index()
+		{
+			using (var db = new trangsucbacEntities())
+			{
+				// Lấy danh sách sản phẩm (ví dụ: sản phẩm bán chạy)
+				var similarProducts = db.SanPhams.Take(4).ToList(); // Lấy 10 sản phẩm đầu tiên
+				ViewBag.SimilarProducts = similarProducts;
+			}
 
-        public ActionResult About()
+			return View();
+		}
+
+		public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
@@ -26,5 +34,6 @@ namespace ThuongMaiDienTu.Controllers
 
             return View();
         }
+
     }
 }

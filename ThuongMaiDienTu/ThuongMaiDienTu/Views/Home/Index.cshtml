@@ -43,7 +43,7 @@
                     </span>
                 </div>
                 <div class="logo">
-                    <img src="img/logo.jpg" alt="Lustria Logo">
+                    <img src="~/img/logo.jpg" alt="Lustria Logo">
                 </div>
                 <div class="right">
                     <a href="#" class="login-btn">Log in</a>
@@ -59,7 +59,7 @@
             <nav class="navbar">
 
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                     <li><a href="#">Shop</a></li>
                     <li><a href="#">All Categories</a></li>
                     <li><a href="#">Blogs</a></li>
@@ -74,7 +74,7 @@
         <section class="video-intro">
             <figure id="video-container">
                 <div class="video-play">
-                    <video src="video/intro.mp4" controls loop autoplay muted></video>
+                    <video src="~/video/intro.mp4" controls loop autoplay muted></video>
 
                 </div>
                 <figcaption id="video-caption">
@@ -108,7 +108,7 @@
 
             <div class="info-container">
                 <div class="logo1">
-                    <img src="img/nhan_1.png" alt="Logo1">
+                    <img src="~/img/nhan_1.png" alt="Logo1">
                 </div>
                 <div class="separator"></div>
                 <div class="vertical-separator"></div>
@@ -124,13 +124,13 @@
                 <p>There who like to look good</p>
                 <div class="images">
                     <div class="image-wrapper 1">
-                        <img src="img/dchuyen1.jpg" alt="dchuyen" class="image1">
+                        <img src="~/img/dchuyen1.jpg" alt="dchuyen" class="image1">
                         <div class="overlay">
                             <a href="#" class="view-button">Xem sản phẩm</a>
                         </div>
                     </div>
                     <div class="image-wrapper 2">
-                        <img src="img/vtay1.jpg" alt="vtay" class="image2">
+                        <img src="~/img/vtay1.jpg" alt="vtay" class="image2">
                         <div class="overlay">
                             <a href="#" class="view-button">Xem sản phẩm</a>
                         </div>
@@ -145,7 +145,7 @@
                 <div class="grid-container">
                     <a href="danhmuc.html">
                         <div class="grid-item">
-                            <img src="img/dchuyen2.jpg" alt="item1">
+                            <img src="~/img/dchuyen2.jpg" alt="item1">
                             <div class="loop"></div>
                         </div>
                     </a>
@@ -154,129 +154,72 @@
                     </a>
                     <a href="danhmuc.html">
                         <div class="grid-item">
-                            <img src="img/matda2.jpg" alt="item3">
+                            <img src="~/img/matda2.jpg" alt="item3">
                             <div class="loop"></div>
                         </div>
                     </a>
                     <a href="danhmuc.html">
                         <div class="grid-item">
-                            <img src="img/ktai1.jpg" alt="item4">
+                            <img src="~/img/ktai1.jpg" alt="item4">
                             <div class="loop"></div>
                         </div>
                     </a>
                     <a href="danhmuc.html">
                         <div class="grid-item">
-                            <img src="img/vtay3.jpg" alt="item5">
+                            <img src="~/img/vtay3.jpg" alt="item5">
                             <div class="loop"></div>
                         </div>
                     </a>
                     <a href="danhmuc.html">
                         <div class="grid-item">
-                            <img src="img/nhan_1.png" alt="item6">
+                            <img src="~/img/nhan_1.png" alt="item6">
                             <div class="loop"></div>
                         </div>
                     </a>
                 </div>
             </div>
         </section>
-
 
         <section id="content-bestseller">
             <h2>BEST SELLER</h2>
             <div class="container swiper">
                 <div class="card-wrapper">
                     <ul class="card-list swiper-wrapper">
-                        <li class="card-item swiper-slide">
-                            <a href="details.html" class="card-link magnetic">
-                                <div class="card-inner">
-                                    <img src="img/dchuyen1.jpg" alt="..." class="card-image">
-                                    <p class="badge dchuyen1">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
-                                    <button class="card-button material-symbols-outlined">
-                                        arrow_forward_ios
-                                    </button>
-                                </div>
-                            </a>
+                        @if (ViewBag.SimilarProducts != null)
+                        {
+                            foreach (var product in ViewBag.SimilarProducts)
+                            {
+                                <li class="card-item swiper-slide">
+                                    <a href="@Url.Action("Index", "Details", new { id = product.idSanPham })" class="card-link magnetic">
+                                        <div class="card-inner">
+                                            <img src="@Url.Content("~/img/" + product.HinhAnh.Trim('[', ']').Split(',')[0].Trim())" alt="@product.TenSanPham" class="card-image">
 
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link magnetic">
-                                <div class="card-inner">
-                                    <img src="img/dchuyen2.jpg" alt="Dây chuyền A đại dương" class="card-image">
-                                    <p class="badge dchuyen2">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
-                                    <button class="card-button material-symbols-outlined">
-                                        arrow_forward_ios
-                                    </button>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link magnetic">
-                                <div class="card-inner">
-                                    <img src="img/nhan_1.png" alt="Dây chuyền A đại dương" class="card-image">
-                                    <p class="badge nhan_1">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
-                                    <button class="card-button material-symbols-outlined">
-                                        arrow_forward_ios
-                                    </button>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link magnetic">
-                                <div class="card-inner">
-                                    <img src="img/vtay2.jpg" alt="Dây chuyền A đại dương" class="card-image">
-                                    <p class="badge vtay2">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
-                                    <button class="card-button material-symbols-outlined">
-                                        arrow_forward_ios
-                                    </button>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link magnetic">
-                                <div class="card-inner">
-                                    <img src="img/vtay1.jpg" alt="Dây chuyền A đại dương" class="card-image">
-                                    <p class="badge vtay1">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
-                                    <button class="card-button material-symbols-outlined">
-                                        arrow_forward_ios
-                                    </button>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="card-item swiper-slide">
-                            <a href="#" class="card-link magnetic">
-                                <div class="card-inner">
-                                    <img src="img/ktai1.jpg" alt="Dây chuyền A đại dương" class="card-image">
-                                    <p class="badge ktai1">Dây chuyền A đại dương</p>
-                                    <h2 class="card-title">Dây chuyền A đại dương</h2>
-                                    <h3 class="card-title">580.000 đ</h3>
-                                    <button class="card-button material-symbols-outlined">
-                                        arrow_forward_ios
-                                    </button>
-                                </div>
-                            </a>
-                        </li>
+
+                                            <p class="badge">@product.TenSanPham</p>
+                                            <h2 class="card-title">@product.TenSanPham</h2>
+                                            <h3 class="card-title">@product.GiaBan.ToString("#,##0").Replace(",", ".") đ</h3>
+                                            <button class="card-button material-symbols-outlined">
+                                                arrow_forward_ios
+                                            </button>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <p>No products available.</p>
+                        }
                     </ul>
+
 
                     <div class="swiper-pagination"></div>
                     <div class="swiper-slide-button swiper-button-next"></div>
                     <div class="swiper-slide-button swiper-button-prev"></div>
                 </div>
-
             </div>
-
-
-
         </section>
+
 
         <section id="content-subscribe">
             <div id="subscribe-form">
@@ -288,7 +231,7 @@
                 </form>
             </div>
             <figrue id="img-subscribe">
-                <img src="img/nen7.jpg" alt="subscribe-img" class="image3">
+                <img src="~/img/nen7.jpg" alt="subscribe-img" class="image3">
             </figrue>
             <div id="snow-container"></div>
         </section>
@@ -299,7 +242,7 @@
         <div class="footer-container">
             <div class="footer-logo">
                 <div class="logo-box">
-                    <img src="img/logo.png" alt="GL JEWELRY" />
+                    <img src="~/img/logo.png" alt="GL JEWELRY" />
                 </div>
             </div>
 
