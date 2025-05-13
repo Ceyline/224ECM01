@@ -1,6 +1,6 @@
 ﻿@using System.Linq
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Details";
 }
 
 <!DOCTYPE html>
@@ -188,153 +188,141 @@
                 <div id="tab-rating" class="product-tab-content display-none">
                     <div class="rating-header">
                         <div class="rating-header-left">
-                            <h4 class="mean-rating-points">4.0</h4>
+                            <h4 class="mean-rating-points">@String.Format("{0:F1}", ViewBag.AverageRating)</h4>
                             <div class="mean-rating-star">
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star-o"></span>
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= ViewBag.AverageRating)
+                                    {
+                                        <span class="fa fa-star"></span>
+                                    }
+                                    else if (i <= Math.Ceiling(ViewBag.AverageRating))
+                                    {
+                                        <span class="fa fa-star-half-o"></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="fa fa-star-o"></span>
+                                    }
+                                }
                             </div>
-                            <h5 class="sum-rating">(10)</h5>
+                            <h5 class="sum-rating">(@ViewBag.TotalReviews)</h5>
                         </div>
                         <ul class="rating-header-right">
-                            <li class="number-rating">
-                                <p>5</p>
-                                <div class="progress-bar">
-                                    <div class="percentage-bar bar-1"></div>
-                                </div>
-                            </li>
-                            <li class="number-rating">
-                                <p>4</p>
-                                <div class="progress-bar">
-                                    <div class="percentage-bar bar-2"></div>
-                                </div>
-                            </li>
-                            <li class="number-rating">
-                                <p>3</p>
-                                <div class="progress-bar">
-                                    <div class="percentage-bar bar-3"></div>
-                                </div>
-                            </li>
-                            <li class="number-rating">
-                                <p>2</p>
-                                <div class="progress-bar">
-                                    <div class="percentage-bar bar-4"></div>
-                                </div>
-                            </li>
-                            <li class="number-rating">
-                                <p>1</p>
-                                <div class="progress-bar">
-                                    <div class="percentage-bar bar-5"></div>
-                                </div>
-                            </li>
+                            @for (int i = 5; i >= 1; i--)
+                            {
+                                var count = ViewBag.RatingStats[i];
+                                var percentage = ViewBag.TotalReviews > 0 ? (count * 100.0 / ViewBag.TotalReviews) : 0;
+                                <li class="number-rating">
+                                    <p>@i</p>
+                                    <div class="progress-bar">
+                                        <div class="percentage-bar" style="width: @percentage%;"></div>
+                                    </div>
+                                </li>
+                            }
                         </ul>
                     </div>
-                    <div class="rating-section">
-                        <ul>
-                            <li class="display-flex">
-                                <img class="rating-avatar" src="~/img/avatar_fem_1.png">
-                                <div class="rating-content">
-                                    <p class="rating-username">User 1</p>
-                                    <div class="rating-star">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div>
-                                    <p class="comment">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="display-flex">
-                                <img class="rating-avatar" src="~/img/avatar_male_2.png">
-                                <div class="rating-content">
-                                    <p class="rating-username">User 2</p>
-                                    <div class="rating-star">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div>
-                                    <p class="comment">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="display-flex">
-                                <img class="rating-avatar" src="~/img/avatar_fem_2.png">
-                                <div class="rating-content">
-                                    <p class="rating-username">User 1</p>
-                                    <div class="rating-star">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div>
-                                    <p class="comment">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="display-flex">
-                                <img class="rating-avatar" src="~/img/avatar_male_2.png">
-                                <div class="rating-content">
-                                    <p class="rating-username">User 1</p>
-                                    <div class="rating-star">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div>
-                                    <p class="comment">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-                                        sit amet pulvinar ipsum. Ut fermentum libero a enim varius fringilla. Vestibulum
-                                        iaculis nulla suscipit vulputate semper. Vestibulum quis egestas libero. Cras
-                                        fermentum urna odio, vitae dictum ante elementum quis. Vestibulum laoreet ut
-                                        nisl quis porttitor. Suspendisse vestibulum quam vel leo tincidunt commodo.
-                                        Morbi congue, nulla a dignissim iaculis, ipsum metus ullamcorper elit, eget
-                                        tristique purus urna molestie diam. Vivamus egestas volutpat libero tincidunt
-                                        aliquet. Ut nec semper odio.
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="display-flex">
-                                <img class="rating-avatar" src="~/img/avatar_fem_1.png">
-                                <div class="rating-content">
-                                    <p class="rating-username">User 1</p>
-                                    <div class="rating-star">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div>
-                                    <p class="comment">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                </div>
-                            </li>
-                        </ul>
+                    <div class="rating-section" id="reviews-container">
+                        @if (!ViewBag.HasReviews)
+                        {
+                            <div id="if_no_rating_exists" class="display-flex">
+                                <p class="align-items-center">There's no review on this product</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <ul id="reviews-list">
+                                @foreach (var review in ViewBag.Reviews)
+                                {
+                                    <li class="display-flex">
+                                        <img class="rating-avatar" src="~/img/avatar_fem_1.png" alt="Avatar">
+                                        <div class="rating-content">
+                                            <p class="rating-username">@review.HoTen</p>
+                                            <div class="rating-star">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= review.SoSao)
+                                                    {
+                                                        <span class="fa fa-star"></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="fa fa-star-o"></span>
+                                                    }
+                                                }
+                                            </div>
+                                            <p class="comment">@review.NoiDung</p>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        }
                     </div>
-                    <div class="pagination">
-                        <a href="#">«</a>
-                        <a href="#">‹</a>
-                        <a href="#" class="selected">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">›</a>
-                        <a href="#">»</a>
-                    </div>
+
+                    @if (ViewBag.HasReviews && ViewBag.TotalPages > 1)
+                    {
+                        <div class="pagination" id="pagination-container">
+                            <!-- Previous Button -->
+                            @if (ViewBag.CurrentPage > 1)
+                            {
+                                <a href="#" data-page="@(ViewBag.CurrentPage - 1)">«</a>
+                                <a href="#" data-page="@(ViewBag.CurrentPage - 1)">‹</a>
+                            }
+                            else
+                            {
+                                <a class="disabled">«</a>
+                                <a class="disabled">‹</a>
+                            }
+
+                            <!-- Page Numbers -->
+                            @{
+                                int startPage = Math.Max(1, ViewBag.CurrentPage - 2);
+                                int endPage = Math.Min(ViewBag.TotalPages, ViewBag.CurrentPage + 2);
+
+                                if (startPage > 1)
+                                {
+                                    <a href="#" data-page="1">1</a>
+                                    if (startPage > 2)
+                                    {
+                                        <span>...</span>
+                                    }
+                                }
+
+                                for (int i = startPage; i <= endPage; i++)
+                                {
+                                    if (i == ViewBag.CurrentPage)
+                                    {
+                                        <a href="#" data-page="@i" class="selected">@i</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" data-page="@i">@i</a>
+                                    }
+                                }
+
+                                if (endPage < ViewBag.TotalPages)
+                                {
+                                    if (endPage < ViewBag.TotalPages - 1)
+                                    {
+                                        <span>...</span>
+                                    }
+                                    <a href="#" data-page="@ViewBag.TotalPages">@ViewBag.TotalPages</a>
+                                }
+                            }
+
+                            <!-- Next Button -->
+                            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                            {
+                                <a href="#" data-page="@(ViewBag.CurrentPage + 1)">›</a>
+                                <a href="#" data-page="@ViewBag.TotalPages">»</a>
+                            }
+                            else
+                            {
+                                <a class="disabled">›</a>
+                                <a class="disabled">»</a>
+                            }
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -488,6 +476,103 @@
     <!-- <script src="js/related_produdct_slider.js"></script> -->
     <script src="~/Scripts/js/clicking_effects.js"></script>
     <script src="~/Scripts/js/details_add_to_cart.js"></script>
+
+    <script>
+    $(document).ready(function () {
+        // Handle pagination link clicks
+        $(document).on('click', '#pagination-container a[data-page]', function (e) {
+            e.preventDefault(); // Prevent default link behavior
+            var page = $(this).data('page');
+            var productId = @ViewBag.ProductId;
+
+            console.log('Clicked pagination link: page=' + page + ', productId=' + productId);
+
+            // Make AJAX request to fetch reviews
+            $.ajax({
+                url: '@Url.Action("GetReviews", "Details")',
+                type: 'GET',
+                data: { id: productId, page: page },
+                beforeSend: function () {
+                    console.log('Sending AJAX request...');
+                    $('#reviews-container').html('<p>Loading reviews...</p>');
+                },
+                success: function (data) {
+                    console.log('Received response:', data);
+
+                    // Update reviews list
+                    var reviewsHtml = '';
+                    if (!data.Reviews || data.Reviews.length === 0) {
+                        reviewsHtml = '<div id="if_no_rating_exists" class="display-flex">' +
+                            '<p class="align-items-center">There\'s no review on this product</p>' +
+                            '</div>';
+                    } else {
+                        reviewsHtml = '<ul id="reviews-list">';
+                        $.each(data.Reviews, function (index, review) {
+                            reviewsHtml += '<li class="display-flex">' +
+                                '<img class="rating-avatar" src="/img/avatar_fem_1.png" alt="Avatar">' +
+                                '<div class="rating-content">' +
+                                '<p class="rating-username">' + (review.HoTen || 'Unknown') + '</p>' +
+                                '<div class="rating-star">';
+                            for (var i = 1; i <= 5; i++) {
+                                reviewsHtml += '<span class="fa fa-star' + (i <= review.SoSao ? '' : '-o') + '"></span>';
+                            }
+                            reviewsHtml += '</div>' +
+                                '<p class="comment">' + (review.NoiDung || '') + '</p>' +
+                                '</div></li>';
+                        });
+                        reviewsHtml += '</ul>';
+                    }
+                    $('#reviews-container').html(reviewsHtml);
+
+                    // Update pagination controls
+                    var paginationHtml = '';
+                    if (data.TotalPages > 1) {
+                        // Previous buttons
+                        paginationHtml += (data.CurrentPage > 1)
+                            ? '<a href="#" data-page="' + (data.CurrentPage - 1) + '">«</a>' +
+                              '<a href="#" data-page="' + (data.CurrentPage - 1) + '">‹</a>'
+                            : '<a class="disabled">«</a><a class="disabled">‹</a>';
+
+                        // Page numbers
+                        var startPage = Math.max(1, data.CurrentPage - 2);
+                        var endPage = Math.min(data.TotalPages, data.CurrentPage + 2);
+
+                        if (startPage > 1) {
+                            paginationHtml += '<a href="#" data-page="1">1</a>';
+                            if (startPage > 2) {
+                                paginationHtml += '<span>...</span>';
+                            }
+                        }
+
+                        for (var i = startPage; i <= endPage; i++) {
+                            paginationHtml += '<a href="#" data-page="' + i + '"' +
+                                (i === data.CurrentPage ? ' class="selected"' : '') + '>' + i + '</a>';
+                        }
+
+                        if (endPage < data.TotalPages) {
+                            if (endPage < data.TotalPages - 1) {
+                                paginationHtml += '<span>...</span>';
+                            }
+                            paginationHtml += '<a href="#" data-page="' + data.TotalPages + '">' + data.TotalPages + '</a>';
+                        }
+
+                        // Next buttons
+                        paginationHtml += (data.CurrentPage < data.TotalPages)
+                            ? '<a href="#" data-page="' + (data.CurrentPage + 1) + '">›</a>' +
+                              '<a href="#" data-page="' + data.TotalPages + '">»</a>'
+                            : '<a class="disabled">›</a><a class="disabled">»</a>';
+                    }
+
+                    $('#pagination-container').html(paginationHtml);
+                },
+                error: function (xhr, status, error) {
+                    console.error('AJAX error:', status, error);
+                    $('#reviews-container').html('<p>Error loading reviews. Please try again.</p>');
+                }
+            });
+        });
+    });
+    </script>
 
 </body>
 </html>
