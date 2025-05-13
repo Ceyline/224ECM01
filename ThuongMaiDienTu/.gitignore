@@ -1,8 +1,4 @@
 .vs/
 
-[Bb]in/
-[Oo]bj/
-
-# Debug symbols
-*.pdb
-*.cache
+bin/
+obj/
