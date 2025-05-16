@@ -245,3 +245,7 @@ D:\Tải xuống\224ECM01-main (3)\224ECM01-main\ThuongMaiDienTu\ThuongMaiDienTu
 D:\Tải xuống\224ECM01-main (3)\224ECM01-main\ThuongMaiDienTu\ThuongMaiDienTu\bin\Microsoft.AspNet.Identity.Core.xml
 D:\Tải xuống\224ECM01-main (3)\224ECM01-main\ThuongMaiDienTu\ThuongMaiDienTu\bin\EntityFramework.SqlServer.dll
 D:\Tải xuống\224ECM01-main (3)\224ECM01-main\ThuongMaiDienTu\ThuongMaiDienTu\bin\EntityFramework.SqlServer.xml
+D:\Năm3-ky2\ThuongMaiDienTu\webtrangsuc\224ECM01\ThuongMaiDienTu\ThuongMaiDienTu\bin\EntityFramework.SqlServer.dll
+D:\Năm3-ky2\ThuongMaiDienTu\webtrangsuc\224ECM01\ThuongMaiDienTu\ThuongMaiDienTu\bin\Microsoft.AspNet.Identity.Core.dll
+D:\Năm3-ky2\ThuongMaiDienTu\webtrangsuc\224ECM01\ThuongMaiDienTu\ThuongMaiDienTu\bin\EntityFramework.SqlServer.xml
+D:\Năm3-ky2\ThuongMaiDienTu\webtrangsuc\224ECM01\ThuongMaiDienTu\ThuongMaiDienTu\bin\Microsoft.AspNet.Identity.Core.xml
