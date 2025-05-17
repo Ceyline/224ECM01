@@ -22,6 +22,7 @@ namespace ThuongMaiDienTu.Models
         public int idDanhMuc { get; set; }
         public string tenDanhMuc { get; set; }
         public string moTa { get; set; }
+        public string hinhAnh { get; set; }
     
         public virtual ICollection<SanPham> SanPhams { get; set; }
     }

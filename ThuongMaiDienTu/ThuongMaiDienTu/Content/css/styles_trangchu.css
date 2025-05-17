@@ -579,50 +579,50 @@ h1 {
 
 }
 
-.grid-item:nth-child(1) {
+.grid-item.item-1 {
     border-bottom-right-radius: 70px;
     overflow: hidden;
     width: 350px;
     height: 330px;
 }
 
-.grid-item:nth-child(2) {
-    background-color: #ffffff;
-    width: 270px;
-    height: 280px;
-    margin-top: 20px;
-    text-align: center;
-    font-family: "Instrument Serif", serif;
-}
+    .grid-item.item-2 {
+        background-color: #ffffff;
+        width: 270px;
+        height: 280px;
+        margin-top: 20px;
+        text-align: center;
+        font-family: "Instrument Serif", serif;
+    }
 
-.grid-item:nth-child(3) {
-    border-bottom-left-radius: 70px;
-    overflow: hidden;
-    width: 350px;
-    height: 330px;
-}
+    .grid-item.item-3 {
+        border-bottom-left-radius: 70px;
+        overflow: hidden;
+        width: 350px;
+        height: 330px;
+    }
 
-.grid-item:nth-child(4) {
-    border-top-right-radius: 70px;
-    overflow: hidden;
-    width: 350px;
-    height: 330px;
-}
+    .grid-item.item-4 {
+        border-top-right-radius: 70px;
+        overflow: hidden;
+        width: 350px;
+        height: 330px;
+    }
 
-.grid-item:nth-child(5) {
-    border-top-right-radius: 70px;
-    border-top-left-radius: 70px;
-    overflow: hidden;
-    width: 350px;
-    height: 330px;
-}
+    .grid-item.item-5 {
+        border-top-right-radius: 70px;
+        border-top-left-radius: 70px;
+        overflow: hidden;
+        width: 350px;
+        height: 330px;
+    }
 
-.grid-item:nth-child(6) {
-    border-top-left-radius: 70px;
-    overflow: hidden;
-    width: 350px;
-    height: 330px;
-}
+    .grid-item.item-6 {
+        border-top-left-radius: 70px;
+        overflow: hidden;
+        width: 350px;
+        height: 330px;
+    }
 
 .loop {
     position: absolute;

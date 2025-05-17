@@ -48,7 +48,11 @@
                 </div>
                 <div class="right">
                     <a href="#">Log in / Register</a>
-                    <a href="GioHang.html"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
+                    <a href="@Url.Action("Index", "GioHang")">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+
                     <a href="#"><i class="fas fa-search"></i></a>
                 </div>
             </div>
@@ -60,7 +64,7 @@
                     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                     <li><a href="#">Shop</a></li>
                     <li class="dropdown">
-                        <a href="#">All Categories <i class="fas fa-caret-down"></i></a>
+                        <a href="@Url.Action("Index", "DanhMuc")">All Categories <i class="fas fa-caret-down"></i></a>
                         <ul class="dropdown-menu">
                             @foreach (var dm in ViewBag.listDanhMuc)
                             {

@@ -1,14 +1,5 @@
 /* Cấu trúc chung cho toàn bộ trang */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100vh;
-}
+
 
 .container {
     width: 100%;
@@ -31,28 +22,28 @@ body {
     align-items: center;
 }
 
-.top-bar .left,
-.top-bar .right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
+    .top-bar .left,
+    .top-bar .right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
 
 
-.top-bar .logo img {
-    width: 200px;
-    height: 100px;
-}
+    .top-bar .logo img {
+        width: 200px;
+        height: 100px;
+    }
 
-.top-bar .right a {
-    color: rgb(58, 14, 14);
-    text-decoration: none;
-    font-size: 14px;
-}
+    .top-bar .right a {
+        color: rgb(58, 14, 14);
+        text-decoration: none;
+        font-size: 14px;
+    }
 
-.top-bar .right i {
-    font-size: 18px;
-}
+    .top-bar .right i {
+        font-size: 18px;
+    }
 
 
 .cart-count {
@@ -93,18 +84,18 @@ body {
     flex: 1;
 }
 
-.nav-links li a {
-    color: rgb(58, 14, 14);
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background 0.3s;
-}
+    .nav-links li a {
+        color: rgb(58, 14, 14);
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
 
-.nav-links li a:hover {
-    color: brown;
-    border-radius: 5px;
-}
+        .nav-links li a:hover {
+            color: brown;
+            border-radius: 5px;
+        }
 
 @keyframes zoomEffect {
     from {
@@ -123,7 +114,6 @@ p {
     margin: 30px auto 30px auto;
     color: #d2c9c9;
     line-height: 1.6;
-
 }
 
 .info-container {
@@ -131,16 +121,12 @@ p {
     align-items: center;
     justify-content: center;
     gap: 20px;
-
 }
 
 .logo1 img {
     border-radius: 55%;
-
     width: 100px;
-
     height: 100px;
-
 }
 
 .separator {
@@ -168,7 +154,6 @@ p {
     opacity: 0;
     transform: translateX(100%);
     animation: slideInFromRight 1s ease-in-out forwards;
-
 }
 
 @keyframes slideInFromLeft {
@@ -208,12 +193,12 @@ header {
     background: #f7f7f7;
 }
 
-header .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-}
+    header .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+    }
 
 nav ul {
     list-style: none;
@@ -222,9 +207,9 @@ nav ul {
     padding: 0;
 }
 
-nav ul li {
-    position: relative;
-}
+    nav ul li {
+        position: relative;
+    }
 
 /* .container {
     padding: 30px;
@@ -240,106 +225,111 @@ nav ul li {
 
 .cart-summary {
     width: 100%;
-    max-width:80%;
+    max-width: 90%;
     margin: 0 auto;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border: 1px solid #eee;
     padding: 16px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
-  }
-  
-  .cart-summary h2 {
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 8px;
-    margin-bottom: 16px;
-  }
-  
-  .cart-items {
+}
+
+    .cart-summary h2 {
+        color: black;
+        font-size: 45px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+        padding-top: 0;
+    }
+
+.cart-items {
     display: flex;
     flex-direction: column;
     gap: 16px;
-  }
-  
-  .cart-item {
+}
+
+.cart-item {
     display: flex;
     align-items: center;
     gap: 16px;
-  }
-  
-  .cart-item img {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  
-  .product-name {
+}
+
+    .cart-item img {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+
+.product-name {
     flex: 1;
     font-weight: 500;
-  }
-  
-  .product-price {
+}
+
+.product-price {
     font-weight: bold;
     color: #444;
-  }
-  
-  .discount-code {
+}
+
+.discount-code {
     margin-top: 24px;
     display: flex;
     gap: 8px;
     align-items: center;
-  }
-  
-  .discount-code input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .discount-code button {
-    background-color: #c59d5f;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .discount-code button:hover {
-    background-color: #b3884a;
-  }
-  
-  .temp-summary {
+}
+
+    .discount-code input {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        height: 50px;
+    }
+
+    .discount-code button {
+        background-color: #c59d5f;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        height: 50px;
+        width: 100px;
+    }
+
+        .discount-code button:hover {
+            background-color: #b3884a;
+        }
+
+.temp-summary {
     margin-top: 24px;
     font-size: 16px;
     color: #555;
-  }
-  
-  .temp-line {
+}
+
+.temp-line {
     display: flex;
     justify-content: space-between;
     padding: 4px 0;
-  }
-  
-  .total {
+}
+
+.total {
     font-size: 20px;
     font-weight: bold;
     display: flex;
     justify-content: space-between;
     margin-top: 16px;
     color: #a46b00;
-  }
-  
+}
 
-  .order-details {
-    max-width: 80%;
+
+.order-details {
+    max-width: 90%;
     margin: 40px auto;
     padding: 24px;
     background-color: #ffffff;
@@ -347,12 +337,12 @@ nav ul li {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.order-details h3 {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 24px;
-    text-align: center;
-}
+    .order-details h3 {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 24px;
+        text-align: center;
+    }
 
 .form-group {
     display: flex;
@@ -361,37 +351,37 @@ nav ul li {
     justify-content: space-between;
 }
 
-.form-group label {
-    flex: 0 0 150px; /* độ rộng cố định của label */
-    font-weight: 600;
-    text-align: right;
-    margin-right: 16px;
-}
+    .form-group label {
+        flex: 0 0 150px; /* độ rộng cố định của label */
+        font-weight: 600;
+        text-align: right;
+        margin-right: 16px;
+    }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-    flex: 1;
-    padding: 10px 12px;
-    font-size: 15px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-}
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        flex: 1;
+        padding: 10px 12px;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
 
-.form-group textarea {
-    resize: vertical;
-}
+    .form-group textarea {
+        resize: vertical;
+    }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: #aaa;
-    font-style: italic;
-}
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
 
 
 .shipping-payment {
-    max-width: 80%;
+    max-width: 90%;
     margin: 40px auto;
     padding: 24px;
     background-color: #fff;
@@ -409,7 +399,7 @@ nav ul li {
     margin-right: 8px;
 }
 
-.shipping label, .payment label {
+.shipping label, .payment label, .order-details label {
     font-size: 20px;
     font-weight: bold;
     vertical-align: middle;
@@ -442,21 +432,21 @@ nav ul li {
     border-bottom: 1px solid #ddd;
 }
 
-.payment-option:last-child {
-    border-bottom: none;
-}
+    .payment-option:last-child {
+        border-bottom: none;
+    }
 
-.payment-option input[type="radio"] {
-    margin-right: 10px;
-    accent-color: #777; /* màu radio giống ảnh */
-    transform: scale(1.3);
-}
+    .payment-option input[type="radio"] {
+        margin-right: 10px;
+        accent-color: #777; /* màu radio giống ảnh */
+        transform: scale(1.3);
+    }
 
-.payment-option label {
-    flex: 1;
-    font-size: 16px;
-    cursor: pointer;
-}
+    .payment-option label {
+        flex: 1;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
 .payment-logo {
     width: 30px;
@@ -478,9 +468,9 @@ nav ul li {
     transition: background-color 0.3s ease;
 }
 
-.submit-order:hover {
-    background-color: #a76a2f;
-}
+    .submit-order:hover {
+        background-color: #a76a2f;
+    }
 
 .footer {
     background-color: #2b4b52;
@@ -516,10 +506,10 @@ nav ul li {
     transition: transform 0.3s ease;
 }
 
-.logo-box img:hover {
-    transform: scale(1.05);
-    /* phóng to nhẹ khi hover */
-}
+    .logo-box img:hover {
+        transform: scale(1.05);
+        /* phóng to nhẹ khi hover */
+    }
 
 
 .footer-columns {
@@ -542,19 +532,19 @@ nav ul li {
     padding: 0;
 }
 
-.footer-column ul li {
-    margin-bottom: 8px;
-    font-size: 14px;
-}
+    .footer-column ul li {
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
 
-.footer-column ul li a {
-    color: #fff;
-    text-decoration: none;
-}
+        .footer-column ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
 
-.footer-column ul li a:hover {
-    text-decoration: underline;
-}
+            .footer-column ul li a:hover {
+                text-decoration: underline;
+            }
 
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
@@ -570,10 +560,10 @@ nav ul li {
     margin-right: auto;
 }
 
-.footer-bottom span {
-    color: #000000;
-    margin-right: 25px;
-}
+    .footer-bottom span {
+        color: #000000;
+        margin-right: 25px;
+    }
 
 .footer-links {
     display: flex;
@@ -581,10 +571,10 @@ nav ul li {
     flex-wrap: wrap;
 }
 
-.footer-links a {
-    color: #E9CCCC;
-    text-decoration: none;
-}
+    .footer-links a {
+        color: #E9CCCC;
+        text-decoration: none;
+    }
 
 
 .footer-bottom div span {
@@ -605,9 +595,9 @@ nav ul li {
         flex-direction: column;
     }
 
-    .header-nav ul li {
-        margin-bottom: 10px;
-    }
+        .header-nav ul li {
+            margin-bottom: 10px;
+        }
 
     .cart-items {
         flex-direction: column;
@@ -616,8 +606,6 @@ nav ul li {
     .cart-item {
         margin-bottom: 20px;
     }
-
-
 }
 
 @media (max-width: 480px) {

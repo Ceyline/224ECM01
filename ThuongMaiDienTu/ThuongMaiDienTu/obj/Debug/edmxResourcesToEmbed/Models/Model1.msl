@@ -27,6 +27,7 @@
     <EntitySetMapping Name="DanhMucs">
       <EntityTypeMapping TypeName="trangsucbacModel.DanhMuc">
         <MappingFragment StoreEntitySet="DanhMuc">
+          <ScalarProperty Name="hinhAnh" ColumnName="hinhAnh" />
           <ScalarProperty Name="idDanhMuc" ColumnName="idDanhMuc" />
           <ScalarProperty Name="tenDanhMuc" ColumnName="tenDanhMuc" />
           <ScalarProperty Name="moTa" ColumnName="moTa" />

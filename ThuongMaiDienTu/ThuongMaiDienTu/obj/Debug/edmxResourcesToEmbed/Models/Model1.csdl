@@ -34,6 +34,7 @@
     <Property Name="tenDanhMuc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="moTa" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="SanPhams" Relationship="Self.FK__SanPham__idDanhM__3A81B327" FromRole="DanhMuc" ToRole="SanPham" />
+    <Property Name="hinhAnh" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="GioHang">
     <Key>
