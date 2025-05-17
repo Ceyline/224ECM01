@@ -79,7 +79,6 @@ namespace ThuongMaiDienTu.Controllers
             {
                 using (var db = new trangsucbacEntities())
                 {
-<<<<<<< HEAD
                     if (Session["idNguoiDung"] == null)
                     {
                         return Json(new { success = false, message = "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng." });
