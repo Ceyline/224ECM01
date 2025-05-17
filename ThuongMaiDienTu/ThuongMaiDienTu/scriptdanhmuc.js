@@ -279,9 +279,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- State Variables ---
     // Price Slider
     let minPrice = minPriceInput ? parseInt(minPriceInput.value) : 0;
-    let maxPrice = maxPriceInput ? parseInt(maxPriceInput.value) : 100000000;
+     let maxPrice = maxPriceInput ? parseInt(maxPriceInput.value) : 10000000;
     const minLimit = minPriceInput ? parseInt(minPriceInput.getAttribute('data-min')) : 0;
-    const maxLimit = maxPriceInput ? parseInt(maxPriceInput.getAttribute('data-max')) : 100000000;
+     const maxLimit = maxPriceInput ? parseInt(maxPriceInput.getAttribute('data-max')) : 10000000;
     let activeHandle = null;
 
     // Filtering/Sorting/Pagination
