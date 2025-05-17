@@ -28,6 +28,7 @@
     <Property Name="idDanhMuc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="tenDanhMuc" Type="nvarchar" MaxLength="255" />
     <Property Name="moTa" Type="nvarchar" MaxLength="3000" />
+    <Property Name="hinhAnh" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="GioHang">
     <Key>

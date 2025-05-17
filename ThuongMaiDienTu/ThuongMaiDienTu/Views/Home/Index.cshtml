@@ -11,6 +11,11 @@
     <title>Image Slider</title>
     <link rel="stylesheet" href="css/styles_trangchu.css">
     <link rel="stylesheet" href="css/footer_style.css">
+    <link rel="stylesheet" href="~/Content/css/styles_dropdown_nav.css">
+    <link rel="stylesheet" href="~/Content/css/styles_trangchu.css">
+    <link rel="stylesheet" href="~/Content/css/styles_details.css">
+    <script src="~/Scripts/script.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" href="fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
@@ -28,7 +33,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Karla:ital,wght@0,200..800;1,200..800&family=Kings&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @*chỉnh cái link fontawsome lại cho đúng*@
+    <link rel="stylesheet" href="~/fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dancing+Script:wght@400..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Karla:ital,wght@0,200..800;1,200..800&family=Kings&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -61,7 +78,17 @@
                 <ul class="nav-links">
                     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                     <li><a href="#">Shop</a></li>
-                    <li><a href="#">All Categories</a></li>
+                    <li class="dropdown">
+                        <a href="@Url.Action("Index", "DanhMuc")">All Categories <i class="fas fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            @foreach (var dm in ViewBag.listDanhMuc)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "DanhMuc", new { id = dm.idDanhMuc })">@dm.tenDanhMuc</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
                     <li><a href="#">Blogs</a></li>
                     <li><a href="#">Pages</a></li>
                     <li><a href="#">Features</a></li>
@@ -143,39 +170,25 @@
             <div class="danhmuc">
                 <h1>Silver jewelry product catalog</h1>
                 <div class="grid-container">
-                    <a href="danhmuc.html">
-                        <div class="grid-item">
-                            <img src="~/img/dchuyen2.jpg" alt="item1">
-                            <div class="loop"></div>
-                        </div>
-                    </a>
-                    <a href="danhmuc.html">
-                        <div class="grid-item text">Boost the aesthetics of your interiors</div>
-                    </a>
-                    <a href="danhmuc.html">
-                        <div class="grid-item">
-                            <img src="~/img/matda2.jpg" alt="item3">
-                            <div class="loop"></div>
-                        </div>
-                    </a>
-                    <a href="danhmuc.html">
-                        <div class="grid-item">
-                            <img src="~/img/ktai1.jpg" alt="item4">
-                            <div class="loop"></div>
-                        </div>
-                    </a>
-                    <a href="danhmuc.html">
-                        <div class="grid-item">
-                            <img src="~/img/vtay3.jpg" alt="item5">
-                            <div class="loop"></div>
-                        </div>
-                    </a>
-                    <a href="danhmuc.html">
-                        <div class="grid-item">
-                            <img src="~/img/nhan_1.png" alt="item6">
-                            <div class="loop"></div>
-                        </div>
-                    </a>
+                    @for (int i = 0; i < ViewBag.listDanhMuc.Count; i++)
+                    {
+                        // Sau phần tử đầu tiên (i == 1), chèn nội dung đặc biệt
+                        if (i == 1)
+                        {
+                            <a href="#">
+                                <div class="grid-item text item-text">Boost the aesthetics of your interiors</div>
+                            </a>
+                        }
+
+                        var dm = ViewBag.listDanhMuc[i];
+                        <a href="@Url.Action("Index", "DanhMuc", new { id = dm.idDanhMuc })">
+                            <div class="grid-item item-@i">
+                                <img src="@Url.Content("~/img/" + dm.hinhAnh)" alt="@dm.tenDanhMuc" />
+                                <div class="loop"></div>
+                            </div>
+                        </a>
+                    }
+
                 </div>
             </div>
         </section>

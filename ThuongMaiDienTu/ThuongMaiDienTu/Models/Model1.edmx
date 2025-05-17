@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="trangsucbacModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="trangsucbacModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChiTietHoaDon">
           <Key>
             <PropertyRef Name="idChiTietHD" />
@@ -33,6 +33,7 @@
           <Property Name="idDanhMuc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="tenDanhMuc" Type="nvarchar" MaxLength="255" />
           <Property Name="moTa" Type="nvarchar" MaxLength="3000" />
+          <Property Name="hinhAnh" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="GioHang">
           <Key>
@@ -220,8 +221,7 @@
             <End Role="HoaDon" EntitySet="HoaDon" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="trangsucbacModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -259,6 +259,7 @@
           <Property Name="tenDanhMuc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="moTa" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SanPhams" Relationship="Self.FK__SanPham__idDanhM__3A81B327" FromRole="DanhMuc" ToRole="SanPham" />
+          <Property Name="hinhAnh" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="GioHang">
           <Key>
@@ -488,6 +489,7 @@
           <EntitySetMapping Name="DanhMucs">
             <EntityTypeMapping TypeName="trangsucbacModel.DanhMuc">
               <MappingFragment StoreEntitySet="DanhMuc">
+                <ScalarProperty Name="hinhAnh" ColumnName="hinhAnh" />
                 <ScalarProperty Name="idDanhMuc" ColumnName="idDanhMuc" />
                 <ScalarProperty Name="tenDanhMuc" ColumnName="tenDanhMuc" />
                 <ScalarProperty Name="moTa" ColumnName="moTa" />
