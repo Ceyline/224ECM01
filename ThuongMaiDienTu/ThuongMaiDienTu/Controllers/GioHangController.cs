@@ -24,9 +24,15 @@ namespace ThuongMaiDienTu.Controllers
             {
                 using (var db = new trangsucbacEntities())
                 {
-                    
+                    if (Session["idNguoiDung"] == null)
+                    {
+                        return Json(new { success = false, message = "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng." });
+                    }
 
-                    int idNguoiDung = 2; // Tạm thời set cứng
+                    int idNguoiDung = (int)Session["idNguoiDung"];
+
+                    //int idNguoiDung = 2; // Tạm thời set cứng
+
 
                     System.Diagnostics.Debug.WriteLine($"Params: idSanPham={idSanPham}, soLuong={soLuong}, size={size}, idNguoiDung={idNguoiDung}");
 
@@ -55,9 +61,9 @@ namespace ThuongMaiDienTu.Controllers
                             Size = size
                         });
                     }
-                    var changes = db.ChangeTracker.Entries()
-                        .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified)
-                        .ToList();
+                    //var changes = db.ChangeTracker.Entries()
+                    //    .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified)
+                    //    .ToList();
                     db.SaveChanges();
 
                     var cartCount = db.GioHangs

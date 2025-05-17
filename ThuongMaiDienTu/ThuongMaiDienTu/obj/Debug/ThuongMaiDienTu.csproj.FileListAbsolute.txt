@@ -160,3 +160,15 @@ D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\obj\Debug\ThuongMaiDienT
 D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\obj\Debug\ThuongMa.DFB98C4F.Up2Date
 D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\obj\Debug\ThuongMaiDienTu.dll
 D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\obj\Debug\ThuongMaiDienTu.pdb
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\BCrypt.Net-Next.dll
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\EntityFramework.SqlServer.dll
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\System.Buffers.dll
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\System.Memory.dll
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\System.Numerics.Vectors.dll
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\BCrypt.Net-Next.xml
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\EntityFramework.SqlServer.xml
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\System.Buffers.xml
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\System.Memory.xml
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\System.Numerics.Vectors.xml
+D:\224\224ECM01\code\BE\ThuongMaiDienTu\ThuongMaiDienTu\bin\System.Runtime.CompilerServices.Unsafe.xml
