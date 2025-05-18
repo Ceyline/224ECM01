@@ -32,5 +32,11 @@ namespace ThuongMaiDienTu.Controllers
 
             return View(viewModel);
         }
-    }
+		[ChildActionOnly]
+		public ActionResult MenuDanhMuc()
+		{
+			var list = _context.DanhMucs.ToList();
+			return PartialView("_MenuDanhMuc", list);
+		}
+	}
 }

@@ -376,14 +376,16 @@ p {
     background-position: center;
     transition: background-image 0.5s ease; */
     position: relative;
-     background-size: cover;
-     background-position: center;
-     transition: background 0.5s ease-in-out; /* Hiệu ứng mượt mà khi thay đổi nền */
-     height: 100vh; /* Đặt chiều cao của section bằng chiều cao màn hình */
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
+    background-size: cover;
+    background-position: center;
+    transition: background 0.5s ease-in-out; /* Hiệu ứng mượt mà khi thay đổi nền */
+    height: 100vh; /* Đặt chiều cao của section bằng chiều cao màn hình */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    min-height: 400px;
 }
 
 
@@ -564,23 +566,24 @@ h1 {
     /* Phóng to hình ảnh khi hover */
 }
 
-.grid-item.text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffffff;
-    font-weight: bold;
-    font-family: "Instrument Serif", serif;
-    font-style: normal;
-    font-size: 30px;
-    color: #5f5f69;
-    text-align: center;
-    padding: 20px;
-
-}
+    .grid-item.text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff;
+        font-weight: bold;
+        font-family: "Instrument Serif", serif;
+        font-style: normal;
+        font-size: 30px;
+        color: #5f5f69;
+        text-align: center;
+        padding: 20px;
+        width: 320px;
+        height: 300px;
+    }
 
 .grid-item.item-1 {
-    border-bottom-right-radius: 70px;
+    border-bottom-left-radius: 70px;
     overflow: hidden;
     width: 350px;
     height: 330px;
@@ -588,41 +591,35 @@ h1 {
 
     .grid-item.item-2 {
         background-color: #ffffff;
-        width: 270px;
-        height: 280px;
-        margin-top: 20px;
-        text-align: center;
-        font-family: "Instrument Serif", serif;
+        width: 350px;
+        height: 330px;
+        overflow: hidden;
+        border-top-right-radius: 70px;
     }
 
     .grid-item.item-3 {
-        border-bottom-left-radius: 70px;
+        border-top-right-radius: 70px;
+        border-top-left-radius: 70px;
         overflow: hidden;
         width: 350px;
         height: 330px;
     }
 
     .grid-item.item-4 {
-        border-top-right-radius: 70px;
-        overflow: hidden;
-        width: 350px;
-        height: 330px;
-    }
-
-    .grid-item.item-5 {
-        border-top-right-radius: 70px;
         border-top-left-radius: 70px;
         overflow: hidden;
         width: 350px;
         height: 330px;
     }
 
-    .grid-item.item-6 {
-        border-top-left-radius: 70px;
+    .grid-item.item-0 {
+        border-bottom-right-radius: 70px;
         overflow: hidden;
         width: 350px;
         height: 330px;
     }
+
+  
 
 .loop {
     position: absolute;

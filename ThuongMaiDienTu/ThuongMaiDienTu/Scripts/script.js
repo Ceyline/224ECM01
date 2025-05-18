@@ -103,45 +103,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /*phần popular */
 document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('#popular-section');
+    if (!section) return;
+
     const container = document.querySelector('.content-popular');
+    const bg1 = section.dataset.bg1; // -> "/img/nen10.jpg"
+    const bg2 = section.dataset.bg2;
+
     const image1 = document.querySelector('.image1');
     const image2 = document.querySelector('.image2');
     const buttons = document.querySelectorAll('.view-button');
 
-    // Khi di chuột vào image1
-    image1.addEventListener('mouseenter', () => {
-        container.style.backgroundImage = "url('~/img/nen10.jpg')";
+    image1?.addEventListener('mouseenter', () => {
+        container.style.backgroundImage = `url('${bg1}')`;
     });
 
-    // Khi di chuột vào image2
-    image2.addEventListener('mouseenter', () => {
-        container.style.backgroundImage = "url('~/img/nen8.jpg')";
+    image2?.addEventListener('mouseenter', () => {
+        container.style.backgroundImage = `url('${bg2}')`;
     });
 
-    // Gán sự kiện cho từng button
     buttons.forEach(button => {
-        button.addEventListener('mouseenter', () => {
-            // Kiểm tra button nằm trong image nào để chọn ảnh phù hợp
-            const parentImage = button.closest('.image-wrapper');
-            if (parentImage.querySelector('.image1')) {
-                container.style.backgroundImage = "url('~/img/nen10.jpg')";
-            } else if (parentImage.querySelector('.image2')) {
-                container.style.backgroundImage = "url('~/img/nen8.jpg')";
-            }
-        });
+        const parent = button.closest('.image-wrapper');
+        if (parent?.classList.contains('1')) {
+            button.addEventListener('mouseenter', () => {
+                container.style.backgroundImage = `url('${bg1}')`;
+            });
+        } else if (parent?.classList.contains('2')) {
+            button.addEventListener('mouseenter', () => {
+                container.style.backgroundImage = `url('${bg2}')`;
+            });
+        }
 
         button.addEventListener('mouseleave', () => {
             container.style.backgroundImage = '';
         });
     });
 
-    // Khi chuột rời khỏi image1 hoặc image2 thì reset nền
-    [image1, image2].forEach(image => {
-        image.addEventListener('mouseleave', () => {
-            container.style.backgroundImage = ''; // Xóa nền
+    [image1, image2].forEach(img => {
+        img?.addEventListener('mouseleave', () => {
+            container.style.backgroundImage = '';
         });
     });
 });
+
+
 /*tuyết rơirơi */
 document.addEventListener('DOMContentLoaded', () => {
     const snowContainer = document.querySelector('#snow-container'); // Chọn container tuyết

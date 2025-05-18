@@ -22,35 +22,35 @@
 <body>
     <header>
         @*<section>
-            <div class="top-bar">
-                <div class="left">
-                    <span class="hotline"><i class="fas fa-phone"></i> <strong>Hotline:</strong> (+00) 987 877 821</span>
+                <div class="top-bar">
+                    <div class="left">
+                        <span class="hotline"><i class="fas fa-phone"></i> <strong>Hotline:</strong> (+00) 987 877 821</span>
+                    </div>
+                    <div class="logo">
+                        <img src="@Url.Content("~/Content/img/logo.jpg")" alt="Lustria Logo">
+                    </div>
+                    <div class="right">
+                        <a href="#" class="login-btn">Log in</a>
+                        <a href="">/</a>
+                        <a href="#" class="register-btn">Register</a>
+                        <a href="@Url.Action("GioHang", "Home")"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
+                        <a href="#"><i class="fas fa-search"></i></a>
+                    </div>
                 </div>
-                <div class="logo">
-                    <img src="@Url.Content("~/Content/img/logo.jpg")" alt="Lustria Logo">
-                </div>
-                <div class="right">
-                    <a href="#" class="login-btn">Log in</a>
-                    <a href="">/</a>
-                    <a href="#" class="register-btn">Register</a>
-                    <a href="@Url.Action("GioHang", "Home")"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
-                    <a href="#"><i class="fas fa-search"></i></a>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="nav-bar">
-            <nav class="navbar">
-                <ul class="nav-links">
-                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li><a href="#">Shop</a></li>
-                    <li><a href="#">All Categories</a></li>
-                    <li><a href="#">Blogs</a></li>
-                    <li><a href="#">Pages</a></li>
-                    <li><a href="#">Features</a></li>
-                </ul>
-            </nav>
-        </section>*@
+            <section id="nav-bar">
+                <nav class="navbar">
+                    <ul class="nav-links">
+                        <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                        <li><a href="#">Shop</a></li>
+                        <li><a href="#">All Categories</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Pages</a></li>
+                        <li><a href="#">Features</a></li>
+                    </ul>
+                </nav>
+            </section>*@
     </header>
 
     <main>
@@ -61,6 +61,7 @@
         <!-- Footer nếu có -->
     </footer>
 
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>

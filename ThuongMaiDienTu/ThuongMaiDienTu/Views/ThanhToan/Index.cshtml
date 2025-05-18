@@ -38,10 +38,10 @@
             <nav class="navbar">
 
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                     <li><a href="#">Shop</a></li>
-                    <li><a href="#">All Categories</a></li>
-                    <li><a href="#">Blogs</a></li>
+                    @Html.Action("MenuDanhMuc", "DanhMuc")
+                    <li><a href="@Url.Action("Blog", "Blog")">Blogs</a></li>
                     <li><a href="#">Pages</a></li>
                     <li><a href="#">Features</a></li>
                 </ul>

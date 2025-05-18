@@ -2,6 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Slider</title>
-    <link rel="stylesheet" href="css/styles_trangchu.css">
+
     <link rel="stylesheet" href="css/footer_style.css">
     <link rel="stylesheet" href="~/Content/css/styles_dropdown_nav.css">
     <link rel="stylesheet" href="~/Content/css/styles_trangchu.css">
@@ -20,7 +21,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="script.js" defer></script>
+
     <link rel="stylesheet" href="fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
@@ -46,6 +47,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Karla:ital,wght@0,200..800;1,200..800&family=Kings&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    </style>
 </head>
 
 <body>
@@ -78,18 +81,8 @@
                 <ul class="nav-links">
                     <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                     <li><a href="#">Shop</a></li>
-                    <li class="dropdown">
-                        <a href="@Url.Action("Index", "DanhMuc")">All Categories <i class="fas fa-caret-down"></i></a>
-                        <ul class="dropdown-menu">
-                            @foreach (var dm in ViewBag.listDanhMuc)
-                            {
-                                <li>
-                                    <a href="@Url.Action("Index", "DanhMuc", new { id = dm.idDanhMuc })">@dm.tenDanhMuc</a>
-                                </li>
-                            }
-                        </ul>
-                    </li>
-                    <li><a href="#">Blogs</a></li>
+                    @Html.Action("MenuDanhMuc", "DanhMuc")
+                    <li><a href="@Url.Action("Blog", "Blog")">Blogs</a></li>
                     <li><a href="#">Pages</a></li>
                     <li><a href="#">Features</a></li>
                 </ul>
@@ -145,26 +138,37 @@
                 </div>
             </div>
         </section>
+        <div id="popular-section"
+             data-bg1="@Url.Content("~/img/nen10.jpg")"
+             data-bg2="@Url.Content("~/img/nen8.jpg")">
+        </div>
+        @{
+            var popular = ViewBag.PopularProducts as List<ThuongMaiDienTu.Models.SanPham>;
+        }
+
         <section class="content-popular">
             <div class="container">
                 <h2>Popular Jewellery For You</h2>
                 <p>There who like to look good</p>
                 <div class="images">
-                    <div class="image-wrapper 1">
-                        <img src="~/img/dchuyen1.jpg" alt="dchuyen" class="image1">
-                        <div class="overlay">
-                            <a href="#" class="view-button">Xem sản phẩm</a>
+                    @for (int i = 0; i < popular.Count; i++)
+                    {
+                        var sp = popular[i];
+                        var firstImage = sp.HinhAnh?.Trim('[', ']').Split(',')[0].Trim();
+                        <div class="image-wrapper @(i + 1)">
+                            <img src="@Url.Content("~/img/" + firstImage)" alt="@sp.TenSanPham" class="image@(i + 1)">
+                            <div class="overlay">
+                                <a href="@Url.Action("Index", "Details", new { id = sp.idSanPham })" class="view-button">
+                                    Xem sản phẩm
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="image-wrapper 2">
-                        <img src="~/img/vtay1.jpg" alt="vtay" class="image2">
-                        <div class="overlay">
-                            <a href="#" class="view-button">Xem sản phẩm</a>
-                        </div>
-                    </div>
+                    }
+
                 </div>
             </div>
         </section>
+
 
         <section class="content-danhmuc">
             <div class="danhmuc">
@@ -208,7 +212,7 @@
                                             <img src="@Url.Content("~/img/" + product.HinhAnh.Trim('[', ']').Split(',')[0].Trim())" alt="@product.TenSanPham" class="card-image">
 
 
-                                            <p class="badge">@product.TenSanPham</p>
+                                            <p class="badge">@product.DanhMuc.tenDanhMuc</p>
                                             <h2 class="card-title">@product.TenSanPham</h2>
                                             <h3 class="card-title">@product.GiaBan.ToString("#,##0").Replace(",", ".") đ</h3>
                                             <button class="card-button material-symbols-outlined">
@@ -324,6 +328,10 @@
 
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="~/Scripts/script.js" defer></script>
+
+
+
 </body>
 
 </html>
