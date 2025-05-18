@@ -9,6 +9,8 @@ namespace ThuongMaiDienTu.Controllers
 {
     public class HomeController : Controller
     {
+		
+        
         public ActionResult Index()
         {
             using (var db = new trangsucbacEntities())
