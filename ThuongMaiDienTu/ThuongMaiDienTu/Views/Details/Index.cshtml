@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="~/Content/css/styles_dropdown_nav.css">
     <link rel="stylesheet" href="~/Content/css/styles_trangchu.css">
     <link rel="stylesheet" href="~/Content/css/styles_details.css">
+    <link rel="stylesheet" href="~/Content/css/styles_avatar_header.css">
     <script src="~/Scripts/script.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
@@ -44,16 +45,30 @@
                     </span>
                 </div>
                 <div class="logo">
-                    <img src="~/img/logo.jpg" alt="Lustria Logo">
+                    <a href="@Url.Action("Index", "Home")">  <img src="~/img/logo.jpg" alt="Lustria Logo"></a>
                 </div>
                 <div class="right">
-                    <a href="#">Log in / Register</a>
-                    <a href="@Url.Action("Index", "GioHang")">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">0</span>
-                    </a>
-
+                    @{
+                        var is_login = ViewBag.isLogin;
+                        if (is_login)
+                        {
+                            <a href="@Url.Action("Index", "GioHang")">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-count">0</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Index", "Register_Login")">Log in / Register</a>
+                        }
+                    }
                     <a href="#"><i class="fas fa-search"></i></a>
+                    @if (is_login)
+                    {
+                        <div class="header-avatar">
+                            <a href="#"><img src="~/img/avatar_fem_2.png" /></a>
+                        </div>
+                    }
                 </div>
             </div>
         </section>
@@ -68,8 +83,9 @@
                         <ul class="dropdown-menu">
                             @foreach (var dm in ViewBag.listDanhMuc)
                             {
-                                //chỗ này sửa thành cái link tới danh mục
-                                <li><a href="#">@dm.tenDanhMuc</a></li>
+                                <li>
+                                    <a href="@Url.Action("Index", "DanhMuc", new { id = dm.idDanhMuc })">@dm.tenDanhMuc</a>
+                                </li>
                             }
                         </ul>
                     </li>

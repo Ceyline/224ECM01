@@ -9,21 +9,29 @@ namespace ThuongMaiDienTu.Controllers
 {
     public class HomeController : Controller
     {
-		public ActionResult Index()
-		{
-			using (var db = new trangsucbacEntities())
-			{
-				// Lấy danh sách sản phẩm (ví dụ: sản phẩm bán chạy)
-				var similarProducts = db.SanPhams.Take(4).ToList(); // Lấy 10 sản phẩm đầu tiên
-				ViewBag.SimilarProducts = similarProducts;
-				ViewBag.listDanhMuc = db.DanhMucs.ToList();
+        public ActionResult Index()
+        {
+            using (var db = new trangsucbacEntities())
+            {
+                if (Session["idNguoiDung"] == null)
+                {
+                    ViewBag.isLogin = false;
+                }
+                else
+                {
+                    ViewBag.isLogin = true;
+                }
+                // Lấy danh sách sản phẩm (ví dụ: sản phẩm bán chạy)
+                var similarProducts = db.SanPhams.Take(4).ToList(); // Lấy 10 sản phẩm đầu tiên
+                ViewBag.SimilarProducts = similarProducts;
+                ViewBag.listDanhMuc = db.DanhMucs.ToList();
 
-			}
+            }
 
-			return View();
-		}
+            return View();
+        }
 
-		public ActionResult About()
+        public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 

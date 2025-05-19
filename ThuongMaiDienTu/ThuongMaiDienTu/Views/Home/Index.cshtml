@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="~/Content/css/styles_dropdown_nav.css">
     <link rel="stylesheet" href="~/Content/css/styles_trangchu.css">
     <link rel="stylesheet" href="~/Content/css/styles_details.css">
+    <link rel="stylesheet" href="~/Content/css/styles_avatar_header.css">
     <script src="~/Scripts/script.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" href="fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
@@ -60,14 +61,30 @@
                     </span>
                 </div>
                 <div class="logo">
-                    <img src="~/img/logo.jpg" alt="Lustria Logo">
+                    <a href="@Url.Action("Index", "Home")">  <img src="~/img/logo.jpg" alt="Lustria Logo"></a>
                 </div>
                 <div class="right">
-                    <a href="#" class="login-btn">Log in</a>
-                    <a href="">/</a>
-                    <a href="#" class="register-btn">Register</a>
-                    <a href="GioHang.html"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
+                    @{
+                        var is_login = ViewBag.isLogin;
+                        if (is_login)
+                        {
+                            <a href="@Url.Action("Index", "GioHang")">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-count">0</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Index", "Register_Login")">Log in / Register</a>
+                        }
+                    }
                     <a href="#"><i class="fas fa-search"></i></a>
+                    @if (is_login)
+                    {
+                        <div class="header-avatar">
+                            <a href="#"><img src="~/img/avatar_fem_2.png" /></a>
+                        </div>
+                    }
                 </div>
             </div>
         </section>

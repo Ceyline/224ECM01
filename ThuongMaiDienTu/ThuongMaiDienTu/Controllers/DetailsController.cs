@@ -14,7 +14,15 @@ namespace ThuongMaiDienTu.Controllers
         {
             using (var db = new trangsucbacEntities())
             {
-                var product = db.SanPhams.Find(id);
+                if (Session["idNguoiDung"] == null)
+                {
+                    ViewBag.isLogin = false;
+                }
+                else
+                {
+                    ViewBag.isLogin = true;
+                }
+                    var product = db.SanPhams.Find(id);
                 if (product == null)
                 {
                     return HttpNotFound();

@@ -223,7 +223,7 @@
     <Content Include="Content\css\styles_danhmuc.css" />
     <Content Include="Content\css\styles_details.css" />
     <Content Include="Content\css\styles_giohang.css" />
-    <Content Include="Content\css\styles_header.css" />
+    <Content Include="Content\css\styles_avatar_header.css" />
     <Content Include="Content\css\styles_signUp_signIn.css" />
     <Content Include="Content\css\styles_trangchu.css" />
     <Content Include="favicon.ico" />

@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/Content/css/styles_giohang.css">
+    <link rel="stylesheet" href="~/Content/css/styles_avatar_header.css">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
@@ -30,14 +31,32 @@
                 </span>
             </div>
             <div class="logo">
-                <img src="~/img/logo.jpg" alt="Lustria Logo">
+                <a href="@Url.Action("Index", "Home")">  <img src="~/img/logo.jpg" alt="Lustria Logo"></a>
             </div>
             <div class="right">
-                <a href="#">Log in / Register</a>
-                <a href="javascript:void(0);" onclick="openCart()">
-                    <i class="fas fa-shopping-cart"></i><span class="cart-count">2</span>
-                </a>
+                @{
+                    var is_login = ViewBag.isLogin;
+                    if (is_login)
+                    {
+                        <a href="@Url.Action("Index", "GioHang")">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Index", "Register_Login")">Log in / Register</a>
+                    }
+
+
+                }
                 <a href="#"><i class="fas fa-search"></i></a>
+                @if (is_login)
+                {
+                    <div class="header-avatar">
+                        <a href="#"><img src="~/img/avatar_fem_2.png" /></a>
+                    </div>
+                }
             </div>
         </div>
         <!-- Overlay nền mờ -->

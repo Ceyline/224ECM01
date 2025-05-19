@@ -16,7 +16,15 @@ namespace ThuongMaiDienTu.Controllers
         // GET: GioHang
         public ActionResult Index()
         {
-            int idNguoiDung = 2; // Tạm thời set cứng
+            if (Session["idNguoiDung"] == null)
+            {
+                ViewBag.isLogin = false;
+            }
+            else
+            {
+                ViewBag.isLogin = true;
+            }
+            int idNguoiDung = (int)Session["idNguoiDung"];
             using (var db = new trangsucbacEntities())
             {
                 var gioHang = db.GioHangs
@@ -79,7 +87,6 @@ namespace ThuongMaiDienTu.Controllers
             {
                 using (var db = new trangsucbacEntities())
                 {
-<<<<<<< HEAD
                     if (Session["idNguoiDung"] == null)
                     {
                         return Json(new { success = false, message = "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng." });
