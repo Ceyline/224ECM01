@@ -18,9 +18,15 @@ namespace ThuongMaiDienTu.Controllers
         // Phương thức Index (Hiển thị giỏ hàng)
         public ActionResult Index()
         {
-            int userId = 2; // Giả định userId là 2
-
-            // Lấy danh sách sản phẩm trong giỏ hàng
+            if (Session["idNguoiDung"] == null)
+            {
+                ViewBag.isLogin = false;
+            }
+            else
+            {
+                ViewBag.isLogin = true;
+            }
+            int userId = (int)Session["idNguoiDung"];
             var gioHang = _context.GioHangs
                                   .Include(g => g.SanPham) // Kết hợp với bảng SanPham
                                   .Where(g => g.idNguoiDung == userId) // Lọc theo người dùng
