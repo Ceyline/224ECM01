@@ -1,6 +1,7 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System;
 using System.Data.Entity;
+using System.Linq;
+using System.Web.Mvc;
 using ThuongMaiDienTu.Models;
 
 namespace ThuongMaiDienTu.Controllers
@@ -39,5 +40,50 @@ namespace ThuongMaiDienTu.Controllers
             ViewBag.TongTien = tongTien;
             return View(gioHang);
         }
-    }
+		[HttpPost]
+		public ActionResult DatHang(DatHangViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				int userId = 2; // Hoặc lấy từ Session nếu có đăng nhập
+				var gioHang = _context.GioHangs
+									  .Include(g => g.SanPham)
+									  .Where(g => g.idNguoiDung == userId)
+									  .ToList();
+
+				if (gioHang != null && gioHang.Any())
+				{
+					var hoaDon = new HoaDon
+					{
+						email = model.Email,
+						hoTen = model.HoTen,
+						soDienThoai = model.SoDienThoai,
+						diaChi = model.DiaChi,
+						ghiChu = model.GhiChu,
+						ngayLap = DateTime.Now,
+						tongTien = gioHang.Sum(x => x.SoLuong * x.SanPham.GiaBan),
+						idNguoiDung = userId // Giả định user đang đăng nhập
+					};
+
+					_context.HoaDons.Add(hoaDon);
+					_context.SaveChanges(); // lưu hóa đơn
+
+					// TODO: Nếu có bảng ChiTietHoaDon thì thêm các dòng ở đây
+
+					// Xóa giỏ hàng của user sau khi đặt
+
+					_context.SaveChanges();
+
+					return Json(new { success = true, message = "Đặt hàng thành công!" });
+				}
+				else
+				{
+					return Json(new { success = false, message = "Giỏ hàng trống." });
+				}
+			}
+
+			return Json(new { success = false, message = "Dữ liệu không hợp lệ." });
+		}
+
+	}
 }

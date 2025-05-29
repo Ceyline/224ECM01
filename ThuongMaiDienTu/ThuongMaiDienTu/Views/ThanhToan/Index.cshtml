@@ -61,8 +61,7 @@
                     <li><a href="#">Shop</a></li>
                     @Html.Action("MenuDanhMuc", "DanhMuc")
                     <li><a href="@Url.Action("Blog", "Blog")">Blogs</a></li>
-                    <li><a href="#">Pages</a></li>
-                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Purchase History</a></li>
                 </ul>
             </nav>
         </header>
@@ -342,7 +341,44 @@
             });
         };
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.submit-order').addEventListener('click', function (e) {
+        e.preventDefault();
 
+        const data = {
+            Email: document.getElementById('email').value,
+            HoTen: document.getElementById('name').value,
+            SoDienThoai: document.getElementById('phone').value,
+            DiaChi: document.getElementById('address').value,
+            GhiChu: document.getElementById('note').value,
+            idNguoiDung: 2 // giả định người dùng có ID = 2
+        };
+
+        fetch('@Url.Action("DatHang", "ThanhToan")', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // Bỏ token nếu không dùng @Html.AntiForgeryToken()
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(res => {
+            if (res.success) {
+                alert("✅ " + res.message);
+                window.location.href = '/'; // hoặc chuyển đến trang cảm ơn
+            } else {
+                alert("❌ " + res.message);
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi khi đặt hàng:', error);
+            alert('❌ Có lỗi xảy ra khi đặt hàng.');
+        });
+    });
+});
+</script>
 </body>
 
 </html>
