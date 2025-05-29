@@ -151,6 +151,7 @@
     <Compile Include="Controllers\DetailsController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LichSuDatHangController.cs" />
     <Compile Include="Controllers\Register_LoginController.cs" />
     <Compile Include="Controllers\ThanhToanController.cs" />
     <Compile Include="Global.asax.cs">
@@ -226,6 +227,7 @@
     <Content Include="Content\css\styles_details.css" />
     <Content Include="Content\css\styles_giohang.css" />
     <Content Include="Content\css\styles_avatar_header.css" />
+    <Content Include="Content\css\styles_history.css" />
     <Content Include="Content\css\styles_signUp_signIn.css" />
     <Content Include="Content\css\styles_trangchu.css" />
     <Content Include="Content\fonts\fa-brands-400.svg" />
@@ -5024,6 +5026,8 @@
     <Content Include="Views\About\About.cshtml" />
     <Content Include="Views\blog\Blog.cshtml" />
     <Content Include="Views\Shared\_MenuDanhMuc.cshtml" />
+    <Content Include="Views\LichSuDatHang\index.cshtml" />
+    <Content Include="Views\ThanhToan\OrderDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,7 +1,9 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@model IEnumerable<ThuongMaiDienTu.Models.HoaDon>
 
+@{
+    ViewBag.Title = "Lịch sử đặt hàng";
+    Layout = null;
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,17 +13,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Slider</title>
 
-    <link rel="stylesheet" href="css/footer_style.css">
+    <link rel="stylesheet" href="~/Content/css/footer_style.css">
     <link rel="stylesheet" href="~/Content/css/styles_dropdown_nav.css">
     <link rel="stylesheet" href="~/Content/css/styles_trangchu.css">
     <link rel="stylesheet" href="~/Content/css/styles_details.css">
     <link rel="stylesheet" href="~/Content/css/styles_avatar_header.css">
+    <link rel="stylesheet" href="~/Content/css/styles_history.css">
     <script src="~/Scripts/script.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <link rel="stylesheet" href="fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_forward_ios" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
     <link rel="stylesheet" href="fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
     <link rel="stylesheet"
@@ -51,7 +55,6 @@
     <style>
     </style>
 </head>
-
 <body>
     <header>
         <section>
@@ -101,181 +104,122 @@
                     @Html.Action("MenuDanhMuc", "DanhMuc")
                     <li><a href="@Url.Action("Blog", "Blog")">Blogs</a></li>
                     <li><a href="@Url.Action("index", "LichSuDatHang")">Purchase History</a></li>
+
                 </ul>
             </nav>
         </section>
     </header>
 
+
     <main>
-        <section class="video-intro">
-            <figure id="video-container">
-                <div class="video-play">
-                    <video src="~/video/intro.mp4" controls loop autoplay muted></video>
 
-                </div>
-                <figcaption id="video-caption">
-
-                    <div class="ad-content">
-                        <h2>| WELCOME TO GL JEWELRY</h2>
-                        <p>"Premium Silver – Timeless Beauty That Lasts."</p>
-                        <button class="shop-btn">EXPLORE  -></button>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var order in Model)
+            {
+                <section class="order-summary">
+                    <div class="shop-info">
+                        <div class="shop-name">
+                            <strong><i class="fas fa-store"></i> GL JEWELRY</strong>
+                            <span class="chat-btn">Chat</span>
+                            <span class="view-shop">Xem shop</span>
+                        </div>
+                        <div class="delivery-status">
+                            <span>🚚 Đã giao hàng / Chưa đối soát</span>
+                            <span class="rated">| ĐÃ ĐÁNH GIÁ</span>
+                        </div>
                     </div>
 
-                </figcaption>
-            </figure>
+                    @{
+                        var firstProduct = order.ChiTietHoaDons.FirstOrDefault();
+                        var remainingProducts = order.ChiTietHoaDons.Skip(1);
+                    }
 
-        </section>
-
-
-
-
-        <section class="content">
-            <h2>WELCOME TO GL JEWELR</h2>
-            <p>
-                "Thế giới trang sức bạc tinh tế, nơi vẻ đẹp thanh lịch hòa quyện cùng sự sang trọng. Như Audrey Hepburn
-                từng nói: 'Sự thanh lịch là vẻ đẹp duy nhất không bao giờ phai tàn.' Hãy để Hãy để Giọt lệ Jewelry đồng
-                hành cùng bạn, tỏa sáng với những thiết kế độc đáo, tôn vinh phong cách và nét cuốn hút riêng biệt trong
-                mỗi khoảnh khắc!"
-            </p>
-            <p>
-                Khẳng định phong cách riêng trong từng khoảnh khắc
-            </p>
-
-
-            <div class="info-container">
-                <div class="logo1">
-                    <img src="~/img/nhan_1.png" alt="Logo1">
-                </div>
-                <div class="separator"></div>
-                <div class="vertical-separator"></div>
-                <div class="founder">
-                    <span>Đơn vị tổ chức</span>
-                    <p>Nhóm 02</p>
-                </div>
-            </div>
-        </section>
-        <div id="popular-section"
-             data-bg1="@Url.Content("~/img/nen10.jpg")"
-             data-bg2="@Url.Content("~/img/nen8.jpg")">
-        </div>
-        @{
-            var popular = ViewBag.PopularProducts as List<ThuongMaiDienTu.Models.SanPham>;
-        }
-
-        <section class="content-popular">
-            <div class="container">
-                <h2>Popular Jewellery For You</h2>
-                <p>There who like to look good</p>
-                <div class="images">
-                    @for (int i = 0; i < popular.Count; i++)
+                    @if (firstProduct != null)
                     {
-                        var sp = popular[i];
-                        var firstImage = sp.HinhAnh?.Trim('[', ']').Split(',')[0].Trim();
-                        <div class="image-wrapper @(i + 1)">
-                            <img src="@Url.Content("~/img/" + firstImage)" alt="@sp.TenSanPham" class="image@(i + 1)">
-                            <div class="overlay">
-                                <a href="@Url.Action("Index", "Details", new { id = sp.idSanPham })" class="view-button">
-                                    Xem sản phẩm
-                                </a>
+                        <div class="product-info">
+                            <img src="@Url.Content("~/img/" + (firstProduct.SanPham.HinhAnh?.Split(',')[0].Trim('[', ']', ' ')))" width="80" />
+                            <div class="details">
+                                <div class="product-namels">@firstProduct.SanPham.TenSanPham</div>
+                                <div class="product-typels">Danh mục: @firstProduct.SanPham.DanhMuc.tenDanhMuc</div>
+                                <div class="product-typels">Số lượng: @firstProduct.soLuong</div>
+                            </div>
+                            <div class="price">
+                                <strong>@firstProduct.giaBan.ToString("N0") ₫</strong>
+                            </div>
+                        </div>
+                    }
+                <div class="order-details-content" id="details-@order.idHoaDon" style="display:none; margin-top: 10px;">
+                    @foreach (var item in remainingProducts)
+                    {
+                        <div class="product-info">
+                            <img src="@Url.Content("~/img/" + (item.SanPham.HinhAnh?.Split(',')[0].Trim('[', ']', ' ')))" width="70" />
+                            <div class="details">
+                                <div class="product-namels">@item.SanPham.TenSanPham</div>
+                                <div class="product-typels">Danh mục: @item.SanPham.DanhMuc.tenDanhMuc</div>
+                                <div class="product-typels">Số lượng: @item.soLuong</div>
+                            </div>
+                            <div class="price">
+                                <strong>@item.giaBan.ToString("N0") ₫</strong><br />
+                                <small style="color:gray">= @string.Format("{0:N0}", item.soLuong * item.giaBan) ₫</small>
                             </div>
                         </div>
                     }
 
-                </div>
-            </div>
-        </section>
-
-
-        <section class="content-danhmuc">
-            <div class="danhmuc">
-                <h1>Silver jewelry product catalog</h1>
-                <div class="grid-container">
-                    @for (int i = 0; i < ViewBag.listDanhMuc.Count; i++)
-                    {
-                        // Sau phần tử đầu tiên (i == 1), chèn nội dung đặc biệt
-                        if (i == 1)
-                        {
-                            <a href="#">
-                                <div class="grid-item text item-text">Boost the aesthetics of your interiors</div>
-                            </a>
-                        }
-
-                        var dm = ViewBag.listDanhMuc[i];
-                        <a href="@Url.Action("Index", "DanhMuc", new { id = dm.idDanhMuc })">
-                            <div class="grid-item item-@i">
-                                <img src="@Url.Content("~/img/" + dm.hinhAnh)" alt="@dm.tenDanhMuc" />
-                                <div class="loop"></div>
+                    <div class="order-info" style="margin-top:15px; border-top: 1px solid #ddd; padding-top:10px;">
+                        <h4 style="font-weight: bold; margin-bottom: 10px;">Thông tin người nhận:</h4>
+                        <div style="display: flex; flex-wrap: wrap; gap: 20px; padding-left: 145px;">
+                            <div style="flex: 1 1 250px;">
+                                <p><i class="fas fa-user"></i> <strong>Họ tên:</strong> @order.hoTen</p>
+                                <p><i class="fas fa-envelope"></i> <strong>Email:</strong> @order.email</p>
                             </div>
-                        </a>
-                    }
+                            <div style="flex: 1 1 250px;">
+                                <p><i class="fas fa-phone"></i> <strong>SĐT:</strong> @order.soDienThoai</p>
+                                <p><i class="fas fa-map-marker-alt"></i> <strong>Địa chỉ:</strong> @order.diaChi</p>
+                            </div>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(order.ghiChu))
+                        {
+                            <div style="margin-top:10px;">
+                                <p><i class="fas fa-sticky-note"></i> <strong>Ghi chú:</strong> @order.ghiChu</p>
+                            </div>
+                        }
+                    </div>
 
                 </div>
-            </div>
-        </section>
-
-        <section id="content-bestseller">
-            <h2>BEST SELLER</h2>
-            <div class="container swiper">
-                <div class="card-wrapper">
-                    <ul class="card-list swiper-wrapper">
-                        @if (ViewBag.SimilarProducts != null)
-                        {
-                            foreach (var product in ViewBag.SimilarProducts)
-                            {
-                                <li class="card-item swiper-slide">
-                                    <a href="@Url.Action("Index", "Details", new { id = product.idSanPham })" class="card-link magnetic">
-                                        <div class="card-inner">
-                                            <img src="@Url.Content("~/img/" + product.HinhAnh.Trim('[', ']').Split(',')[0].Trim())" alt="@product.TenSanPham" class="card-image">
 
 
-                                            <p class="badge">@product.DanhMuc.tenDanhMuc</p>
-                                            <h2 class="card-title">@product.TenSanPham</h2>
-                                            <h3 class="card-title">@product.GiaBan.ToString("#,##0").Replace(",", ".") đ</h3>
-                                            <button class="card-button material-symbols-outlined">
-                                                arrow_forward_ios
-                                            </button>
-                                        </div>
-                                    </a>
-                                </li>
-                            }
-                        }
-                        else
-                        {
-                            <p>No products available.</p>
-                        }
-                    </ul>
+                    <div class="order-footer">
+                        <div class="total">
+                            <span>Tổng số tiền:</span>
+                            <strong style="color: red;">@string.Format("{0:N0}", order.tongTien) ₫</strong>
+                        </div>
+                        <div class="order-actions">
+                            <button class="btn" onclick="window.location.href='@Url.Action("MuaLai", "ThanhToan", new { idHoaDon = order.idHoaDon })'">Mua Lần Nữa</button>
+                            <!-- Nút toggle -->
+                            <button class="btn-outline" onclick="toggleDetails(@order.idHoaDon)">Xem Chi Tiết Đơn Hàng</button>
+                            <button class="btn-outline" onclick="window.location.href='@Url.Action("Reviews", "Shop", new { id = order.idHoaDon })'">Xem Đánh Giá Shop</button>
+                        </div>
 
 
-                    <div class="swiper-pagination"></div>
-                    <div class="swiper-slide-button swiper-button-next"></div>
-                    <div class="swiper-slide-button swiper-button-prev"></div>
-                </div>
-            </div>
-        </section>
+                    </div>
+                </section>
+            }
+        }
+        else
+        {
+            <p>Không có lịch sử đặt hàng.</p>}
 
-
-        <section id="content-subscribe">
-            <div id="subscribe-form">
-                <h2>Subscribe</h2>
-                <form>
-                    <label for="email"></label>
-                    <input type="email" id="email" placeholder="Type your email....">
-                    <button type="submit" style="display: block;">Submit</button>
-                </form>
-            </div>
-            <figrue id="img-subscribe">
-                <img src="~/img/nen7.jpg" alt="subscribe-img" class="image3">
-            </figrue>
-            <div id="snow-container"></div>
-        </section>
 
     </main>
+
 
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-logo">
                 <div class="logo-box">
-                    <img src="~/img/logo.png" alt="GL JEWELRY" />
+                    <img src="img/logo.png" alt="GL JEWELRY" />
                 </div>
             </div>
 
@@ -344,10 +288,22 @@
 
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="~/Scripts/script.js" defer></script>
+    <script>
+        function toggleDetails(id) {
+            const detailDiv = document.getElementById('details-' + id);
+            const button = event.target;
 
-
+            if (detailDiv.style.display === 'none') {
+                detailDiv.style.display = 'block';
+                button.textContent = 'Ẩn Chi Tiết';
+            } else {
+                detailDiv.style.display = 'none';
+                button.textContent = 'Xem Chi Tiết Đơn Hàng';
+            }
+        }
+    </script>
 
 </body>
 
 </html>
+

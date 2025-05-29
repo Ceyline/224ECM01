@@ -160,15 +160,19 @@ namespace ThuongMaiDienTu.Controllers
                     {
                         return Json(new { success = false, message = "Mật khẩu không đúng." });
                     }
+					Session.Clear(); // Xóa toàn bộ session cũ
 
-                    // Thiết lập session
-                    Session["idNguoiDung"] = user.idNguoiDung;
+					// Thiết lập session
+					Session["idNguoiDung"] = user.idNguoiDung;
                     Session["HoTen"] = user.HoTen;
                     Session["Email"] = user.Email;
                     Session["SoDienThoai"] = user.SoDienThoai;
                     Session["DiaChi"] = user.DiaChi;
 
-                    return Json(new { success = true, message = "Đăng nhập thành công!" });
+					System.Diagnostics.Debug.WriteLine("Đăng nhập với idNguoiDung = " + user.idNguoiDung);
+
+
+					return Json(new { success = true, message = "Đăng nhập thành công!" });
                 }
             }
             catch (Exception ex)

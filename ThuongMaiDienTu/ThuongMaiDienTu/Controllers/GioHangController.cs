@@ -13,29 +13,32 @@ namespace ThuongMaiDienTu.Controllers
     public class GioHangController : Controller
     {
         private trangsucbacEntities db = new trangsucbacEntities();
-        // GET: GioHang
-        public ActionResult Index()
-        {
-            if (Session["idNguoiDung"] == null)
-            {
-                ViewBag.isLogin = false;
-            }
-            else
-            {
-                ViewBag.isLogin = true;
-            }
-            int idNguoiDung = (int)Session["idNguoiDung"];
-            using (var db = new trangsucbacEntities())
-            {
-                var gioHang = db.GioHangs
-                    .Where(gh => gh.idNguoiDung == idNguoiDung)
-                    .Include(gh => gh.SanPham) // Đảm bảo SanPham được tải kèm theo GioHang
-                    .ToList();
+		// GET: GioHang
+		public ActionResult Index()
+		{
+			if (Session["idNguoiDung"] == null)
+			{
+				ViewBag.isLogin = false;
+				return RedirectToAction("Index", "Register_Login");
+			}
 
-                return View(gioHang); // Trả về danh sách GioHang cho view
-            }
-        }
-        [HttpPost]
+			ViewBag.isLogin = true;
+			int idNguoiDung = (int)Session["idNguoiDung"];
+
+			using (var db = new trangsucbacEntities())
+			{
+				var gioHang = db.GioHangs
+					.Where(gh => gh.idNguoiDung == idNguoiDung)
+					.Include(gh => gh.SanPham)
+					.ToList();
+
+				Session["cartCount"] = gioHang.Sum(g => (int?)g.SoLuong) ?? 0;
+
+				return View(gioHang);
+			}
+		}
+
+		[HttpPost]
         public ActionResult UpdateCart(int? productId, int quantity, string action)
         {
             try
@@ -131,8 +134,11 @@ namespace ThuongMaiDienTu.Controllers
                     var cartCount = db.GioHangs
                         .Where(gh => gh.idNguoiDung == idNguoiDung)
                         .Sum(gh => gh.SoLuong);
+					Session["cartCount"] = db.GioHangs
+	.Where(gh => gh.idNguoiDung == idNguoiDung)
+	.Sum(g => (int?)g.SoLuong) ?? 0;
 
-                    return Json(new { success = true, cartCount = cartCount });
+					return Json(new { success = true, cartCount = cartCount });
                 }
             }
             catch (DbEntityValidationException ex)
