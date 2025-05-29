@@ -11,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đơn hàng</title>
     <link rel="stylesheet" href="~/Content/css/styles.css?v=@DateTime.Now.Ticks">
+    <link rel="stylesheet" href="css/footer_style.css">
+    <link rel="stylesheet" href="~/Content/css/styles_dropdown_nav.css">
     <link rel="stylesheet" href="~/Content/css/styles_avatar_header.css">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
@@ -61,7 +63,7 @@
                     <li><a href="#">Shop</a></li>
                     @Html.Action("MenuDanhMuc", "DanhMuc")
                     <li><a href="@Url.Action("Blog", "Blog")">Blogs</a></li>
-                    <li><a href="#">Purchase History</a></li>
+                    <li><a href="@Url.Action("index", "LichSuDatHang")">Purchase History</a></li>urchase History</a></li>
                 </ul>
             </nav>
         </header>

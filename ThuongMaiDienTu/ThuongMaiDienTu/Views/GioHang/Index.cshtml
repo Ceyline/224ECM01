@@ -40,8 +40,12 @@
                     {
                         <a href="@Url.Action("Index", "GioHang")">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count">0</span>
+                            @if (Session["cartCount"] != null && Convert.ToInt32(Session["cartCount"]) > 0)
+                            {
+                                <span class="cart-count">@Session["cartCount"]</span>
+                            }
                         </a>
+
                     }
                     else
                     {
@@ -127,7 +131,7 @@
                 <li><a href="#">Shop</a></li>
                 @Html.Action("MenuDanhMuc", "DanhMuc")
             <li><a href="@Url.Action("Blog", "Blog")">Blogs</a></li>
-            <li><a href="#">Purchase History</a></li>
+            <li><a href="@Url.Action("index", "LichSuDatHang")">Purchase History</a></li>
             </ul>
         </nav>
     </header>
