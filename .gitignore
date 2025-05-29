@@ -1,8 +1,9 @@
 /vs
 # Binaries and build outputs
-[Bb]in/
-[Oo]bj/
-
-# Debug symbols
+# Build output
+/bin/
+/obj/
+*.dll
 *.pdb
 *.cache
+*.FileListAbsolute.txt

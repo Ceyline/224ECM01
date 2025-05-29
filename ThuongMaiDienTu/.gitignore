@@ -1,4 +1,9 @@
 .vs/
 
-bin/
-obj/
+# Build output
+/bin/
+/obj/
+*.dll
+*.pdb
+*.cache
+*.FileListAbsolute.txt

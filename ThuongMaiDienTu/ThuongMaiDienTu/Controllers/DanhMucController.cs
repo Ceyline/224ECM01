@@ -19,6 +19,15 @@ namespace ThuongMaiDienTu.Controllers
             var danhMucs = _context.DanhMucs.ToList();
             var sanPhams = _context.SanPhams.AsQueryable();
 
+            if (Session["idNguoiDung"] == null)
+            {
+                ViewBag.isLogin = false;
+            }
+            else
+            {
+                ViewBag.isLogin = true;
+            }
+
             if (idDanhMuc.HasValue)
             {
                 sanPhams = sanPhams.Where(sp => sp.idDanhMuc == idDanhMuc);

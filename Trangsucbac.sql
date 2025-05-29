@@ -7,7 +7,7 @@ CREATE TABLE DanhMuc(
 	[idDanhMuc] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	[tenDanhMuc] [nvarchar](255) NULL,
 	[moTa] [nvarchar](3000) NULL
-	)
+)
 
 CREATE TABLE SanPham (
     idSanPham INT PRIMARY KEY IDENTITY(1,1) NOT NULL,

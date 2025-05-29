@@ -9,10 +9,20 @@ namespace ThuongMaiDienTu.Controllers
 {
     public class HomeController : Controller
     {
-		public ActionResult Index()
-		{
-			using (var db = new trangsucbacEntities())
-			{
+        public ActionResult Index()
+        {
+            using (var db = new trangsucbacEntities())
+            {
+                if (Session["idNguoiDung"] == null)
+                {
+                    ViewBag.isLogin = false;
+                }
+                else
+                {
+                    ViewBag.isLogin = true;
+                }
+
+		
 				var similarProducts = db.SanPhams
 										.Include("DanhMuc")
 										.Take(4)
@@ -21,12 +31,12 @@ namespace ThuongMaiDienTu.Controllers
 				ViewBag.listDanhMuc = db.DanhMucs.ToList();
 				ViewBag.PopularProducts = db.SanPhams.OrderBy(p => p.idSanPham).Take(2).ToList();
 
-			}
+            }
 
-			return View();
-		}
+            return View();
+        }
 
-		public ActionResult About()
+        public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
