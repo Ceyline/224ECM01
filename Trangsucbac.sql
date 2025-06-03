@@ -1,4 +1,13 @@
-﻿create database trangsucbac
+﻿-- Xóa và tạo lại database
+USE master;
+GO
+IF EXISTS (SELECT name FROM sys.databases WHERE name = N'trangsucbac')
+BEGIN
+    ALTER DATABASE [trangsucbac] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE [trangsucbac];
+END
+
+create database trangsucbac
 go
 USE trangsucbac
 GO
