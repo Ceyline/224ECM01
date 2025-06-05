@@ -11,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đơn hàng</title>
     <link rel="stylesheet" href="~/Content/css/styles.css?v=@DateTime.Now.Ticks">
+    <link rel="stylesheet" href="css/footer_style.css">
+    <link rel="stylesheet" href="~/Content/css/styles_dropdown_nav.css">
     <link rel="stylesheet" href="~/Content/css/styles_avatar_header.css">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
@@ -57,12 +59,11 @@
             <nav class="navbar">
 
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                     <li><a href="#">Shop</a></li>
-                    <li><a href="#">All Categories</a></li>
-                    <li><a href="#">Blogs</a></li>
-                    <li><a href="#">Pages</a></li>
-                    <li><a href="#">Features</a></li>
+                    @Html.Action("MenuDanhMuc", "DanhMuc")
+                    <li><a href="@Url.Action("Blog", "Blog")">Blogs</a></li>
+                    <li><a href="@Url.Action("index", "LichSuDatHang")">Purchase History</a></li>urchase History</a></li>
                 </ul>
             </nav>
         </header>
@@ -342,7 +343,44 @@
             });
         };
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.submit-order').addEventListener('click', function (e) {
+        e.preventDefault();
 
+        const data = {
+            Email: document.getElementById('email').value,
+            HoTen: document.getElementById('name').value,
+            SoDienThoai: document.getElementById('phone').value,
+            DiaChi: document.getElementById('address').value,
+            GhiChu: document.getElementById('note').value,
+            idNguoiDung: 2 // giả định người dùng có ID = 2
+        };
+
+        fetch('@Url.Action("DatHang", "ThanhToan")', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // Bỏ token nếu không dùng @Html.AntiForgeryToken()
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(res => {
+            if (res.success) {
+                alert("✅ " + res.message);
+                window.location.href = '/'; // hoặc chuyển đến trang cảm ơn
+            } else {
+                alert("❌ " + res.message);
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi khi đặt hàng:', error);
+            alert('❌ Có lỗi xảy ra khi đặt hàng.');
+        });
+    });
+});
+</script>
 </body>
 
 </html>
