@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ThuongMaiDienTu.Models;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
-using Rotativa.AspNetCore;
-using System.Drawing;
 using System.Data.Entity;
-using System.IO; // Đảm bảo đã có
 
 namespace ThuongMaiDienTu.Controllers
 {
