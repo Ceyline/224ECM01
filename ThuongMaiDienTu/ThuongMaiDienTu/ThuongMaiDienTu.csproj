@@ -509,9 +509,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-
     <Compile Include="Controllers\BlogController.cs" />
-
     <Compile Include="Controllers\DanhMucController.cs" />
     <Compile Include="Controllers\DetailsController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
@@ -598,11 +596,9 @@
     <Content Include="Content\css\styles_history.css" />
     <Content Include="Content\css\styles_signUp_signIn.css" />
     <Content Include="Content\css\styles_trangchu.css" />
-
     <Content Include="Content\dataTables.bootstrap4.min.css" />
     <Content Include="Content\select2.min.css" />
     <Content Include="Content\style.css" />
-
     <Content Include="Content\fonts\fa-brands-400.svg" />
     <Content Include="Content\fonts\fa-regular-400.svg" />
     <Content Include="Content\fonts\fa-solid-900.svg" />
@@ -675,7 +671,6 @@
     <Content Include="css\style.css" />
     <Content Include="css\swiper.min.css" />
     <Content Include="css\themify-icons.css" />
-
     <Content Include="favicon.ico" />
     <Content Include="fontawesome\fontawesome-free-6.7.2-web\fontawesome-free-6.7.2-web\css\all.css" />
     <Content Include="fontawesome\fontawesome-free-6.7.2-web\fontawesome-free-6.7.2-web\css\all.min.css" />
@@ -2775,7 +2770,6 @@
     <Content Include="fontawesome\fontawesome-free-6.7.2-web\fontawesome-free-6.7.2-web\svgs\solid\z.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-
     <Content Include="img\01-aijt_lset022-01425_a7ddb277a36b4f14b0675757e9ad1146_master 1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3079,7 +3073,6 @@
     <Content Include="img\wedding-band-set.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-
     <Content Include="img\01-aijt_lset022-01425_a7ddb277a36b4f14b0675757e9ad1146_master 1.png" />
     <Content Include="img\1-100x100 1.png" />
     <Content Include="img\11-1-600x600 1.png" />
@@ -3315,7 +3308,6 @@
     <Content Include="img\vtay2.jpg" />
     <Content Include="img\vtay3.jpg" />
     <Content Include="img\wedding-band-set.jpg" />
-
     <Content Include="js\add_to_favorite.js" />
     <Content Include="js\clicking_effects.js" />
     <Content Include="js\related_produdct_slider.js" />
@@ -3392,7 +3384,6 @@
     <Content Include="fontawesome\fontawesome-free-6.7.2-web\fontawesome-free-6.7.2-web\webfonts\fa-solid-900.woff2" />
     <Content Include="fontawesome\fontawesome-free-6.7.2-web\fontawesome-free-6.7.2-web\webfonts\fa-v4compatibility.ttf" />
     <Content Include="fontawesome\fontawesome-free-6.7.2-web\fontawesome-free-6.7.2-web\webfonts\fa-v4compatibility.woff2" />
-
     <Content Include="img\Rose Necklace.webp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3407,7 +3398,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\dataTables.bootstrap4.min.js" />
     <Content Include="Scripts\feather.min.js" />
-
     <Content Include="img\Rose Necklace.webp" />
     <Content Include="img\Ruby Necklace.webp" />
     <Content Include="css\style.map" />
@@ -3431,7 +3421,6 @@
     <Content Include="Content\fonts\themify.ttf" />
     <Content Include="Content\fonts\themify.woff" />
     <Content Include="Content\fonts\_flaticon.scss" />
-
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -3448,6 +3437,7 @@
     <Content Include="Scripts\js\apexchart\apexcharts.min.js" />
     <Content Include="Scripts\js\apexchart\chart-data.js" />
     <Content Include="Scripts\js\clicking_effects.js" />
+    <Content Include="Scripts\js\danhmuc_add_to_cart.js" />
     <Content Include="Scripts\js\details_add_to_cart.js" />
     <Content Include="Scripts\js\related_produdct_slider.js" />
     <Content Include="Scripts\js\script_giohang.js" />
@@ -5721,7 +5711,6 @@
     <Content Include="Views\DanhMuc\Index.cshtml" />
     <Content Include="Views\GioHang\Index.cshtml" />
     <Content Include="Views\ThanhToan\Index.cshtml" />
-
     <Content Include="Views\Admin\CEUsers.cshtml" />
     <Content Include="Views\Admin\CESanPham.cshtml" />
     <Content Include="Views\Admin\QLDanhMucSanPham.cshtml" />
@@ -5733,14 +5722,12 @@
     <Content Include="Views\Admin\ThongKeDonHang.cshtml" />
     <Content Include="Views\Admin\HomeAdmin.cshtml" />
     <Content Include="Views\Admin\ChiTietGD.cshtml" />
-
     <Content Include="Views\About\About.cshtml" />
     <Content Include="Views\blog\Blog.cshtml" />
     <Content Include="Views\Shared\_MenuDanhMuc.cshtml" />
     <Content Include="Views\LichSuDatHang\index.cshtml" />
     <Content Include="Views\ThanhToan\OrderDetails.cshtml" />
     <Content Include="Views\Shared\_MenuAvatar.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

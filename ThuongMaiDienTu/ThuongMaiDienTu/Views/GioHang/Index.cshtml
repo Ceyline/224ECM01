@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ThuongMaiDienTu.Models.GioHang>
 
 @{
-    ViewBag.Title = "Giỏ hàng";
+    ViewBag.Title = "Shopping Cart";
 }
 
 <!DOCTYPE html>
@@ -25,9 +25,8 @@
     <header>
         <div class="top-bar">
             <div class="left">
-
                 <span class="hotline">
-                    <i class="fas fa-phone"></i> <strong>hotline:</strong> (+00) 987 877
+                    <i class="fas fa-phone"></i> <strong>Hotline:</strong> (+00) 987 877
                     821
                 </span>
             </div>
@@ -49,8 +48,6 @@
                     {
                         <a href="@Url.Action("Index", "Account")">Log in / Register</a>
                     }
-
-
                 }
                 <a href="#"><i class="fas fa-search"></i></a>
                 @if (is_login)
@@ -59,69 +56,74 @@
                 }
             </div>
         </div>
-        <!-- Overlay nền mờ -->
+        <!-- Overlay background blur -->
         <div id="cart-overlay" class="cart-overlay" onclick="closeCart()"></div>
 
-        <!-- Sidebar giỏ hàng -->
+        <!-- Shopping cart sidebar -->
         <div id="sidebar-cart" class="sidebar-cart">
             <div class="cart-header">
-                <h2>GIỎ HÀNG</h2>
+                <h2>SHOPPING CART</h2>
                 <span class="close-btn" onclick="closeCart()">×</span>
             </div>
 
             <div class="cart-free-ship">
                 <div class="free-ship-top-border"></div>
                 <div class="free-ship-content">
-                    🎉 Chúc mừng bạn! Đơn hàng của bạn đã được Freeship
+                    🎉 Congratulations! Your order qualifies for Free Shipping
                     <img src="~/img/giphy_s.gif" alt="Free Shipping" class="free-ship-img">
                 </div>
             </div>
 
-
-
             <div class="cart-content">
                 @foreach (var item in Model)
                 {
+                    var images = !string.IsNullOrEmpty(item.SanPham.HinhAnh)
+                        ? Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(item.SanPham.HinhAnh)
+                        : new string[0];
+
+                    var firstImage = images.Length > 0 ? images[0].Trim('"') : "default.jpg";
+
                     <div class="cart-item">
-                        <!-- Hiển thị ảnh sản phẩm -->
-                        <img src="@Url.Content("~/img/" + item.SanPham.HinhAnh.Split(',')[0].Trim('[', ']'))" alt="@item.SanPham.TenSanPham" />
+                        <!-- Display product image -->
+                        <img src="@Url.Content("~/img/" + firstImage)" alt="@item.SanPham.TenSanPham" />
 
                         <div class="item-info">
-                            <!-- Tên sản phẩm -->
+                            <!-- Product name -->
                             <p class="item-name">@item.SanPham.TenSanPham</p>
 
-                            <!-- Mô tả sản phẩm hoặc size -->
+                            <!-- Product description or size -->
                             <p class="item-type">Size: @item.Size</p>
 
-                            <!-- Giá sản phẩm -->
+                            <!-- Product price -->
                             <p class="item-price">@item.SanPham.GiaBan.ToString("N0") ₫</p>
-
-                            <div class="quantity">
-                                <!-- Các nút tăng giảm số lượng -->
-                                <button class="decrease">-</button>
-                                <input type="text" value="@item.SoLuong" readonly />
-                                <button class="increase">+</button>
-                            </div>
                         </div>
 
-                        <!-- Nút xóa sản phẩm khỏi giỏ -->
-                        <span class="remove-item">XÓA</span>
+                        <div class="quantity">
+                            <!-- Quantity adjustment buttons -->
+                            <button class="decrease">-</button>
+                            <input type="text" value="@item.SoLuong" readonly />
+                            <button class="increase">+</button>
+                        </div>
                     </div>
+
+                    <!-- Remove product button -->
+                    <span class="remove-item">REMOVE</span>
+
+                    @*</div>*@
                 }
             </div>
 
             <div class="cart-footer">
                 <div class="cart-note">
-                    <a href="#">Thêm ghi chú</a>
-                    <a href="#" class="detail">Xem chi tiết giỏ hàng</a>
+                    <a href="#">Add Note</a>
+                    <a href="#" class="detail">View Cart Details</a>
                 </div>
-                <p class="tax-note">Phí ship & thuế được tính ở Trang Thanh Toán</p>
-                <button class="checkout-btn">THANH TOÁN ・ @Model.Sum(m => m.SanPham.GiaBan * m.SoLuong).ToString("N0") ₫</button>
+                <p class="tax-note">Shipping & taxes calculated at Checkout</p>
+                <button class="checkout-btn">CHECKOUT ・ @Model.Sum(m => m.SanPham.GiaBan * m.SoLuong).ToString("N0") ₫</button>
             </div>
         </div>
 
         <nav class="navbar">
-
             <ul class="nav-links">
                 <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                 <li><a href="#">Shop</a></li>
@@ -134,30 +136,37 @@
     <div class="cart-container">
         <div class="cart-title">
             <span class="breadcrumbs">
-                <span class="home-link">Trang chủ</span> > <span class="current-page">Giỏ hàng</span>
+                <span class="home-link">Home</span> > <span class="current-page">Shopping Cart</span>
             </span>
-            <h2>GIỎ HÀNG CỦA BẠN (@Model.Count() SẢN PHẨM)</h2>
+            <h2>YOUR CART (@Model.Count() ITEMS)</h2>
         </div>
 
         @foreach (var item in Model)
         {
+            var images = !string.IsNullOrEmpty(item.SanPham.HinhAnh)
+                ? Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(item.SanPham.HinhAnh)
+                : new string[0];
+
+            var firstImage = images.Length > 0 ? images[0].Trim('"') : "default.jpg";
             <div class="cart-item" data-product-id="@item.idSanPham">
-                <img src="@Url.Content("~/img/" + item.SanPham.HinhAnh.Split(',')[0].Trim('[').Trim(']'))" alt="@item.SanPham.TenSanPham" />
+                <img src="@Url.Content("~/img/" + firstImage)" alt="@item.SanPham.TenSanPham" />
                 <div class="item-details">
-                    <h3>@item.SanPham.TenSanPham</h3>
-                    <p>Giá: <span class="price">@item.SanPham.GiaBan.ToString("N0")₫</span></p>
-                    <p>Size: @item.Size</p>
-                    <div class="quantity-row">
-                        <label>Số lượng</label>
-                        <div class="quantity-box">
-                            <button>-</button>
-                            <input type="text" value="@item.SoLuong" />
-                            <button>+</button>
+                    <a href="@Url.Action("Index", "Details", new {id = item.SanPham.idSanPham})">
+                        <h3>@item.SanPham.TenSanPham</h3>
+                        <p>Price: <span class="price">@item.SanPham.GiaBan.ToString("N0")₫</span></p>
+                        <p>Size: @item.Size</p>
+                        <div class="quantity-row">
+                            <label>Quantity</label>
+                            <div class="quantity-box">
+                                <button>-</button>
+                                <input type="text" value="@item.SoLuong" />
+                                <button>+</button>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <button class="delete-btn">
-                    <img src="~/img/delete-icon.png" alt="Xóa" />
+                    <img src="~/img/delete-icon.png" alt="Delete" />
                 </button>
             </div>
         }
@@ -165,46 +174,46 @@
 
     <div class="order-container">
         <div class="note-section">
-            <h3>Ghi chú đơn hàng</h3>
-            <textarea placeholder="Nhập thông tin ghi chú của bạn ..."></textarea>
+            <h3>Order Note</h3>
+            <textarea placeholder="Enter your note here ..."></textarea>
         </div>
 
         <div class="order-info">
-            <div class="order-header">THÔNG TIN ĐƠN HÀNG</div>
+            <div class="order-header">ORDER INFORMATION</div>
 
             <div class="order-summary">
                 <p class="total">
-                    <strong>Tổng tiền:</strong>
+                    <strong>Subtotal:</strong>
                     <span>
                         @Model.Sum(item => item.SanPham.GiaBan * item.SoLuong).ToString("N0")₫
                     </span>
                 </p>
                 <p class="ship-note">
-                    Phí vận chuyển sẽ được tính ở trang thanh toán.<br>
-                    Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.
+                    Shipping fees will be calculated at checkout.<br>
+                    You can also enter discount codes at checkout.
                 </p>
             </div>
 
             <div class="invoice-option">
                 <input type="checkbox" id="invoice" />
-                <label for="invoice">Xuất hóa đơn</label>
+                <label for="invoice">Request Invoice</label>
             </div>
 
             <div class="action-buttons">
-                <button class="continue">Tiếp tục mua hàng</button>
-                <button class="checkout" onclick="window.location.href='@Url.Action("Index", "ThanhToan")'">Thanh toán</button>
+                <button class="continue">Continue Shopping</button>
+                <button class="checkout" onclick="window.location.href='@Url.Action("Index", "ThanhToan")'">Checkout</button>
             </div>
         </div>
     </div>
 
     <section class="newsletter">
-        <h2>Nhận ưu đãi và coupon mới nhất!</h2>
-        <p>Chúng tôi cam kết bảo mật không lộ thông tin của bạn.</p>
+        <h2 style="color: white;">Get the latest deals and coupons!</h2>
+        <p style="color: white;">We guarantee your information will be kept secure.</p>
         <div class="newsletter-form">
-            <input type="email" placeholder="Nhập địa chỉ email của bạn" />
-            <button>ĐĂNG KÝ</button>
+            <input type="email" placeholder="Enter your email address" />
+            <button>SUBSCRIBE</button>
         </div>
-        <p class="note">Nhận ngay coupon giảm 15% khi đăng ký ngay</p>
+        <p class="note">Get 15% off coupon when you subscribe now</p>
     </section>
 
     <footer class="footer">
@@ -214,7 +223,6 @@
                     <img src="~/img/logo.png" alt="GL JEWELRY" />
                 </div>
             </div>
-
 
             <div class="footer-columns">
                 <div class="footer-column">
@@ -250,7 +258,7 @@
                 </div>
 
                 <div class="footer-column">
-                    <h4>Group Number</h4>
+                    <h4>Group Members</h4>
                     <ul>
                         <li>Nguyễn Ngọc Tú Anh</li>
                         <li>Lê Thị Huyền Trang</li>
@@ -284,8 +292,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/Scripts/jquery-3.7.0.min.js"></script>
     <script src="~/Scripts/script_giohang.js"></script>
-
-
 </body>
-
 </html>

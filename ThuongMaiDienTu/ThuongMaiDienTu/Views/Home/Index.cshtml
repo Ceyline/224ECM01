@@ -130,13 +130,13 @@
         <section class="content">
             <h2>WELCOME TO GL JEWELR</h2>
             <p>
-                "A world of exquisite silver jewelry, where elegance blends seamlessly with sophistication. 
-                As Audrey Hepburn once said, 'Elegance is the only beauty that never fades.' 
-                Let GL Jewelry accompany you, shining with unique designs that celebrate your style 
+                "A world of exquisite silver jewelry, where elegance blends seamlessly with sophistication.
+                As Audrey Hepburn once said, 'Elegance is the only beauty that never fades.'
+                Let GL Jewelry accompany you, shining with unique designs that celebrate your style
                 and distinctive charm in every moment."
             </p>
             <p>
-                Khẳng định phong cách riêng trong từng khoảnh khắc
+                Embrace your individuality in every moment.
             </p>
 
 
@@ -147,7 +147,7 @@
                 <div class="separator"></div>
                 <div class="vertical-separator"></div>
                 <div class="founder">
-                    <span>Đơn vị tổ chức</span>
+                    <span>Developed byc</span>
                     <p>Nhóm 02</p>
                 </div>
             </div>
@@ -168,12 +168,26 @@
                     @for (int i = 0; i < popular.Count; i++)
                     {
                         var sp = popular[i];
-                        var firstImage = sp.HinhAnh?.Trim('[', ']').Split(',')[0].Trim();
+                        string firstImage = "default.jpg";
+                        try
+                        {
+                            if (!string.IsNullOrEmpty(sp.HinhAnh))
+                            {
+                                var images = JsonConvert.DeserializeObject<List<string>>(sp.HinhAnh);
+                                if (images != null && images.Any())
+                                {
+                                    firstImage = images[0].Trim();
+                                }
+                            }
+                        }
+                        catch (JsonException)
+                        { }
+
                         <div class="image-wrapper @(i + 1)">
                             <img src="@Url.Content("~/img/" + firstImage)" alt="@sp.TenSanPham" class="image@(i + 1)">
                             <div class="overlay">
                                 <a href="@Url.Action("Index", "Details", new { id = sp.idSanPham })" class="view-button">
-                                    Xem sản phẩm
+                                    View details
                                 </a>
                             </div>
                         </div>
@@ -216,16 +230,32 @@
             <div class="container swiper">
                 <div class="card-wrapper">
                     <ul class="card-list swiper-wrapper">
+                        @using Newtonsoft.Json
                         @if (ViewBag.SimilarProducts != null)
                         {
-                            foreach (var product in ViewBag.SimilarProducts)
+                            foreach (var product in ViewBag.SimilarProducts as List<ThuongMaiDienTu.Models.SanPham>)
                             {
+                                // Parse JSON array and get the first image
+                                string firstImage = "default.jpg"; // Fallback image
+                                try
+                                {
+                                    if (!string.IsNullOrEmpty(product.HinhAnh))
+                                    {
+                                        var images = JsonConvert.DeserializeObject<List<string>>(product.HinhAnh);
+                                        if (images != null && images.Any())
+                                        {
+                                            firstImage = images[0].Trim();
+                                        }
+                                    }
+                                }
+                                catch (JsonException)
+                                {
+                                    // Log error if needed; use fallback image
+                                }
                                 <li class="card-item swiper-slide">
                                     <a href="@Url.Action("Index", "Details", new { id = product.idSanPham })" class="card-link magnetic">
                                         <div class="card-inner">
-                                            <img src="@Url.Content("~/img/" + product.HinhAnh.Trim('[', ']').Split(',')[0].Trim())" alt="@product.TenSanPham" class="card-image">
-
-
+                                            <img src="@Url.Content("~/img/" + firstImage)" alt="@product.TenSanPham" class="card-image">
                                             <p class="badge">@product.DanhMuc.tenDanhMuc</p>
                                             <h2 class="card-title">@product.TenSanPham</h2>
                                             <h3 class="card-title">@product.GiaBan.ToString("#,##0").Replace(",", ".") đ</h3>
@@ -242,8 +272,6 @@
                             <p>No products available.</p>
                         }
                     </ul>
-
-
                     <div class="swiper-pagination"></div>
                     <div class="swiper-slide-button swiper-button-next"></div>
                     <div class="swiper-slide-button swiper-button-prev"></div>

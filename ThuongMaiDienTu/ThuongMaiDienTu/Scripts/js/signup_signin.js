@@ -166,12 +166,12 @@
                 console.log('Response data:', data);
                 alert(data.message);
                 if (data.success) {
-                    window.location.href = '/Home';
+                    window.location.href = '/Home/Index';
                 }
             })
             .catch(error => {
                 console.error('Signup error:', error);
-                alert('Lỗi đăng ký: ' + error.message);
+                alert('Error: ' + error.message);
             });
     });
 
@@ -215,12 +215,18 @@
                 console.log('Response data:', data);
                 alert(data.message);
                 if (data.success) {
-                    window.location.href = '/Home';
+                    if (data.isAdmin) {
+                        window.location.href = '/Admin/HomeAdmin';
+                    }
+                    else {
+                        window.location.href = '/Home';
+                    }
+                    
                 }
             })
             .catch(error => {
                 console.error('Signin error:', error);
-                alert('Lỗi đăng nhập: ' + error.message);
+                alert('Error: ' + error.message);
             });
     });
 });

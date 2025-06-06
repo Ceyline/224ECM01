@@ -1,4 +1,5 @@
-﻿@model List<ThuongMaiDienTu.Models.SanPham>
+﻿@using Newtonsoft.Json
+@model List<ThuongMaiDienTu.Models.SanPham>
 @{
     Layout = "~/Views/Admin/Shared/_LayoutAdmin.cshtml";
 }
@@ -93,16 +94,29 @@
                                     <td>
                                         @if (!string.IsNullOrEmpty(sanpham.HinhAnh))
                                         {
-                                            var firstImage = sanpham.HinhAnh?
-                                                .Trim('[', ']') // Xóa dấu [] đầu và cuối
-                                                .Split(',')[0]  // Lấy phần tử đầu tiên
-                                                .Trim();        // Xóa khoảng trắng thừa nếu có
-
-                                            <img src="@Url.Content("~/img/" + firstImage)" alt="img" style="max-width: 50px; max-height: 50px;" />
+                                            try
+                                            {
+                                                var images = JsonConvert.DeserializeObject<string[]>(sanpham.HinhAnh);
+                                                if (images != null && images.Length > 0)
+                                                {
+                                                    <img src="@Url.Content("~/img/" + images[0])"
+                                                         alt="@sanpham.TenSanPham"
+                                                         style="max-width: 50px; max-height: 50px;"
+                                                         class="img-thumbnail" />
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted">Không có ảnh</span>
+                                                }
+                                            }
+                                            catch
+                                            {
+                                                <span class="text-muted">Lỗi hiển thị ảnh</span>
+                                            }
                                         }
                                         else
                                         {
-                                            <span>Không có ảnh</span>
+                                            <span class="text-muted">Không có ảnh</span>
                                         }
                                     </td>
                                     <td>@sanpham.Size</td>
@@ -128,7 +142,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+        <script src="~/Scripts/jquery-3.7.0.min.js"></script>
 </body>
 </html>

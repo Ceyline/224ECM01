@@ -1,4 +1,5 @@
 ﻿@using System.Linq
+@using Newtonsoft.Json
 @{
     ViewBag.Title = "Details";
 }
@@ -93,30 +94,24 @@
             <div class="main-left-content">
                 <div class="main-img-wrapper">
                     @{
-                        var images = !string.IsNullOrEmpty(Model.HinhAnh)
-                            ? Model.HinhAnh.Trim('[', ']').Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                            : Array.Empty<string>();
-
-                        for (int i = 0; i < images.Length; i++)
+                        var images = ViewBag.Images as string[] ?? new string[0];
+                        if (images.Length > 0)
                         {
-                            if (i == 0)
+                            <img class="main-img active" src="@Url.Content("~/img/" + images[0])" />
+                            if (images.Length > 1)
                             {
-                                <img class="main-img active" src="~/img/@images[i].Trim()" />
-                                <img class="main-img next" style="display: none;" />
-                                <img class="zoom-img" src="~/img/@images[i+1].Trim()" style="display: none;" />
-                                break;
+                                <img class="main-img next" style="display: none;" src="@Url.Content("~/img/" + images[1])" />
+                                <img class="zoom-img" src="@Url.Content("~/img/" + images[1])" style="display: none;" />
                             }
                         }
                     }
                 </div>
-                <ul class="display-flex justify-space-around">
-                    @{
-                        for (int i = 0; i < images.Length; i++)
-                        {
-                            <li><img class="sub-img" src="~/img/@images[i].Trim()" /></li>
-                        }
-                    }
 
+                <ul class="display-flex justify-space-around">
+                    @foreach (var image in ViewBag.Images as string[] ?? new string[0])
+                    {
+                        <li><img class="sub-img" src="@Url.Content("~/img/" + image)" /></li>
+                    }
                 </ul>
             </div>
             <div class="main-right-content">
@@ -338,54 +333,43 @@
             <div class="container swiper">
                 <div class="card-wrapper">
                     <ul class="card-list swiper-wrapper">
-                        @{ var idx = 0;
-                            foreach (var sp in ViewBag.SanPhamLienQuan)
+                        @{
+                            int idx = 0;
+                            foreach (var item in ViewBag.SanPhamLienQuan)
                             {
-                                var relatedImages = !string.IsNullOrEmpty(sp.HinhAnh)
-? sp.HinhAnh.Trim('[', ']').Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-: Array.Empty<string>();
-                                if (idx % 2 == 0)
-                                {
-                                    <li class="card-item swiper-slide">
-                                        <a href="@Url.Action("Index", "Details", new { id = sp.idSanPham })" class="card-link magnetic">
-                                            <div class="card-inner">
-                                                <img src="~/img/@relatedImages[0]" alt="..." class="card-image">
-                                                <p class="badge dchuyen1">@sp.TenSanPham</p>
-                                                <h2 class="card-title">@sp.TenSanPham</h2>
-                                                <h3 class="card-title">@sp.GiaBan.ToString("#,##0").Replace(",", ".")đ</h3>
-                                                <button class="card-button material-symbols-outlined">
-                                                    arrow_forward_ios
-                                                </button>
-                                            </div>
-                                        </a>
+                                var images_rela = !string.IsNullOrEmpty(item.HinhAnh)
+                                    ? Newtonsoft.Json.JsonConvert.DeserializeObject<string[]>(item.HinhAnh)
+                                    : new string[0];
 
-                                    </li>
-                                    idx++;
-                                }
-                                else
-                                {
-                                    <li class="card-item swiper-slide">
-                                        <a href="@Url.Action("Index", "Details", new { id = sp.idSanPham })" class="card-link magnetic">
-                                            <div class="card-inner">
-                                                <img src="~/img/@relatedImages[0]" alt="..." class="card-image">
-                                                <p class="badge vtay2">@sp.TenSanPham</p>
-                                                <h2 class="card-title">@sp.TenSanPham</h2>
-                                                <h3 class="card-title">@sp.GiaBan.ToString("#,##0").Replace(",", ".")đ</h3>
-                                                <button class="card-button material-symbols-outlined">
-                                                    arrow_forward_ios
-                                                </button>
-                                            </div>
-                                        </a>
+                                var firstImage = images_rela.Length > 0 ? images_rela[0] : "no-image.jpg";
 
-                                    </li>
-                                    idx++;
-                                }
+                                <li class="card-item swiper-slide">
+                                    <a href="@Url.Action("Index", "Details", new { id = item.idSanPham })" class="card-link magnetic">
+                                        <div class="card-inner">
+                                            <img src="@Url.Content("~/img/" + firstImage)" alt="@item.TenSanPham" class="card-image">
+                                            <p class="badge @(idx % 2 == 0 ? "dchuyen1" : "vtay2")">@item.TenSanPham</p>
+                                            <h2 class="card-title">@item.TenSanPham</h2>
+                                            <h3 class="card-title">@item.GiaBan.ToString("#,##0").Replace(",", ".")đ</h3>
+                                            <button class="card-button material-symbols-outlined">
+                                                arrow_forward_ios
+                                            </button>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                idx++;
                             }
+                        }
+
+                        <!-- Thêm sản phẩm hiện tại vào cuối danh sách -->
+                        @{
+                            var mainProductImages = ViewBag.Images as string[] ?? new string[0];
+                            var mainFirstImage = mainProductImages.Length > 0 ? mainProductImages[0] : "no-image.jpg";
                         }
                         <li class="card-item swiper-slide">
                             <a href="@Url.Action("Index", "Details", new { id = Model.idSanPham })" class="card-link magnetic">
                                 <div class="card-inner">
-                                    <img src="~/img/@images[0]" alt="..." class="card-image">
+                                    <img src="@Url.Content("~/img/" + mainFirstImage)" alt="@Model.TenSanPham" class="card-image">
                                     <p class="badge vtay2">@Model.TenSanPham</p>
                                     <h2 class="card-title">@Model.TenSanPham</h2>
                                     <h3 class="card-title">@Model.GiaBan.ToString("#,##0").Replace(",", ".")đ</h3>
@@ -394,7 +378,6 @@
                                     </button>
                                 </div>
                             </a>
-
                         </li>
                     </ul>
 
@@ -402,7 +385,6 @@
                     <div class="swiper-slide-button swiper-button-next"></div>
                     <div class="swiper-slide-button swiper-button-prev"></div>
                 </div>
-
             </div>
         </div>
     </main>

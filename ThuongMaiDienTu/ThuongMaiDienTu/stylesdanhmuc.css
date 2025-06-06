@@ -17,6 +17,10 @@
     /* Định nghĩa biến font */
 }
 
+a{
+    text-decoration: none;
+}
+
 /* Top Bar */
 .top-bar {
     background: #ffffff;
@@ -304,6 +308,7 @@ textarea {
     margin: 0;
     font-family: Arial, sans-serif;
     width: 270px;
+    /*    background: white;*/
 }
 
     .category-list li {
@@ -456,6 +461,7 @@ textarea {
     border-radius: 5px;
     position: relative;
     overflow: hidden;
+    border-radius: 20px;
 }
 
 .product-card-img {
@@ -471,6 +477,7 @@ textarea {
         object-fit: cover;
         object-position: center;
         transition: transform 0.3s ease-in-out;
+        border-radius: 20px;
     }
 
 .product-card:hover img {
@@ -479,7 +486,7 @@ textarea {
 
 
 .product-card p {
-    margin: 5px 0;
+    margin: 15px 0 0 0;
     font-size: 14px;
     color: #333;
 }
@@ -598,12 +605,6 @@ textarea {
         visibility: visible;
     }
 
-/* --- Ensure Product Title/Price styles are still present --- */
-.product-card p {
-    margin: 10px 0 5px; /* Adjust spacing if needed */
-    font-size: 14px;
-    color: #333;
-}
 
 .product-card .price {
     color: #000000; /* Example: Make price red like image? */
@@ -755,6 +756,10 @@ textarea {
     font-size: 14px;
     color: #666;
 }
+/*
+.color-light-gray {
+    color: #999999 !important
+}*/
 
 .home-link {
     color: #454545;
@@ -878,9 +883,9 @@ textarea {
 
 /* --- Navbar Base --- */
 /*.navbar {*/
-    /* Example: Dark background for the main navbar itself */
-    /*background: #e9e6e6;*/ /* Adjust dark color as needed */
-    /*display: flex;
+/* Example: Dark background for the main navbar itself */
+/*background: #e9e6e6;*/ /* Adjust dark color as needed */
+/*display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 50px;*/ /* Remove vertical padding if height comes from links */
@@ -890,110 +895,110 @@ textarea {
     list-style: none;
     display: flex;
     gap: 5px;*/ /* Reduce gap slightly? Adjust as needed */
-    /*justify-content: center;
+/*justify-content: center;
     flex: 1;
     margin: 0;*/ /* Ensure no default margin */
-    /*padding: 0;*/ /* Ensure no default padding */
+/*padding: 0;*/ /* Ensure no default padding */
 /*}
 
     .nav-links li {
         position: relative;*/ /* Needed for absolute positioning of dropdown */
-    /*}
+/*}
 
         .nav-links li a {*/
-            /* Example: Light text for main nav links */
-            /*color: #000000;*/ /* Light gray/white text */
-            /*text-decoration: none;
+/* Example: Light text for main nav links */
+/*color: #000000;*/ /* Light gray/white text */
+/*text-decoration: none;
             font-size: 16px;
             font-weight: bold;
             padding: 15px 20px;*/ /* Control navbar height with link padding */
-            /*display: block;*/ /* Make the whole area clickable */
-            /*transition: background-color 0.3s, color 0.3s;
+/*display: block;*/ /* Make the whole area clickable */
+/*transition: background-color 0.3s, color 0.3s;
         }*/
 
-            /* Optional: Main nav link hover */
-            /*.nav-links li a:hover {
+/* Optional: Main nav link hover */
+/*.nav-links li a:hover {
                 background-color: #000000;*/ /* Slightly different dark shade on hover */
-                /*color: #ffffff;
+/*color: #ffffff;
             }*/
 
 
 /* --- Dropdown Menu (Level 1 & Nested) --- */
 /*.dropdown-menu {
     display: none;*/ /* Hide by default */
-    /*position: absolute;
+/*position: absolute;
     background: #ffffff;*/ /* Dark background for dropdown */
-    /*min-width: 220px;*/ /* Adjust width as needed */
-    /*z-index: 1000;
+/*min-width: 220px;*/ /* Adjust width as needed */
+/*z-index: 1000;
     list-style: none;
     padding: 5px 0;*/ /* Small vertical padding for the container */
-    /*margin: 0;*/ /* Reset margin */
-    /*border-radius: 0 0 4px 4px;*/ /* Optional: Slightly rounded bottom corners */
-    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/ /* Subtle shadow */
-    /*top: 100%;*/ /* Position directly below the parent li */
-    /*left: 0;*/ /* Align with the left edge of the parent li */
-    /*border-top: none;*/ /* Ensure no top border from previous attempts */
+/*margin: 0;*/ /* Reset margin */
+/*border-radius: 0 0 4px 4px;*/ /* Optional: Slightly rounded bottom corners */
+/*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/ /* Subtle shadow */
+/*top: 100%;*/ /* Position directly below the parent li */
+/*left: 0;*/ /* Align with the left edge of the parent li */
+/*border-top: none;*/ /* Ensure no top border from previous attempts */
 /*}*/
 
-    /* Style for list items within ANY dropdown */
-    /*.dropdown-menu li {
+/* Style for list items within ANY dropdown */
+/*.dropdown-menu li {
         position: relative;*/ /* Needed for submenu positioning */
-        /*border-bottom: 1px solid #4a627a;*/ /* Subtle separator line */
-    /*}
+/*border-bottom: 1px solid #4a627a;*/ /* Subtle separator line */
+/*}
 
         .dropdown-menu li:last-child {
             border-bottom: none;*/ /* No line on the last item */
-        /*}*/
+/*}*/
 
-        /* Style for links within ANY dropdown */
-        /*.dropdown-menu li a {
+/* Style for links within ANY dropdown */
+/*.dropdown-menu li a {
             color: #000000;*/ /* Light text */
-            /*padding: 10px 20px;*/ /* Padding for dropdown links */
-            /*display: flex;*/ /* Use flex to align text and arrow */
-            /*justify-content: space-between;*/ /* Push arrow to the right */
-            /*align-items: center;
+/*padding: 10px 20px;*/ /* Padding for dropdown links */
+/*display: flex;*/ /* Use flex to align text and arrow */
+/*justify-content: space-between;*/ /* Push arrow to the right */
+/*align-items: center;
             font-weight: normal;*/ /* Normal weight for dropdown items */
-            /*font-size: 15px;
+/*font-size: 15px;
             text-decoration: none;
             white-space: nowrap;*/ /* Prevent text wrapping */
-            /*transition: background-color 0.3s, color 0.3s;
+/*transition: background-color 0.3s, color 0.3s;
             background-color: transparent;*/ /* Ensure default background is transparent */
-            /*border-radius: 0;*/ /* Reset border-radius from nav links */
-        /*}*/
+/*border-radius: 0;*/ /* Reset border-radius from nav links */
+/*}*/
 
-            /* Hover effect for links within ANY dropdown */
-            /*.dropdown-menu li a:hover,
+/* Hover effect for links within ANY dropdown */
+/*.dropdown-menu li a:hover,
             .dropdown-menu li:hover > a {*/ /* Target link directly on li hover too */
-                /*background: #000000;*/ /* Slightly lighter dark shade on hover */
-                /*color: #ffffff;*/ /* Brighter white text on hover */
-            /*}
+/*background: #000000;*/ /* Slightly lighter dark shade on hover */
+/*color: #ffffff;*/ /* Brighter white text on hover */
+/*}
 
                 .dropdown-menu li a:hover .arrow {*/ /* Ensure arrow color changes on hover */
-                    /*color: #ffffff;
+/*color: #ffffff;
                 }*/
 
 
-    /* --- Submenu Specific Styling (.sm-nowrap or nested .dropdown-menu) --- */
-    /* Assuming you use the same .dropdown-menu class for nested menus */
-    /*.dropdown-menu .dropdown-menu {*/ /* Selects a dropdown *inside* another dropdown */
-        /*top: 0;*/ /* Align top of submenu with top of parent LI */
-        /*left: 100%;*/ /* Position to the right */
-        /*margin-left: 1px;*/ /* Tiny gap to avoid overlap if needed */
-        /*border-radius: 4px;*/ /* Give it normal border-radius */
-        /*box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);*/ /* Adjust shadow if needed */
-        /*padding: 5px 0;*/ /* Reset padding */
-    /*}*/
+/* --- Submenu Specific Styling (.sm-nowrap or nested .dropdown-menu) --- */
+/* Assuming you use the same .dropdown-menu class for nested menus */
+/*.dropdown-menu .dropdown-menu {*/ /* Selects a dropdown *inside* another dropdown */
+/*top: 0;*/ /* Align top of submenu with top of parent LI */
+/*left: 100%;*/ /* Position to the right */
+/*margin-left: 1px;*/ /* Tiny gap to avoid overlap if needed */
+/*border-radius: 4px;*/ /* Give it normal border-radius */
+/*box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);*/ /* Adjust shadow if needed */
+/*padding: 5px 0;*/ /* Reset padding */
+/*}*/
 
 
 /* --- Arrow Styling --- */
 /*.arrow {*/
-    /* Use Font Awesome or a simple character */
-    /* If using text character: */
-    /*font-size: 12px;
+/* Use Font Awesome or a simple character */
+/* If using text character: */
+/*font-size: 12px;
     margin-left: 10px;
     color: #ecf0f1;*/ /* Match default link color */
-    /*font-family: sans-serif;*/ /* Use a standard font for the arrow */
-    /*display: inline-block;*/ /* Needed for potential transforms */
+/*font-family: sans-serif;*/ /* Use a standard font for the arrow */
+/*display: inline-block;*/ /* Needed for potential transforms */
 /*}*/
 /* Example: Highlighting the arrow on the active parent item */
 /*.dropdown-menu li:hover > a > .arrow {
@@ -1021,16 +1026,16 @@ textarea {
 
     .dropdown-menu li a.highlight-link .arrow {
         color: #000000;*/ /* Match arrow color */
-    /*}*/
-    /* Hover state for the highlighted link */
-    /*.dropdown-menu li a.highlight-link:hover {
+/*}*/
+/* Hover state for the highlighted link */
+/*.dropdown-menu li a.highlight-link:hover {
         background: #000000;*/ /* Keep hover background consistent */
-        /*color: #000000;*/ /* Slightly brighter orange/red on hover */
-    /*}
+/*color: #000000;*/ /* Slightly brighter orange/red on hover */
+/*}
 
         .dropdown-menu li a.highlight-link:hover .arrow {
             color: #000000;*/ /* Match arrow hover color */
-        /*}*/
+/*}*/
 
 
 

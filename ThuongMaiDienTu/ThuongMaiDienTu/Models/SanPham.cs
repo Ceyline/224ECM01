@@ -11,7 +11,8 @@ namespace ThuongMaiDienTu.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web;
+
     public partial class SanPham
     {
         public SanPham()
@@ -24,6 +25,7 @@ namespace ThuongMaiDienTu.Models
         public int idDanhMuc { get; set; }
         public string TenSanPham { get; set; }
         public int GiaBan { get; set; }
+        public HttpPostedFileBase[] HinhAnhFiles { get; set; }
         public string HinhAnh { get; set; }
         public string Size { get; set; }
         public int SoLuong { get; set; }
