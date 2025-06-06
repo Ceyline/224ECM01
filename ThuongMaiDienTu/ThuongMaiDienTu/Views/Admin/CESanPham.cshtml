@@ -1,0 +1,112 @@
+﻿@model ThuongMaiDienTu.Models.SanPham
+@{
+    Layout = "~/Views/Admin/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = ViewBag.ChucNang == "edit" ? "Sửa Sản Phẩm" : "Thêm Sản Phẩm";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="POS - Bootstrap Admin Template">
+    <meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
+    <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+    <meta name="robots" content="noindex, nofollow">
+    <title>@ViewData["Title"]</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.jpg">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/animate.css">
+    <link rel="stylesheet" href="~/Content/select2.min.css">
+    <link rel="stylesheet" href="~/Content/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
+    <link rel="stylesheet" href="~/Content/style.css">
+</head>
+<body>
+    <div class="content">
+        <div class="page-header">
+            <div class="page-title">
+                <h4>@ViewData["Title"]</h4>
+            </div>
+        </div>
+        <form method="post" action="@Url.Action(ViewBag.ChucNang == "edit" ? "EditSanPham" : "CreateSanPham", "Admin")">
+            @Html.AntiForgeryToken()
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        @if (ViewBag.ChucNang == "edit")
+                        {
+                            <input type="hidden" name="idSanPham" value="@Model.idSanPham" />
+                        }
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Tên Sản Phẩm</label>
+                                <input type="text" name="TenSanPham" class="form-control" value="@Model.TenSanPham" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Danh Mục</label>
+                                <select name="idDanhMuc" class="form-select" required>
+                                    <option value="">Chọn danh mục</option>
+                                    @foreach (var danhMuc in ViewBag.DanhMucList)
+                                    {
+                                        <option value="@danhMuc.Value" selected="@(danhMuc.Value == Model.idDanhMuc.ToString() ? "selected" : null)">@danhMuc.Text</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Giá Bán</label>
+                                <input type="number" name="GiaBan" class="form-control" value="@Model.GiaBan" required min="0" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Hình Ảnh</label>
+                                <input type="text" name="HinhAnh" class="form-control" value="@Model.HinhAnh" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Size</label>
+                                <input type="text" name="Size" class="form-control" value="@Model.Size" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Số Lượng</label>
+                                <input type="number" name="SoLuong" class="form-control" value="@Model.SoLuong" required min="0" />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Mô Tả</label>
+                                <textarea name="MoTa" class="form-control" rows="5">@Model.MoTa</textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">
+                                @(ViewBag.ChucNang == "edit" ? "Sửa Sản Phẩm" : "Thêm Sản Phẩm")
+                            </button>
+                            <a href="@Url.Action("QLSanPham", "Admin")" class="btn btn-secondary" style="margin:10px;">Hủy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="~/Scripts/jquery-3.7.0.min.js"></script>
+    <script src="~/Scripts/feather.min.js"></script>
+    <script src="~/Scripts/jquery.slimscroll.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/select2.min.js"></script>
+    <script src="~/Scripts/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/sweetalerts.min.js"></script>
+    <script src="~/Scripts/js/script_giohang.js"></script>
+</body>
+</html>
