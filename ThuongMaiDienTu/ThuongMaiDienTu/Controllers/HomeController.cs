@@ -21,16 +21,21 @@ namespace ThuongMaiDienTu.Controllers
                 {
                     ViewBag.isLogin = true;
                 }
-                // Lấy danh sách sản phẩm (ví dụ: sản phẩm bán chạy)
-                var similarProducts = db.SanPhams.Take(4).ToList(); // Lấy 10 sản phẩm đầu tiên
-                ViewBag.SimilarProducts = similarProducts;
-                ViewBag.listDanhMuc = db.DanhMucs.ToList();
+
+		
+				var similarProducts = db.SanPhams
+										.Include("DanhMuc")
+										.Take(4)
+										.ToList();
+				ViewBag.SimilarProducts = similarProducts;
+				ViewBag.listDanhMuc = db.DanhMucs.ToList();
+				ViewBag.PopularProducts = db.SanPhams.OrderBy(p => p.idSanPham).Take(2).ToList();
 
             }
 
             return View();
         }
-
+       
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

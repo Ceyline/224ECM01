@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/stylesdanhmuc.css">
+    <link rel="stylesheet" href="~/Content/css/styles_dropdown_nav.css">
     <link rel="stylesheet" href="~/Content/css/styles_avatar_header.css">
     <link rel="stylesheet" href="~/fontawesome/fontawesome-free-6.7.2-web/fontawesome-free-6.7.2-web/css/all.min.css">
 </head>
@@ -37,12 +38,12 @@
                     {
                         <a href="@Url.Action("Index", "GioHang")">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count">0</span>
+                            <span class="cart-count">@(Session["cartCount"] ?? 0)</span>
                         </a>
                     }
                     else
                     {
-                        <a href="@Url.Action("Index", "Register_Login")">Log in / Register</a>
+                        <a href="@Url.Action("Index", "Account")">Log in / Register</a>
                     }
 
 
@@ -50,49 +51,22 @@
                 <a href="#"><i class="fas fa-search"></i></a>
                 @if (is_login)
                 {
-                    <div class="header-avatar">
-                        <a href="#"><img src="~/img/avatar_fem_2.png" /></a>
-                    </div>
+                    @Html.Action("DropdownMenu", "Account")
                 }
             </div>
         </div>
-        <nav class="navbar">
+        <section id="nav-bar">
+            <nav class="navbar">
 
-            <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Shop</a></li>
-                <li>
-                    <a href="#">All Categories</a>
-                    <ul class="dropdown-menu">
-                        @foreach (var danhMuc in Model.DanhMucs)
-                        {
-                            <li class="left-side">
-                                <a href="@Url.Action("Index", "Details", new { id = danhMuc.idDanhMuc })">
-                                    @danhMuc.tenDanhMuc
-                                    @if (danhMuc.tenDanhMuc == "Dây chuyền")
-                                    {
-                                        <span class="arrow">></span>
-                                    }
-                                </a>
-
-                                @* Kiểm tra nếu danh mục là "Dây chuyền" thì hiển thị submenu *@
-                                @if (danhMuc.tenDanhMuc == "Dây chuyền")
-                                {
-                                    <ul class="dropdown-menu sm-nowrap">
-                                        <li><a href="#">Dây chuyền kim cương</a></li>
-                                        <li><a href="#">Dây chuyền đá quý</a></li>
-                                        <li><a href="#">Dây chuyền độc</a></li>
-                                    </ul>
-                                }
-                            </li>
-                        }
-                    </ul>
-                </li>
-                <li><a href="#">Blogs</a></li>
-                <li><a href="#">Pages</a></li>
-                <li><a href="#">Features</a></li>
-            </ul>
-        </nav>
+                <ul class="nav-links">
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    @Html.Action("MenuDanhMuc", "DanhMuc")
+                    <li><a href="@Url.Action("Blog", "Blog")">Blogs</a></li>
+                    <li><a href="@Url.Action("index", "LichSuDatHang")">Purchase History</a></li>
+                </ul>
+            </nav>
+        </section>
     </header>
     <div class="page-header">
 
@@ -238,19 +212,24 @@
         <!-- Products -->
         <div class="products">
             @if (Model.SanPhams.Any())
+
             {
                 foreach (var sp in Model.SanPhams)
                 {
-                    <div class="product-card">
-                        <img src="@Url.Content("~/img/" + (sp.HinhAnh.Contains(",") ? sp.HinhAnh.Trim('[', ']').Split(',')[0] : sp.HinhAnh.Trim('[', ']')))" alt="@sp.TenSanPham">
-                        <div class="product-actions">
-                            <a href="#" class="action-btn add-to-cart-btn" data-tooltip="Thêm vào giỏ hàng">
-                                <i class="fas fa-shopping-cart"></i>
-                            </a>
+                    <a href="@Url.Action("Index", "Details", new { id = sp.idSanPham })">
+                        <div class="product-card">
+                            <div class="product-card-img">
+                                <img src="@Url.Content("~/img/" + (sp.HinhAnh.Contains(",") ? sp.HinhAnh.Trim('[', ']').Split(',')[0] : sp.HinhAnh.Trim('[', ']')))" alt="@sp.TenSanPham">
+                            </div>
+                            <div class="product-actions">
+                                <a href="#" class="action-btn add-to-cart-btn" data-tooltip="Thêm vào giỏ hàng">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </a>
+                            </div>
+                            <p>@sp.TenSanPham</p>
+                            <p class="price">@String.Format("{0:0,0} đ", sp.GiaBan)</p>
                         </div>
-                        <p>@sp.TenSanPham</p>
-                        <p class="price">@String.Format("{0:0,0} đ", sp.GiaBan)</p>
-                    </div>
+                    </a>
                 }
             }
             else

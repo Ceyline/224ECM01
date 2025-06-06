@@ -19,22 +19,29 @@ namespace ThuongMaiDienTu.Controllers
             if (Session["idNguoiDung"] == null)
             {
                 ViewBag.isLogin = false;
+                return RedirectToAction("Index", "Account");
             }
-            else
-            {
-                ViewBag.isLogin = true;
-            }
+
+            ViewBag.isLogin = true;
             int idNguoiDung = (int)Session["idNguoiDung"];
+
             using (var db = new trangsucbacEntities())
             {
                 var gioHang = db.GioHangs
                     .Where(gh => gh.idNguoiDung == idNguoiDung)
-                    .Include(gh => gh.SanPham) // Đảm bảo SanPham được tải kèm theo GioHang
+                    .Include(gh => gh.SanPham)
                     .ToList();
 
-                return View(gioHang); // Trả về danh sách GioHang cho view
+                // Debug: Kiểm tra dữ liệu thực tế
+                System.Diagnostics.Debug.WriteLine($"Số lượng sản phẩm trong giỏ: {gioHang.Count}");
+                foreach (var item in gioHang)
+                {
+                    System.Diagnostics.Debug.WriteLine($"SP: {item.idSanPham}, SL: {item.SoLuong}");
+                }
+                return View(gioHang);
             }
         }
+
         [HttpPost]
         public ActionResult UpdateCart(int? productId, int quantity, string action)
         {
@@ -60,6 +67,10 @@ namespace ThuongMaiDienTu.Controllers
                     {
                         cartItem.SoLuong = quantity;
                         db.SaveChanges();
+                        var cartCount = db.GioHangs
+                                .Where(gh => gh.idNguoiDung == idNguoiDung)
+                                .Sum(gh => (int?)gh.SoLuong) ?? 0;
+                        Session["cartCount"] = cartCount;
                         return Json(new { success = true, message = "Cập nhật số lượng thành công." });
                     }
                     else if (action == "delete")
@@ -94,8 +105,6 @@ namespace ThuongMaiDienTu.Controllers
 
                     int idNguoiDung = (int)Session["idNguoiDung"];
 
-                    //int idNguoiDung = 2; // Tạm thời set cứng
-
                     System.Diagnostics.Debug.WriteLine($"Params: idSanPham={idSanPham}, soLuong={soLuong}, size={size}, idNguoiDung={idNguoiDung}");
 
                     var sanPham = db.SanPhams.Find(idSanPham);
@@ -123,28 +132,27 @@ namespace ThuongMaiDienTu.Controllers
                             Size = size
                         });
                     }
-                    //var changes = db.ChangeTracker.Entries()
-                    //    .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified)
-                    //    .ToList();
+
                     db.SaveChanges();
 
-                    var cartCount = db.GioHangs
+                    var cartItems = db.GioHangs
                         .Where(gh => gh.idNguoiDung == idNguoiDung)
-                        .Sum(gh => gh.SoLuong);
+                        .ToList();
 
-                    return Json(new { success = true, cartCount = cartCount });
+                    var cartCount = cartItems.Sum(g => g.SoLuong);
+                    Session["cartCount"] = cartCount;
+
+                    return Json(new
+                    {
+                        success = true,
+                        cartCount = cartCount,
+                        actualItems = cartItems.Select(g => new
+                        {
+                            id = g.idSanPham,
+                            qty = g.SoLuong
+                        })
+                    });
                 }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                var errorMessages = ex.EntityValidationErrors
-                    .SelectMany(x => x.ValidationErrors)
-                    .Select(x => x.ErrorMessage);
-
-                string fullErrorMessage = string.Join("; ", errorMessages);
-                System.Diagnostics.Debug.WriteLine(fullErrorMessage);
-
-                return Json(new { success = false, message = fullErrorMessage });
             }
             catch (Exception ex)
             {

@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/css/styles_dropdown_nav.css">
     <link rel="stylesheet" href="~/Content/css/styles_giohang.css">
     <link rel="stylesheet" href="~/Content/css/styles_avatar_header.css">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@400;700&display=swap" rel="stylesheet">
@@ -40,12 +41,13 @@
                     {
                         <a href="@Url.Action("Index", "GioHang")">
                             <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count">0</span>
+                            <span class="cart-count">@(Session["cartCount"] ?? 0)</span>
                         </a>
+
                     }
                     else
                     {
-                        <a href="@Url.Action("Index", "Register_Login")">Log in / Register</a>
+                        <a href="@Url.Action("Index", "Account")">Log in / Register</a>
                     }
 
 
@@ -53,9 +55,7 @@
                 <a href="#"><i class="fas fa-search"></i></a>
                 @if (is_login)
                 {
-                    <div class="header-avatar">
-                        <a href="#"><img src="~/img/avatar_fem_2.png" /></a>
-                    </div>
+                    @Html.Action("DropdownMenu", "Account")
                 }
             </div>
         </div>
@@ -123,12 +123,11 @@
         <nav class="navbar">
 
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
+                <li><a href="@Url.Action("Index", "Home")">Home</a></li>
                 <li><a href="#">Shop</a></li>
-                <li><a href="#">All Categories</a></li>
-                <li><a href="#">Blogs</a></li>
-                <li><a href="#">Pages</a></li>
-                <li><a href="#">Features</a></li>
+                @Html.Action("MenuDanhMuc", "DanhMuc")
+                <li><a href="@Url.Action("Blog", "Blog")">Blogs</a></li>
+                <li><a href="@Url.Action("index", "LichSuDatHang")">Purchase History</a></li>
             </ul>
         </nav>
     </header>
