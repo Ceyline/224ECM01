@@ -73,20 +73,18 @@
                         {
                             <a href="@Url.Action("Index", "GioHang")">
                                 <i class="fas fa-shopping-cart"></i>
-                                <span class="cart-count">0</span>
+                                <span class="cart-count">@(Session["cartCount"] ?? 0)</span>
                             </a>
                         }
                         else
                         {
-                            <a href="@Url.Action("Index", "Register_Login")">Log in / Register</a>
+                            <a href="@Url.Action("Index", "Account")">Log in / Register</a>
                         }
                     }
                     <a href="#"><i class="fas fa-search"></i></a>
                     @if (is_login)
                     {
-                        <div class="header-avatar">
-                            <a href="#"><img src="~/img/avatar_fem_2.png" /></a>
-                        </div>
+                        @Html.Action("DropdownMenu", "Account")
                     }
                 </div>
             </div>

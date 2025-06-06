@@ -13,32 +13,36 @@ namespace ThuongMaiDienTu.Controllers
     public class GioHangController : Controller
     {
         private trangsucbacEntities db = new trangsucbacEntities();
-		// GET: GioHang
-		public ActionResult Index()
-		{
-			if (Session["idNguoiDung"] == null)
-			{
-				ViewBag.isLogin = false;
-				return RedirectToAction("Index", "Register_Login");
-			}
+        // GET: GioHang
+        public ActionResult Index()
+        {
+            if (Session["idNguoiDung"] == null)
+            {
+                ViewBag.isLogin = false;
+                return RedirectToAction("Index", "Account");
+            }
 
-			ViewBag.isLogin = true;
-			int idNguoiDung = (int)Session["idNguoiDung"];
+            ViewBag.isLogin = true;
+            int idNguoiDung = (int)Session["idNguoiDung"];
 
-			using (var db = new trangsucbacEntities())
-			{
-				var gioHang = db.GioHangs
-					.Where(gh => gh.idNguoiDung == idNguoiDung)
-					.Include(gh => gh.SanPham)
-					.ToList();
+            using (var db = new trangsucbacEntities())
+            {
+                var gioHang = db.GioHangs
+                    .Where(gh => gh.idNguoiDung == idNguoiDung)
+                    .Include(gh => gh.SanPham)
+                    .ToList();
 
-				Session["cartCount"] = gioHang.Sum(g => (int?)g.SoLuong) ?? 0;
+                // Debug: Kiểm tra dữ liệu thực tế
+                System.Diagnostics.Debug.WriteLine($"Số lượng sản phẩm trong giỏ: {gioHang.Count}");
+                foreach (var item in gioHang)
+                {
+                    System.Diagnostics.Debug.WriteLine($"SP: {item.idSanPham}, SL: {item.SoLuong}");
+                }
+                return View(gioHang);
+            }
+        }
 
-				return View(gioHang);
-			}
-		}
-
-		[HttpPost]
+        [HttpPost]
         public ActionResult UpdateCart(int? productId, int quantity, string action)
         {
             try
@@ -63,6 +67,10 @@ namespace ThuongMaiDienTu.Controllers
                     {
                         cartItem.SoLuong = quantity;
                         db.SaveChanges();
+                        var cartCount = db.GioHangs
+                                .Where(gh => gh.idNguoiDung == idNguoiDung)
+                                .Sum(gh => (int?)gh.SoLuong) ?? 0;
+                        Session["cartCount"] = cartCount;
                         return Json(new { success = true, message = "Cập nhật số lượng thành công." });
                     }
                     else if (action == "delete")
@@ -97,8 +105,6 @@ namespace ThuongMaiDienTu.Controllers
 
                     int idNguoiDung = (int)Session["idNguoiDung"];
 
-                    //int idNguoiDung = 2; // Tạm thời set cứng
-
                     System.Diagnostics.Debug.WriteLine($"Params: idSanPham={idSanPham}, soLuong={soLuong}, size={size}, idNguoiDung={idNguoiDung}");
 
                     var sanPham = db.SanPhams.Find(idSanPham);
@@ -126,31 +132,27 @@ namespace ThuongMaiDienTu.Controllers
                             Size = size
                         });
                     }
-                    //var changes = db.ChangeTracker.Entries()
-                    //    .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified)
-                    //    .ToList();
+
                     db.SaveChanges();
 
-                    var cartCount = db.GioHangs
+                    var cartItems = db.GioHangs
                         .Where(gh => gh.idNguoiDung == idNguoiDung)
-                        .Sum(gh => gh.SoLuong);
-					Session["cartCount"] = db.GioHangs
-	.Where(gh => gh.idNguoiDung == idNguoiDung)
-	.Sum(g => (int?)g.SoLuong) ?? 0;
+                        .ToList();
 
-					return Json(new { success = true, cartCount = cartCount });
+                    var cartCount = cartItems.Sum(g => g.SoLuong);
+                    Session["cartCount"] = cartCount;
+
+                    return Json(new
+                    {
+                        success = true,
+                        cartCount = cartCount,
+                        actualItems = cartItems.Select(g => new
+                        {
+                            id = g.idSanPham,
+                            qty = g.SoLuong
+                        })
+                    });
                 }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                var errorMessages = ex.EntityValidationErrors
-                    .SelectMany(x => x.ValidationErrors)
-                    .Select(x => x.ErrorMessage);
-
-                string fullErrorMessage = string.Join("; ", errorMessages);
-                System.Diagnostics.Debug.WriteLine(fullErrorMessage);
-
-                return Json(new { success = false, message = fullErrorMessage });
             }
             catch (Exception ex)
             {

@@ -24,7 +24,7 @@ namespace ThuongMaiDienTu.Controllers
 			if (Session["idNguoiDung"] == null)
 			{
 				ViewBag.isLogin = false;
-				return RedirectToAction("Index", "Register_Login"); // Redirect to login if not logged in
+				return RedirectToAction("Index", "Account"); // Redirect to login if not logged in
 			}
 
 			ViewBag.isLogin = true;
@@ -58,7 +58,7 @@ namespace ThuongMaiDienTu.Controllers
 		public ActionResult Details(int id)
 		{
 			if (Session["idNguoiDung"] == null)
-				return RedirectToAction("Index", "Register_Login");
+				return RedirectToAction("Index", "Account");
 
 			int userId = (int)Session["idNguoiDung"];
 

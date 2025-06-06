@@ -76,20 +76,18 @@
                         {
                             <a href="@Url.Action("Index", "GioHang")">
                                 <i class="fas fa-shopping-cart"></i>
-                                <span class="cart-count">0</span>
+                                <span class="cart-count">@(Session["cartCount"] ?? 0)</span>
                             </a>
                         }
                         else
                         {
-                            <a href="@Url.Action("Index", "Register_Login")">Log in / Register</a>
+                            <a href="@Url.Action("Index", "Account")">Log in / Register</a>
                         }
                     }
                     <a href="#"><i class="fas fa-search"></i></a>
                     @if (is_login)
                     {
-                        <div class="header-avatar">
-                            <a href="#"><img src="~/img/avatar_fem_2.png" /></a>
-                        </div>
+                        @Html.Action("DropdownMenu", "Account")
                     }
                 </div>
             </div>
@@ -149,45 +147,45 @@
                             </div>
                         </div>
                     }
-                <div class="order-details-content" id="details-@order.idHoaDon" style="display:none; margin-top: 10px;">
-                    @foreach (var item in remainingProducts)
-                    {
-                        <div class="product-info">
-                            <img src="@Url.Content("~/img/" + (item.SanPham.HinhAnh?.Split(',')[0].Trim('[', ']', ' ')))" width="70" />
-                            <div class="details">
-                                <div class="product-namels">@item.SanPham.TenSanPham</div>
-                                <div class="product-typels">Danh mục: @item.SanPham.DanhMuc.tenDanhMuc</div>
-                                <div class="product-typels">Số lượng: @item.soLuong</div>
-                            </div>
-                            <div class="price">
-                                <strong>@item.giaBan.ToString("N0") ₫</strong><br />
-                                <small style="color:gray">= @string.Format("{0:N0}", item.soLuong * item.giaBan) ₫</small>
-                            </div>
-                        </div>
-                    }
-
-                    <div class="order-info" style="margin-top:15px; border-top: 1px solid #ddd; padding-top:10px;">
-                        <h4 style="font-weight: bold; margin-bottom: 10px;">Thông tin người nhận:</h4>
-                        <div style="display: flex; flex-wrap: wrap; gap: 20px; padding-left: 145px;">
-                            <div style="flex: 1 1 250px;">
-                                <p><i class="fas fa-user"></i> <strong>Họ tên:</strong> @order.hoTen</p>
-                                <p><i class="fas fa-envelope"></i> <strong>Email:</strong> @order.email</p>
-                            </div>
-                            <div style="flex: 1 1 250px;">
-                                <p><i class="fas fa-phone"></i> <strong>SĐT:</strong> @order.soDienThoai</p>
-                                <p><i class="fas fa-map-marker-alt"></i> <strong>Địa chỉ:</strong> @order.diaChi</p>
-                            </div>
-                        </div>
-
-                        @if (!string.IsNullOrEmpty(order.ghiChu))
+                    <div class="order-details-content" id="details-@order.idHoaDon" style="display:none; margin-top: 10px;">
+                        @foreach (var item in remainingProducts)
                         {
-                            <div style="margin-top:10px;">
-                                <p><i class="fas fa-sticky-note"></i> <strong>Ghi chú:</strong> @order.ghiChu</p>
+                            <div class="product-info">
+                                <img src="@Url.Content("~/img/" + (item.SanPham.HinhAnh?.Split(',')[0].Trim('[', ']', ' ')))" width="70" />
+                                <div class="details">
+                                    <div class="product-namels">@item.SanPham.TenSanPham</div>
+                                    <div class="product-typels">Danh mục: @item.SanPham.DanhMuc.tenDanhMuc</div>
+                                    <div class="product-typels">Số lượng: @item.soLuong</div>
+                                </div>
+                                <div class="price">
+                                    <strong>@item.giaBan.ToString("N0") ₫</strong><br />
+                                    <small style="color:gray">= @string.Format("{0:N0}", item.soLuong * item.giaBan) ₫</small>
+                                </div>
                             </div>
                         }
-                    </div>
 
-                </div>
+                        <div class="order-info" style="margin-top:15px; border-top: 1px solid #ddd; padding-top:10px;">
+                            <h4 style="font-weight: bold; margin-bottom: 10px;">Thông tin người nhận:</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 20px; padding-left: 145px;">
+                                <div style="flex: 1 1 250px;">
+                                    <p><i class="fas fa-user"></i> <strong>Họ tên:</strong> @order.hoTen</p>
+                                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> @order.email</p>
+                                </div>
+                                <div style="flex: 1 1 250px;">
+                                    <p><i class="fas fa-phone"></i> <strong>SĐT:</strong> @order.soDienThoai</p>
+                                    <p><i class="fas fa-map-marker-alt"></i> <strong>Địa chỉ:</strong> @order.diaChi</p>
+                                </div>
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(order.ghiChu))
+                            {
+                                <div style="margin-top:10px;">
+                                    <p><i class="fas fa-sticky-note"></i> <strong>Ghi chú:</strong> @order.ghiChu</p>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
 
 
                     <div class="order-footer">

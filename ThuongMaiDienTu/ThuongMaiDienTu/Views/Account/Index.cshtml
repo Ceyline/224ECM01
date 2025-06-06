@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="~/Content/css/styles_signUp_signIn.css">
     @*<link rel="stylesheet" href="~/Content/css/styles_header.css">*@
 </head>
-<body>   
+<body>
     <section>
         <div class="container">
             <div class="left-block">
@@ -65,47 +65,50 @@
             <div class="signup-form">
                 <h1>Register</h1>
                 <form>
-                    @Html.AntiForgeryToken()
-                    <div class="form-group">
-                        <label for="name">Full name</label>
-                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="tel">Tel</label>
-                        <input type="tel" id="tel" name="tel" placeholder="Enter your phone number" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" name="address" placeholder="Enter your address" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signup-email">Email</label>
-                        <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group">
-                        <div class="display-flex input-label">
-                            <p class="align-left">Password</p>
-                            <p id="visible_hide_pass_sign_up_1" class="visible-hide-pass">
-                                <i class="fas fa-eye-slash"></i>
-                                <span>Show</span>
-                            </p>
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "signup-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label for="name">Full name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
                         </div>
-                        <input type="password" id="signup-password" name="password" placeholder="Enter your password" required>
-                    </div>
-                    <div class="form-group">
-                        <div class="display-flex input-label">
-                            <p class="align-left">Confirm your password</p>
-                            <p id="visible_hide_pass_sign_up_2" class="visible-hide-pass">
-                                <i class="fas fa-eye-slash"></i>
-                                <span>Show</span>
-                            </p>
+                        <div class="form-group">
+                            <label for="tel">Tel</label>
+                            <input type="tel" id="tel" name="tel" placeholder="Enter your phone number" required>
                         </div>
-                        <input type="password" id="signup-confirm-password" name="confirm-password" placeholder="Confirm your password" required>
-                    </div>
-                    <div class="btn-container">
-                        <button type="button" class="back-btn btn btn-primary">Back</button>
-                        <button id="signup-submit-btn" type="submit" class="btn btn-primary black-bg">Register</button>
-                    </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" placeholder="Enter your address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="display-flex input-label">
+                                <p class="align-left">Password</p>
+                                <p id="visible_hide_pass_sign_up_1" class="visible-hide-pass">
+                                    <i class="fas fa-eye-slash"></i>
+                                    <span>Show</span>
+                                </p>
+                            </div>
+                            <input type="password" id="signup-password" name="password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="display-flex input-label">
+                                <p class="align-left">Confirm your password</p>
+                                <p id="visible_hide_pass_sign_up_2" class="visible-hide-pass">
+                                    <i class="fas fa-eye-slash"></i>
+                                    <span>Show</span>
+                                </p>
+                            </div>
+                            <input type="password" id="signup-confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                        </div>
+                        <div class="btn-container">
+                            <button type="button" class="back-btn btn btn-primary">Back</button>
+                            <button id="signup-submit-btn" type="submit" class="btn btn-primary black-bg">Register</button>
+                        </div>
+                    }
                 </form>
             </div>
 
@@ -134,22 +137,22 @@
             <button class="close-btn"><i class="fas fa-times"></i></button>
             <h1>Login</h1>
             <form>
-                @Html.AntiForgeryToken()
-                <div class="form-group">
-                    <label for="signin-email">Email</label>
-                    <input type="email" id="signin-email" name="email" placeholder="Enter your email" required>
-                </div>
-                <div class="form-group">
-                    <div class="display-flex input-label">
-                        <p class="align-left">Password</p>
-                        <p id="visible_hide_pass_sign_in" class="visible-hide-pass">
-                            <i class="fas fa-eye-slash"></i>
-                            <span>Show</span>
-                        </p>
-                    </div>
-                    <input type="password" id="signin-password" name="password" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="btn btn-primary black-bg">Login</button>
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "sign-form" }))
+                {
+                    @Html.AntiForgeryToken()<div class="form-group">
+                        <label for="signin-email">Email</label>
+                        <input type="email" id="signin-email" name="email" placeholder="Enter your email" required>
+                    </div><div class="form-group">
+                        <div class="display-flex input-label">
+                            <p class="align-left">Password</p>
+                            <p id="visible_hide_pass_sign_in" class="visible-hide-pass">
+                                <i class="fas fa-eye-slash"></i>
+                                <span>Show</span>
+                            </p>
+                        </div>
+                        <input type="password" id="signin-password" name="password" placeholder="Enter your password" required>
+                    </div><button type="submit" class="btn btn-primary black-bg">Login</button>
+                }
             </form>
         </div>
     </section>

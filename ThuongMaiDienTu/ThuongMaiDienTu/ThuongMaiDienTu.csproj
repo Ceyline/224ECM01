@@ -152,7 +152,7 @@
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LichSuDatHangController.cs" />
-    <Compile Include="Controllers\Register_LoginController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ThanhToanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -5019,7 +5019,7 @@
     <Content Include="thuongmaidientu_layout\img\Ruby Necklace.webp" />
     <Content Include="Views\Details\Index.cshtml" />
     <Content Include="Views\GioHang\ThemGioHang.cshtml" />
-    <Content Include="Views\Register_Login\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\DanhMuc\Index.cshtml" />
     <Content Include="Views\GioHang\Index.cshtml" />
     <Content Include="Views\ThanhToan\Index.cshtml" />
@@ -5028,6 +5028,7 @@
     <Content Include="Views\Shared\_MenuDanhMuc.cshtml" />
     <Content Include="Views\LichSuDatHang\index.cshtml" />
     <Content Include="Views\ThanhToan\OrderDetails.cshtml" />
+    <Content Include="Views\Shared\_MenuAvatar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

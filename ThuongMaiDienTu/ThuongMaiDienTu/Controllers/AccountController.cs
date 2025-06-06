@@ -9,15 +9,20 @@ using System.Data.Entity.Validation;
 
 namespace ThuongMaiDienTu.Controllers
 {
-    public class Register_LoginController : Controller
+    public class AccountController : Controller
     {
-        // GET: Register_Login
+        private readonly trangsucbacEntities _context;
+        public AccountController()
+        {
+            _context = new trangsucbacEntities();
+        }
+        // GET: Account
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Register_Login/TestDb - Kiểm tra kết nối cơ sở dữ liệu
+        // GET: Account/TestDb - Kiểm tra kết nối cơ sở dữ liệu
         [HttpGet]
         public ActionResult TestDb()
         {
@@ -36,7 +41,7 @@ namespace ThuongMaiDienTu.Controllers
             }
         }
 
-        // POST: Register_Login/Register - Xử lý đăng ký
+        // POST: Account/Register - Xử lý đăng ký
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterViewModel model)
@@ -99,6 +104,12 @@ namespace ThuongMaiDienTu.Controllers
                     Session["SoDienThoai"] = user.SoDienThoai;
                     Session["DiaChi"] = user.DiaChi;
 
+                    var cartItems = db.GioHangs
+                      .Where(gh => gh.idNguoiDung == user.idNguoiDung)
+                      .ToList();
+                    var cartCount = cartItems.Sum(g => g.SoLuong);
+                    Session["cartCount"] = cartCount;
+
                     return Json(new { success = true, message = "Đăng ký thành công!" });
                 }
             }
@@ -118,7 +129,7 @@ namespace ThuongMaiDienTu.Controllers
             }
         }
 
-        // POST: Register_Login/Login - Xử lý đăng nhập
+        // POST: Account/Login - Xử lý đăng nhập
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
@@ -160,19 +171,24 @@ namespace ThuongMaiDienTu.Controllers
                     {
                         return Json(new { success = false, message = "Mật khẩu không đúng." });
                     }
-					Session.Clear(); // Xóa toàn bộ session cũ
+                    Session.Clear(); // Xóa toàn bộ session cũ
 
-					// Thiết lập session
-					Session["idNguoiDung"] = user.idNguoiDung;
+                    // Thiết lập session
+                    Session["idNguoiDung"] = user.idNguoiDung;
                     Session["HoTen"] = user.HoTen;
                     Session["Email"] = user.Email;
                     Session["SoDienThoai"] = user.SoDienThoai;
                     Session["DiaChi"] = user.DiaChi;
 
-					System.Diagnostics.Debug.WriteLine("Đăng nhập với idNguoiDung = " + user.idNguoiDung);
+                    var cartCount = db.GioHangs
+                        .Where(gh => gh.idNguoiDung == user.idNguoiDung)
+                        .Sum(gh => (int?)gh.SoLuong) ?? 0;
+
+                    Session["cartCount"] = cartCount;
+                    System.Diagnostics.Debug.WriteLine($"Login - CartCount: {cartCount}");
 
 
-					return Json(new { success = true, message = "Đăng nhập thành công!" });
+                    return Json(new { success = true, message = "Đăng nhập thành công!", cartCount = cartCount });
                 }
             }
             catch (Exception ex)
@@ -181,5 +197,28 @@ namespace ThuongMaiDienTu.Controllers
                 return Json(new { success = false, message = "Lỗi server: " + ex.Message });
             }
         }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            try
+            {
+                Session.Clear();
+                Session.Abandon();
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi đăng xuất: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [ChildActionOnly]
+        public ActionResult DropdownMenu()
+        {
+            return PartialView("_MenuAvatar");
+        }
     }
+
 }

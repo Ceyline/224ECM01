@@ -44,15 +44,13 @@
                         }
                         else
                         {
-                            <a href="@Url.Action("Index", "Register_Login")">Log in / Register</a>
+                            <a href="@Url.Action("Index", "Account")">Log in / Register</a>
                         }
                     }
                     <a href="#"><i class="fas fa-search"></i></a>
                     @if (is_login)
                     {
-                        <div class="header-avatar">
-                            <a href="#"><img src="~/img/avatar_fem_2.png" /></a>
-                        </div>
+                        @Html.Action("DropdownMenu", "Account")
                     }
                 </div>
             </div>
@@ -63,7 +61,7 @@
                     <li><a href="#">Shop</a></li>
                     @Html.Action("MenuDanhMuc", "DanhMuc")
                     <li><a href="@Url.Action("Blog", "Blog")">Blogs</a></li>
-                    <li><a href="@Url.Action("index", "LichSuDatHang")">Purchase History</a></li>urchase History</a></li>
+                    <li><a href="@Url.Action("index", "LichSuDatHang")">Purchase History</a></li>
                 </ul>
             </nav>
         </header>
@@ -112,13 +110,13 @@
                 <label for="payment">Thông tin nhận hàng</label>
                 <form style="margin-top:16px">
                     <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Email" required>
+                        <input type="email" id="email" name="email" placeholder="Email" required value="@(Session["Email"])">
                     </div>
                     <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Họ và tên" required>
+                        <input type="text" id="name" name="name" placeholder="Họ và tên" required value="@(Session["HoTen"])">
                     </div>
                     <div class="form-group">
-                        <input type="tel" id="phone" name="phone" placeholder="Số điện thoại">
+                        <input type="tel" id="phone" name="phone" placeholder="Số điện thoại" value="@(Session["SoDienThoai"])">
                     </div>
                     <div class="form-group">
                         <input type="text" id="address" name="address" placeholder="Địa chỉ (tuỳ chọn)">
@@ -380,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-</script>
+    </script>
 </body>
 
 </html>

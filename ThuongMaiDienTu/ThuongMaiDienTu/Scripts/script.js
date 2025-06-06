@@ -203,19 +203,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /*Gio hang */
-document.addEventListener('DOMContentLoaded', () => {
-    const addToCartBtn = document.querySelector('.add-to-cart-btn');
-    const cartCount = document.querySelector('.cart-count');
+//đã dùng session rồi, không lưu trong local nữa nhé =))
+//document.addEventListener('DOMContentLoaded', () => {
+//    const addToCartBtn = document.querySelector('.add-to-cart-btn');
+//    const cartCount = document.querySelector('.cart-count');
 
     // Lấy số lượng từ localStorage (nếu có)
-    let currentCount = parseInt(localStorage.getItem('cartCount')) || 0;
-    cartCount.textContent = currentCount;
+    //let currentCount = parseInt(localStorage.getItem('cartCount')) || 0;
+    //cartCount.textContent = currentCount;
 
-    addToCartBtn.addEventListener('click', () => {
-        currentCount += 1;
-        cartCount.textContent = currentCount;
-        localStorage.setItem('cartCount', currentCount); // Lưu số lượng vào localStorage
-    });
-});
+    //addToCartBtn.addEventListener('click', () => {
+    //    currentCount += 1;
+    //    cartCount.textContent = currentCount;
+    //    localStorage.setItem('cartCount', currentCount); // Lưu số lượng vào localStorage
+    //});
+//});
 
 

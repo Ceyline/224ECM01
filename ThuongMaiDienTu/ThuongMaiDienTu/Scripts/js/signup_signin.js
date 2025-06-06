@@ -144,7 +144,7 @@
 
         console.log('Sending signup data:', Object.fromEntries(formData));
 
-        fetch('/Register_Login/Register', {
+        fetch('/Account/Register', {
             method: 'POST',
             headers: {
                 'RequestVerificationToken': formData.get('__RequestVerificationToken')
@@ -193,7 +193,7 @@
 
         console.log('Sending signin data:', Object.fromEntries(formData));
 
-        fetch('/Register_Login/Login', {
+        fetch('/Account/Login/', {
             method: 'POST',
             headers: {
                 'RequestVerificationToken': formData.get('__RequestVerificationToken')
