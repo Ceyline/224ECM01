@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -22,7 +23,7 @@ namespace ThuongMaiDienTu.Controllers
                 {
                     ViewBag.isLogin = true;
                 }
-                    var product = db.SanPhams.Find(id);
+                var product = db.SanPhams.Find(id);
                 if (product == null)
                 {
                     return HttpNotFound();
@@ -31,7 +32,19 @@ namespace ThuongMaiDienTu.Controllers
                 var sanPhamLienQuan = db.SanPhams
                     .Where(sp => sp.idDanhMuc == product.idDanhMuc && sp.idSanPham != id)
                     .ToList();
+
+                ViewBag.SanPhamLienQuan = sanPhamLienQuan;
+
                 var listDanhMuc = db.DanhMucs.ToList();
+
+                if (!string.IsNullOrEmpty(product.HinhAnh))
+                {
+                    ViewBag.Images = JsonConvert.DeserializeObject<string[]>(product.HinhAnh);
+                }
+                else
+                {
+                    ViewBag.Images = new string[0];
+                }
 
                 const int pageSize = 5;
                 if (page < 1) page = 1;
@@ -81,7 +94,7 @@ namespace ThuongMaiDienTu.Controllers
                 ViewBag.RatingStats = ratingStats;
                 ViewBag.TotalReviews = totalReviews;
                 ViewBag.TenDanhMuc = danhMuc?.tenDanhMuc;
-                ViewBag.SanPhamLienQuan = sanPhamLienQuan;
+
                 ViewBag.ListDanhMuc = listDanhMuc;
                 ViewBag.CurrentPage = page;
                 ViewBag.TotalPages = totalPages;

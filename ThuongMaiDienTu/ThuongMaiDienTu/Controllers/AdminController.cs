@@ -5,6 +5,9 @@ using System.Linq;
 using System.Web.Mvc;
 using ThuongMaiDienTu.Models;
 using System.Data.Entity;
+using Newtonsoft.Json;
+using System.IO;
+using System.Web;
 
 namespace ThuongMaiDienTu.Controllers
 {
@@ -60,7 +63,7 @@ namespace ThuongMaiDienTu.Controllers
                 }
             }
 
-            return View(model); // Trả về View chứa form
+            return View(model);
         }
 
 
@@ -151,73 +154,6 @@ namespace ThuongMaiDienTu.Controllers
 
             return View(viewModel);
         }
-
-        //[HttpGet]
-        //public ActionResult ExportExcel(DateTime? tuNgay, DateTime? denNgay, string loaiThongKe = "ngay")
-        //{
-        //    var thongKe = LayDuLieuThongKe(tuNgay, denNgay, loaiThongKe);
-
-        //    var package = new ExcelPackage();
-        //    var ws = package.Workbook.Worksheets.Add("ThongKeDonHang");
-
-        //    ws.Cells["A1"].Value = "Thời gian";
-        //    ws.Cells["B1"].Value = "Tổng đơn hàng";
-        //    ws.Cells["C1"].Value = "Tổng doanh thu";
-
-        //    for (int i = 0; i < thongKe.Count; i++)
-        //    {
-        //        var row = i + 2;
-        //        var item = thongKe[i];
-
-        //        string thoiGian = "";
-        //        switch (loaiThongKe)
-        //        {
-        //            case "ngay":
-        //                thoiGian = item.Ngay.HasValue
-        //                    ? new DateTime(item.Nam, item.Thang, item.Ngay.Value).ToString("yyyy-MM-dd")
-        //                    : "";
-        //                break;
-        //            case "thang":
-        //                thoiGian = $"Tháng {item.Thang}/{item.Nam}";
-        //                break;
-        //            case "nam":
-        //                thoiGian = $"Năm {item.Nam}";
-        //                break;
-        //        }
-
-        //        ws.Cells[row, 1].Value = thoiGian;
-        //        ws.Cells[row, 2].Value = item.SoLuongDonHang;
-        //        ws.Cells[row, 3].Value = item.TongDoanhThu;
-        //    }
-
-        //    ws.Cells[ws.Dimension.Address].AutoFitColumns();
-
-        //    var file = package.GetAsByteArray();
-        //    return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ThongKeDonHang.xlsx");
-        //}
-
-
-
-        //[HttpGet]
-        //public ActionResult ExportPdf(DateTime? tuNgay, DateTime? denNgay, string loaiThongKe = "ngay")
-        //{
-        //    var thongKe = LayDuLieuThongKe(tuNgay, denNgay, loaiThongKe);
-
-        //    var viewModel = new ThongKeDonHangViewModel
-        //    {
-        //        TuNgay = tuNgay,
-        //        DenNgay = denNgay,
-        //        LoaiThongKe = loaiThongKe,
-        //        DanhSachThongKe = thongKe
-        //    };
-
-        //    return new ViewAsPdf("ThongKePdf", viewModel)
-        //    {
-        //        PageSize = Rotativa.AspNetCore.Options.Size.A4,
-        //        FileName = "ThongKeDonHang.pdf"
-        //    };
-        //}
-
         private List<ThongKeDonHangItem> LayDuLieuThongKe(DateTime? tuNgay, DateTime? denNgay, string loaiThongKe)
         {
             var query = db.HoaDons.AsQueryable();
@@ -333,50 +269,215 @@ namespace ThuongMaiDienTu.Controllers
         // POST: Admin/CreateSanPham
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateSanPham(SanPham model)
+        public ActionResult CreateSanPham(SanPham model, HttpPostedFileBase[] HinhAnhFiles)
         {
             try
             {
-                if (ModelState.IsValid)
+                // Validate số lượng ảnh
+                if (HinhAnhFiles == null || HinhAnhFiles.Length != 4)
                 {
-                    db.SanPhams.Add(model);
-                    db.SaveChanges();
-                    return RedirectToAction("QLSanPham");
+                    ModelState.AddModelError("", "Vui lòng upload đúng 4 ảnh");
+                    ViewBag.ChucNang = "create";
+                    ViewBag.DanhMucList = new SelectList(db.DanhMucs, "idDanhMuc", "tenDanhMuc", model.idDanhMuc);
+                    return View("CESanPham", model);
                 }
-            }
-            catch (DbEntityValidationException ex)
-            {
-                foreach (var validationErrors in ex.EntityValidationErrors)
+
+                // Xử lý upload ảnh
+                var imageNames = new List<string>();
+                var uploadPath = Server.MapPath("~/img");
+
+                foreach (var file in HinhAnhFiles)
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
+                    if (file != null && file.ContentLength > 0)
                     {
-                        System.Diagnostics.Debug.WriteLine(
-                            $"Property: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                        // Kiểm tra định dạng ảnh
+                        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                        var extension = Path.GetExtension(file.FileName).ToLower();
+
+                        if (!allowedExtensions.Contains(extension))
+                        {
+                            ModelState.AddModelError("", "Chỉ chấp nhận file ảnh (jpg, jpeg, png, gif)");
+                            ViewBag.ChucNang = "create";
+                            ViewBag.DanhMucList = new SelectList(db.DanhMucs, "idDanhMuc", "tenDanhMuc", model.idDanhMuc);
+                            return View("CESanPham", model);
+                        }
+
+                        // Tạo tên file mới
+                        var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                        var newFileName = $"{fileName}_{Guid.NewGuid()}{extension}";
+                        var fullPath = Path.Combine(uploadPath, newFileName);
+
+                        // Lưu file
+                        file.SaveAs(fullPath);
+                        imageNames.Add(newFileName);
                     }
                 }
-            }
 
-            ViewBag.ChucNang = "create";
-            ViewBag.DanhMucList = new SelectList(db.DanhMucs, "idDanhMuc", "tenDanhMuc", model.idDanhMuc);
-            return View("CESanPham", model);
-        }
+                // Lưu tên ảnh dưới dạng JSON
+                model.HinhAnh = Newtonsoft.Json.JsonConvert.SerializeObject(imageNames);
 
-        // POST: Admin/EditSanPham
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditSanPham(SanPham model)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(model).State = EntityState.Modified;
+                System.Diagnostics.Debug.WriteLine($"testHinhAnh: {model.HinhAnh}");
+
+                db.SanPhams.Add(model);
                 db.SaveChanges();
                 return RedirectToAction("QLSanPham");
             }
-
-            ViewBag.ChucNang = "edit";
-            ViewBag.DanhMucList = new SelectList(db.DanhMucs, "idDanhMuc", "tenDanhMuc", model.idDanhMuc);
-            return View("CESanPham", model);
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Có lỗi xảy ra: " + ex.Message);
+                ViewBag.ChucNang = "create";
+                ViewBag.DanhMucList = new SelectList(db.DanhMucs, "idDanhMuc", "tenDanhMuc", model.idDanhMuc);
+                return View("CESanPham", model);
+            }
         }
 
+
+        // POST: Admin/EditSanPham
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult EditSanPham(SanPham model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(model).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("QLSanPham");
+        //    }
+
+        //    ViewBag.ChucNang = "edit";
+        //    ViewBag.DanhMucList = new SelectList(db.DanhMucs, "idDanhMuc", "tenDanhMuc", model.idDanhMuc);
+        //    return View("CESanPham", model);
+        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSanPham(SanPham model, HttpPostedFileBase[] HinhAnhFiles, IEnumerable<string> ExistingImages, string removedImages)
+        {
+            try
+            {
+                var product = db.SanPhams.Find(model.idSanPham);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Xử lý ảnh
+                var currentImages = ExistingImages != null ? ExistingImages.ToList() : new List<string>();
+
+                // Xóa ảnh đã chọn xóa
+                if (!string.IsNullOrEmpty(removedImages))
+                {
+                    var imagesToRemove = removedImages.Split(',');
+                    foreach (var img in imagesToRemove)
+                    {
+                        var path = Path.Combine(Server.MapPath("~/img"), img);
+                        if (System.IO.File.Exists(path))
+                        {
+                            System.IO.File.Delete(path);
+                        }
+                    }
+                    currentImages.RemoveAll(img => imagesToRemove.Contains(img));
+                }
+
+                // Thêm ảnh mới
+                if (HinhAnhFiles != null && HinhAnhFiles.Length > 0)
+                {
+                    // Tính toán số lượng ảnh cần thêm
+                    var remainingSlots = 4 - currentImages.Count;
+                    if (HinhAnhFiles.Length != remainingSlots)
+                    {
+                        ModelState.AddModelError("", $"Bạn cần upload chính xác {remainingSlots} ảnh để có tổng cộng 4 ảnh");
+                        ViewBag.ChucNang = "edit";
+                        ViewBag.DanhMucList = new SelectList(db.DanhMucs, "idDanhMuc", "tenDanhMuc", model.idDanhMuc);
+                        return View("CESanPham", model);
+                    }
+
+                    var uploadPath = Server.MapPath("~/img");
+                    foreach (var file in HinhAnhFiles)
+                    {
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            // Kiểm tra định dạng ảnh
+                            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                            var extension = Path.GetExtension(file.FileName).ToLower();
+
+                            if (!allowedExtensions.Contains(extension))
+                            {
+                                ModelState.AddModelError("", "Chỉ chấp nhận file ảnh (jpg, jpeg, png, gif)");
+                                ViewBag.ChucNang = "edit";
+                                ViewBag.DanhMucList = new SelectList(db.DanhMucs, "idDanhMuc", "tenDanhMuc", model.idDanhMuc);
+                                return View("CESanPham", model);
+                            }
+
+                            // Tạo tên file mới
+                            var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                            var newFileName = $"{fileName}_{Guid.NewGuid()}{extension}";
+                            var fullPath = Path.Combine(uploadPath, newFileName);
+
+                            // Lưu file
+                            file.SaveAs(fullPath);
+                            currentImages.Add(newFileName);
+                        }
+                    }
+                }
+
+                // Kiểm tra tổng số ảnh
+                if (currentImages.Count != 4)
+                {
+                    ModelState.AddModelError("", "Sản phẩm phải có đúng 4 ảnh");
+                    ViewBag.ChucNang = "edit";
+                    ViewBag.DanhMucList = new SelectList(db.DanhMucs, "idDanhMuc", "tenDanhMuc", model.idDanhMuc);
+                    return View("CESanPham", model);
+                }
+
+                // Cập nhật thông tin sản phẩm
+                product.TenSanPham = model.TenSanPham;
+                product.idDanhMuc = model.idDanhMuc;
+                product.GiaBan = model.GiaBan;
+                product.Size = model.Size;
+                product.SoLuong = model.SoLuong;
+                product.MoTa = model.MoTa;
+                product.HinhAnh = Newtonsoft.Json.JsonConvert.SerializeObject(currentImages);
+
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("QLSanPham");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Có lỗi xảy ra: " + ex.Message);
+                ViewBag.ChucNang = "edit";
+                ViewBag.DanhMucList = new SelectList(db.DanhMucs, "idDanhMuc", "tenDanhMuc", model.idDanhMuc);
+                return View("CESanPham", model);
+            }
+        }
+
+
+
+        private string UploadImages(HttpPostedFileBase[] files)
+        {
+            if (files == null || files.Length == 0)
+                return null;
+
+            var uploadedImages = new List<string>();
+            var uploadPath = Server.MapPath("~/img");
+
+            System.Diagnostics.Debug.WriteLine($"ImagLocation: {uploadPath} uploadedImages: {uploadedImages}");
+
+            foreach (var file in files.Take(4)) // Chỉ lấy tối đa 4 file
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                    var extension = Path.GetExtension(file.FileName);
+                    var newFileName = $"{fileName}_{Guid.NewGuid()}{extension}";
+                    var path = Path.Combine(uploadPath, newFileName);
+
+                    file.SaveAs(path);
+                    uploadedImages.Add(newFileName);
+                }
+            }
+
+            return JsonConvert.SerializeObject(uploadedImages);
+        }
     }
 }

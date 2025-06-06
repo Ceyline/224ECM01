@@ -79,7 +79,12 @@ namespace ThuongMaiDienTu.Controllers
                     {
                         db.GioHangs.Remove(cartItem);
                         db.SaveChanges();
-                        Session["cartCount"] = 0;
+
+                        var cartItems = db.GioHangs
+                            .Where(gh => gh.idNguoiDung == idNguoiDung)
+                            .ToList();
+                        var cartCount = cartItems.Sum(g => g.SoLuong);
+                        Session["cartCount"] = cartCount;
                         return Json(new { success = true, message = "Xóa sản phẩm khỏi giỏ hàng thành công." });
                     }
 

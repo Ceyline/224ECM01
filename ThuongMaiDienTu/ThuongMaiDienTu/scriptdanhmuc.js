@@ -30,25 +30,25 @@ function prevSlide() {
 }
 
 // --- DELETE THIS BLOCK ---
-document.addEventListener('DOMContentLoaded', () => {
-    const dropdowns = document.querySelectorAll('.nav-links li');
+//document.addEventListener('DOMContentLoaded', () => {
+//    const dropdowns = document.querySelectorAll('.nav-links li');
 
-    dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('mouseenter', () => {
-            const submenu = dropdown.querySelector('.dropdown-menu');
-            if (submenu) {
-                submenu.style.display = 'block';
-            }
-        });
+//    dropdowns.forEach(dropdown => {
+//        dropdown.addEventListener('mouseenter', () => {
+//            const submenu = dropdown.querySelector('.dropdown-menu');
+//            if (submenu) {
+//                submenu.style.display = 'block';
+//            }
+//        });
 
-        dropdown.addEventListener('mouseleave', () => {
-            const submenu = dropdown.querySelector('.dropdown-menu');
-            if (submenu) {
-                submenu.style.display = 'none';
-            }
-        });
-    });
-});
+//        dropdown.addEventListener('mouseleave', () => {
+//            const submenu = dropdown.querySelector('.dropdown-menu');
+//            if (submenu) {
+//                submenu.style.display = 'none';
+//            }
+//        });
+//    });
+//});
 // --- END OF BLOCK TO DELETE ---
 
 
@@ -109,11 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
      if (resultTextSpan) {
          if (visibleCount === 0) {
-             resultTextSpan.textContent = "Không tìm thấy kết quả nào";
+             resultTextSpan.textContent = "Found 0 matching";
          } else if (visibleCount === 1) {
-             resultTextSpan.textContent = "Hiển thị một kết quả duy nhất";
+             resultTextSpan.textContent = "Found 1 matching";
          } else {
-             resultTextSpan.textContent = `Hiển thị ${visibleCount} kết quả`;
+             resultTextSpan.textContent = `Found ${visibleCount} matching`;
          }
      }
 
@@ -214,8 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
      const productArray = Array.from(allProductCards);
 
      productArray.sort((a, b) => {
-         const nameA = a.querySelector('p').textContent.toLowerCase();
-         const nameB = b.querySelector('p').textContent.toLowerCase();
+         const nameA = a.querySelector('p#tenSanPham').textContent.toLowerCase();
+         const nameB = b.querySelector('p#tenSanPham').textContent.toLowerCase();
          const priceA = parseInt(a.querySelector('.price').textContent.replace(/[^0-9]/g, ''));
          const priceB = parseInt(b.querySelector('.price').textContent.replace(/[^0-9]/g, ''));
 
@@ -224,9 +224,9 @@ document.addEventListener('DOMContentLoaded', () => {
                  return nameA.localeCompare(nameB);
              case 'Z → A':
                  return nameB.localeCompare(nameA);
-             case 'Giá thấp đến cao':
+             case 'Price: Low to High':
                  return priceA - priceB;
-             case 'Giá cao đến thấp':
+             case 'Price: High to Low':
                  return priceB - priceA;
              default:
                  return 0;
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Filtering/Sorting/Pagination
     let currentPage = 1;
-    let currentSortOption = 'Thứ tự mặc định'; // Initial sort
+     let currentSortOption = 'Default order'; // Initial sort
     let currentlyVisibleCards = []; // Array to hold cards that pass filters
 
     // --- Price Slider Functions ---
@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // 2. Sort the filtered results
-        currentSortOption = sortDropdown ? sortDropdown.value : 'Thứ tự mặc định';
+        currentSortOption = sortDropdown ? sortDropdown.value : 'Default order';
         currentlyVisibleCards.sort((a, b) => {
             const nameA = a.querySelector('p:not(.price)')?.textContent.toLowerCase() || ''; // Get first non-price paragraph
             const nameB = b.querySelector('p:not(.price)')?.textContent.toLowerCase() || '';
@@ -372,9 +372,9 @@ document.addEventListener('DOMContentLoaded', () => {
             switch (currentSortOption) {
                 case 'A → Z': return nameA.localeCompare(nameB);
                 case 'Z → A': return nameB.localeCompare(nameA);
-                case 'Giá thấp đến cao': return priceA - priceB;
-                case 'Giá cao đến thấp': return priceB - priceA;
-                case 'Thứ tự mặc định': // Use original DOM order (approximated by index in allProductCards)
+                case 'Price: Low to High': return priceA - priceB;
+                case 'Price: High to Low': return priceB - priceA;
+                case 'Default order': // Use original DOM order (approximated by index in allProductCards)
                      return allProductCards.indexOf(a) - allProductCards.indexOf(b);
                 default: return 0;
             }
@@ -411,13 +411,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Update Result Count Text ---
         if (resultTextSpan) {
             if (totalVisibleProducts === 0) {
-                resultTextSpan.textContent = "Không tìm thấy kết quả nào";
+                resultTextSpan.textContent = "Found 0 matching";
             } else if (totalVisibleProducts === 1) {
-                resultTextSpan.textContent = "Hiển thị một kết quả duy nhất";
+                resultTextSpan.textContent = "Found 1 matching";
             } else {
                 // Show count based on total filtered items, maybe mention pagination range?
                  // e.g., "Hiển thị sản phẩm 1-12 trong tổng số ${totalVisibleProducts} kết quả";
-                resultTextSpan.textContent = `Hiển thị ${totalVisibleProducts} kết quả`; // Simpler count
+                resultTextSpan.textContent = `Found ${totalVisibleProducts} matching`; // Simpler count
             }
         }
 

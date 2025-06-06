@@ -58,8 +58,8 @@ namespace ThuongMaiDienTu.Controllers
                     }
                     catch (Exception ex)
                     {
-                        System.Diagnostics.Debug.WriteLine($"Lỗi kết nối DB: {ex.Message}\nStackTrace: {ex.StackTrace}");
-                        return Json(new { success = false, message = "Không thể kết nối cơ sở dữ liệu: " + ex.Message });
+                        System.Diagnostics.Debug.WriteLine($"DB Error: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                        return Json(new { success = false, message = "Cannot connect to db: " + ex.Message });
                     }
 
                     // Kiểm tra dữ liệu đầu vào
@@ -67,19 +67,19 @@ namespace ThuongMaiDienTu.Controllers
                     {
                         var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
                         System.Diagnostics.Debug.WriteLine($"Lỗi ModelState: {string.Join("; ", errors)}");
-                        return Json(new { success = false, message = "Dữ liệu không hợp lệ: " + string.Join("; ", errors) });
+                        return Json(new { success = false, message = "Invalid data: " + string.Join("; ", errors) });
                     }
 
                     // Kiểm tra mật khẩu xác nhận
                     if (model.Password != model.ConfirmPassword)
                     {
-                        return Json(new { success = false, message = "Mật khẩu xác nhận không khớp." });
+                        return Json(new { success = false, message = "Password is not match." });
                     }
 
                     // Kiểm tra email đã tồn tại
                     if (db.NguoiDungs.Any(u => u.Email == model.Email))
                     {
-                        return Json(new { success = false, message = "Email đã được đăng ký." });
+                        return Json(new { success = false, message = "This email has been registered before." });
                     }
 
                     // Tạo người dùng mới
@@ -110,7 +110,7 @@ namespace ThuongMaiDienTu.Controllers
                     var cartCount = cartItems.Sum(g => g.SoLuong);
                     Session["cartCount"] = cartCount;
 
-                    return Json(new { success = true, message = "Đăng ký thành công!" });
+                    return Json(new { success = true, message = "Register successfully!" });
                 }
             }
             catch (DbEntityValidationException ex)
@@ -118,14 +118,14 @@ namespace ThuongMaiDienTu.Controllers
                 var errorMessages = ex.EntityValidationErrors
                     .SelectMany(x => x.ValidationErrors)
                     .Select(x => $"{x.PropertyName}: {x.ErrorMessage}");
-                string fullErrorMessage = "Lỗi xác thực: " + string.Join("; ", errorMessages);
+                string fullErrorMessage = "Authentication Error: " + string.Join("; ", errorMessages);
                 System.Diagnostics.Debug.WriteLine(fullErrorMessage);
                 return Json(new { success = false, message = fullErrorMessage });
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Lỗi đăng ký: {ex.Message}\nStackTrace: {ex.StackTrace}");
-                return Json(new { success = false, message = "Lỗi server: " + ex.Message });
+                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                return Json(new { success = false, message = "Server Error: " + ex.Message });
             }
         }
 
@@ -146,7 +146,7 @@ namespace ThuongMaiDienTu.Controllers
                     }
                     catch (Exception ex)
                     {
-                        System.Diagnostics.Debug.WriteLine($"Lỗi kết nối DB: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                        System.Diagnostics.Debug.WriteLine($"DB Error: {ex.Message}\nStackTrace: {ex.StackTrace}");
                         return Json(new { success = false, message = "Không thể kết nối cơ sở dữ liệu: " + ex.Message });
                     }
 
@@ -154,7 +154,7 @@ namespace ThuongMaiDienTu.Controllers
                     if (!ModelState.IsValid)
                     {
                         var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-                        System.Diagnostics.Debug.WriteLine($"Lỗi ModelState: {string.Join("; ", errors)}");
+                        System.Diagnostics.Debug.WriteLine($"ModelState Error: {string.Join("; ", errors)}");
                         return Json(new { success = false, message = "Dữ liệu không hợp lệ: " + string.Join("; ", errors) });
                     }
 
@@ -163,13 +163,13 @@ namespace ThuongMaiDienTu.Controllers
 
                     if (user == null)
                     {
-                        return Json(new { success = false, message = "Email không tồn tại." });
+                        return Json(new { success = false, message = "Email doesn't exist." });
                     }
 
                     // Kiểm tra mật khẩu
                     if (!BCrypt.Net.BCrypt.Verify(model.Password, user.MatKhau))
                     {
-                        return Json(new { success = false, message = "Mật khẩu không đúng." });
+                        return Json(new { success = false, message = "Incorrect password." });
                     }
                     Session.Clear(); // Xóa toàn bộ session cũ
 
@@ -188,7 +188,13 @@ namespace ThuongMaiDienTu.Controllers
                     System.Diagnostics.Debug.WriteLine($"Login - CartCount: {cartCount}");
 
 
-                    return Json(new { success = true, message = "Đăng nhập thành công!", cartCount = cartCount });
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Login successfully!",
+                        cartCount = cartCount,
+                        isAdmin = user.PhanQuyen == "admin"
+                    });
                 }
             }
             catch (Exception ex)

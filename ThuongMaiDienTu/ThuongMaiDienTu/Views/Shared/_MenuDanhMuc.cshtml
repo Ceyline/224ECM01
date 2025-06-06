@@ -8,7 +8,7 @@
         @foreach (var dm in Model)
         {
             <li>
-                <a href="@Url.Action("Index", "DanhMuc", new { id = dm.idDanhMuc })">
+                <a href="@Url.Action("Index", "DanhMuc", new { idDanhMuc = dm.idDanhMuc })">
                     @dm.tenDanhMuc
                 </a>
             </li>

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Web.Mvc;
 using ThuongMaiDienTu.Models;
 
@@ -16,6 +17,7 @@ namespace ThuongMaiDienTu.Controllers
         // Phương thức Index (Hiển thị danh mục)
         public ActionResult Index(int? idDanhMuc)
         {
+            Debug.WriteLine("idDanhMuc: " + idDanhMuc);
             var danhMucs = _context.DanhMucs.ToList();
             var sanPhams = _context.SanPhams.AsQueryable();
 
@@ -31,6 +33,7 @@ namespace ThuongMaiDienTu.Controllers
             if (idDanhMuc.HasValue)
             {
                 sanPhams = sanPhams.Where(sp => sp.idDanhMuc == idDanhMuc);
+                ViewBag.TenDanhMuc = danhMucs.FirstOrDefault(dm => dm.idDanhMuc == idDanhMuc).tenDanhMuc;
             }
 
             var viewModel = new SanPhamViewModel
@@ -39,13 +42,16 @@ namespace ThuongMaiDienTu.Controllers
                 SanPhams = sanPhams.ToList()
             };
 
+            ViewBag.KetQuaTim = viewModel.SanPhams.Count();
+
+
             return View(viewModel);
         }
-		[ChildActionOnly]
-		public ActionResult MenuDanhMuc()
-		{
-			var list = _context.DanhMucs.ToList();
-			return PartialView("_MenuDanhMuc", list);
-		}
-	}
+        [ChildActionOnly]
+        public ActionResult MenuDanhMuc()
+        {
+            var list = _context.DanhMucs.ToList();
+            return PartialView("_MenuDanhMuc", list);
+        }
+    }
 }
