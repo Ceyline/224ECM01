@@ -32,8 +32,7 @@ namespace ThuongMaiDienTu.Controllers
                     .Include(gh => gh.SanPham)
                     .ToList();
 
-                // Debug: Kiểm tra dữ liệu thực tế
-                System.Diagnostics.Debug.WriteLine($"Số lượng sản phẩm trong giỏ: {gioHang.Count}");
+
                 foreach (var item in gioHang)
                 {
                     System.Diagnostics.Debug.WriteLine($"SP: {item.idSanPham}, SL: {item.SoLuong}");
@@ -52,7 +51,10 @@ namespace ThuongMaiDienTu.Controllers
                     return Json(new { success = false, message = "Product ID không hợp lệ." });
                 }
 
-                int idNguoiDung = 2;
+                // Debug:
+                System.Diagnostics.Debug.WriteLine($"Mã SP: {productId}");
+
+                int idNguoiDung = (int)Session["idNguoiDung"];
 
                 using (var db = new trangsucbacEntities())
                 {
@@ -77,6 +79,7 @@ namespace ThuongMaiDienTu.Controllers
                     {
                         db.GioHangs.Remove(cartItem);
                         db.SaveChanges();
+                        Session["cartCount"] = 0;
                         return Json(new { success = true, message = "Xóa sản phẩm khỏi giỏ hàng thành công." });
                     }
 
