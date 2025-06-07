@@ -179,6 +179,7 @@ namespace ThuongMaiDienTu.Controllers
                     Session["Email"] = user.Email;
                     Session["SoDienThoai"] = user.SoDienThoai;
                     Session["DiaChi"] = user.DiaChi;
+                    Session["isAdmin"] = user.PhanQuyen;
 
                     var cartCount = db.GioHangs
                         .Where(gh => gh.idNguoiDung == user.idNguoiDung)

@@ -24,24 +24,21 @@ namespace ThuongMaiDienTu.Controllers
             if (Session["idNguoiDung"] == null)
             {
                 ViewBag.isLogin = false;
-                return RedirectToAction("Index", "Account"); // Redirect to login if not logged in
+                return RedirectToAction("Index", "Account"); 
             }
 
             ViewBag.isLogin = true;
 
             int userId = (int)Session["idNguoiDung"];
-            System.Diagnostics.Debug.WriteLine("userId from session = " + userId); // ✅ THÊM DÒNG NÀY
+            System.Diagnostics.Debug.WriteLine("userId from session = " + userId);
 
-
-            // Retrieve order history for the logged-in user
             var orderHistory = _context.HoaDons
     .Include(h => h.ChiTietHoaDons.Select(ct => ct.SanPham.DanhMuc))
     .Where(h => h.idNguoiDung == userId)
-    .OrderByDescending(h => h.ngayLap)
+    .OrderByDescending(h => h.idHoaDon)
     .ToList();
 
-            // Debugging: Log the retrieved data
-            System.Diagnostics.Debug.WriteLine("Order History Count: " + orderHistory.Count);
+            //System.Diagnostics.Debug.WriteLine("Order History Count: " + orderHistory.Count);
 
             return View(orderHistory); // Pass the order history to the view
         }
@@ -83,14 +80,13 @@ namespace ThuongMaiDienTu.Controllers
             int userId = (int)Session["idNguoiDung"];
             try
             {
-                // Kiểm tra xem chi tiết hóa đơn có tồn tại và thuộc về người dùng không
                 var chiTietHD = _context.ChiTietHoaDons
                     .Include(ct => ct.HoaDon)
                     .FirstOrDefault(ct => ct.idChiTietHD == idChiTietHD && ct.HoaDon.idNguoiDung == userId);
 
                 if (chiTietHD == null)
                 {
-                    return Json(new { success = false, message = "Chi tiết hóa đơn không tồn tại hoặc không thuộc về bạn" });
+                    return Json(new { success = false, message = "Not found" });
                 }
 
                 // Kiểm tra xem sản phẩm đã được đánh giá chưa
@@ -99,7 +95,7 @@ namespace ThuongMaiDienTu.Controllers
 
                 if (existingReview != null)
                 {
-                    return Json(new { success = false, message = "Bạn đã đánh giá sản phẩm này rồi" });
+                    return Json(new { success = false, message = "You've rate this product" });
                 }
 
                 // Tạo đánh giá mới
@@ -114,11 +110,11 @@ namespace ThuongMaiDienTu.Controllers
                 _context.DanhGias.Add(danhGia);
                 _context.SaveChanges();
 
-                return Json(new { success = true, message = "Cảm ơn bạn đã đánh giá sản phẩm!" });
+                return Json(new { success = true, message = "Thank you!" });
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "Lỗi: " + ex.Message });
+                return Json(new { success = false, message = "Error: " + ex.Message });
             }
         }
 

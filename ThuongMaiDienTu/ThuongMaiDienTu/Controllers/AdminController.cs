@@ -18,6 +18,11 @@ namespace ThuongMaiDienTu.Controllers
         // GET: Admin
         public ActionResult HomeAdmin()
         {
+            if (Session["idNguoiDung"] == null)
+            {
+                //Response.StatusCode = 401; // Unauthorized
+                return RedirectToAction("Index", "Account");
+            }
             return View();
         }
 
